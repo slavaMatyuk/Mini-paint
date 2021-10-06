@@ -1,11 +1,9 @@
 import { ThunkAction } from 'redux-thunk';
 import firebase from 'firebase/compat';
-import db from '../configs/firebase';
 import { AuthAction, SET_ERROR, SET_USER, SignInData, SignUpData, SIGN_OUT, User } from '../interfaces';
 import { RootState } from '../services/store';
 import setError from './setError';
 import setLoading from './setLoading';
-import setSuccess from './setSuccess';
 
 export const signup = (data: SignUpData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
   return async (dispatch) => {
@@ -75,18 +73,6 @@ export const signout = (): ThunkAction<void, RootState, null, AuthAction> => {
     } catch (err) {
       console.log(err);
       dispatch(setLoading(false));
-    }
-  };
-};
-
-export const sendPasswordResetEmail = (email: string, successMsg: string): ThunkAction<void, RootState, null, AuthAction> => {
-  return async (dispatch) => {
-    try {
-      await firebase.auth().sendPasswordResetEmail(email);
-      dispatch(setSuccess(successMsg));
-    } catch (err: any) {
-      console.log(err);
-      dispatch(setError(err.message));
     }
   };
 };
