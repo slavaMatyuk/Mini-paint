@@ -6,7 +6,7 @@ import { RootState } from '../store';
 interface Props extends RouteProps {
   component: any;
 }
-// TODO state auth
+
 const PublicRoute: React.FC<Props> = ({ component: Component, ...rest }) => {
   const { authenticated } = useSelector((state: RootState) => state.auth);
 
