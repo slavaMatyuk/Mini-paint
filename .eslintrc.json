@@ -32,16 +32,17 @@
     "import/resolver": {
       "node": {
         "extensions": [
-          ".js",
-          ".jsx",
           ".ts",
-          ".tsx"
+          ".tsx",
+          ".js",
+          ".jsx"
         ]
       }
     }
   },
   "rules": {
     "require-jsdoc": "off",
+    "react/jsx-props-no-spreading": "off",
     "max-len": ["error", 140, {"ignoreUrls": true}],
     "react/jsx-filename-extension": [
       2,
