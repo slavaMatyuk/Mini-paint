@@ -43,7 +43,20 @@
   "rules": {
     "require-jsdoc": "off",
     "react/jsx-props-no-spreading": "off",
-    "max-len": ["error", 140, {"ignoreUrls": true}],
+    "max-len": [
+      "error",
+      140,
+      {
+        "ignoreUrls": true
+      }
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": true,
+        "semi": true
+      }
+    ],
     "react/jsx-filename-extension": [
       2,
       {
@@ -70,6 +83,12 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": [
       "error"
-    ]
+    ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }

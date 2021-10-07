@@ -1,16 +1,20 @@
+import firebase from 'firebase/compat';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Switch } from 'react-router-dom';
-import firebase from 'firebase/compat';
-import PrivateRoute from './core/services/auth/PrivateRoute';
-import PublicRoute from './core/services/auth/PublicRoute';
-import Homepage from './pages/home';
-import LoginPage from './pages/login';
-import RegisterPage from './pages/register';
-import Loader from './core/components/Loader';
-import { RootState } from './core/services/store';
+import { Router, Switch } from 'react-router-dom';
 import { getUserById } from './core/actions/authActions';
 import setLoading from './core/actions/setLoading';
+import Loader from './core/components/Loader';
+import routesConst from './core/helpers/constants/routesConst';
+import history from './core/helpers/history';
+import PrivateRoute from './core/services/auth/PrivateRoute';
+import PublicRoute from './core/services/auth/PublicRoute';
+import { RootState } from './core/services/store';
+import EditorPage from './pages/editor';
+import Homepage from './pages/home';
+import LoginPage from './pages/login';
+import ProfilePage from './pages/profile';
+import RegisterPage from './pages/register';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,13 +40,15 @@ const App: React.FC = () => {
   }
 
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
-        <PublicRoute path="/login" component={LoginPage} exact />
-        <PublicRoute path="/register" component={RegisterPage} exact />
-        <PrivateRoute path="/home" component={Homepage} exact />
+        <PublicRoute path={routesConst.LOGIN} component={LoginPage} exact />
+        <PublicRoute path={routesConst.REGISTER} component={RegisterPage} exact />
+        <PrivateRoute path={routesConst.HOME} component={Homepage} exact />
+        <PrivateRoute path={routesConst.PROFILE} component={ProfilePage} exact />
+        <PrivateRoute path={routesConst.EDITOR} component={EditorPage} exact />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
