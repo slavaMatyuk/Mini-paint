@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat';
 import { ThunkAction } from 'redux-thunk';
 import { AuthAction, LOG_OUT } from '../interfaces';
-import { RootState } from '../services/store';
+import { RootState } from '../reducers';
 import setLoading from './setLoading';
 
 const logout = (): ThunkAction<void, RootState, null, AuthAction> => {

@@ -1,8 +1,8 @@
 enum routesConst {
   LOGIN = '/login',
   REGISTER = '/register',
-  HOME = '/home',
-  PROFILE = '/profile',
+  HOME = '/',
+  PROFILE = '/profile/:uderId?',
   EDITOR = '/editor',
 }
 

@@ -2,19 +2,19 @@ import firebase from 'firebase/compat';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Router, Switch } from 'react-router-dom';
-import getUserById from './core/actions/getUserById';
-import setLoading from './core/actions/setLoading';
-import Loader from './core/components/Loader';
-import routesConst from './core/helpers/constants/routesConst';
-import history from './core/helpers/history';
-import PrivateRoute from './core/services/auth/PrivateRoute';
-import PublicRoute from './core/services/auth/PublicRoute';
-import { RootState } from './core/services/store';
-import EditorPage from './pages/editor';
-import Homepage from './pages/home';
-import LoginPage from './pages/login';
-import ProfilePage from './pages/profile';
-import RegisterPage from './pages/register';
+import setLoading from '../../actions/setLoading';
+import Loader from '../Loader';
+import routesConst from '../../helpers/constants/routesConst';
+import history from '../../helpers/history';
+import { RootState } from '../../reducers';
+import PrivateRoute from '../../services/auth/PrivateRoute';
+import PublicRoute from '../../services/auth/PublicRoute';
+import EditorPage from '../../../pages/editor';
+import Homepage from '../../../pages/home';
+import LoginPage from '../../../pages/login';
+import ProfilePage from '../../../pages/profile';
+import RegisterPage from '../../../pages/register';
+import getUserById from '../../actions/getUserById';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,12 @@ const App: React.FC = () => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         dispatch(setLoading(true));
-        await dispatch(getUserById(user.uid));
+        await dispatch(
+          getUserById({
+            uid: user.uid,
+            photo: user.photoURL,
+          })
+        );
       }
       dispatch(setLoading(false));
     });

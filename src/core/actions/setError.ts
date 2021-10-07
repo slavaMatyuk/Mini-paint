@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { AuthAction, SET_ERROR } from '../interfaces';
-import { RootState } from '../services/store';
+import { RootState } from '../reducers';
 
 const setError = (msg: string): ThunkAction<void, RootState, null, AuthAction> => {
   return (dispatch) => {

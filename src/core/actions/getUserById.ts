@@ -1,9 +1,9 @@
 import firebase from 'firebase/compat';
 import { ThunkAction } from 'redux-thunk';
 import { AuthAction, SET_USER, User } from '../interfaces';
-import { RootState } from '../services/store';
+import { RootState } from '../reducers';
 
-const getUserById = (id: string): ThunkAction<void, RootState, null, AuthAction> => {
+const getUserById = ({uid: user.uid, photo: user.photo}): ThunkAction<void, RootState, null, AuthAction> => {
   return async (dispatch) => {
     try {
       const user = await firebase.firestore().collection('users').doc(id).get();

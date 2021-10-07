@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat';
 import { ThunkAction } from 'redux-thunk';
 import { AuthAction, LogInData } from '../interfaces';
-import { RootState } from '../services/store';
+import { RootState } from '../reducers';
 import setError from './setError';
 
 const login = (data: LogInData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {

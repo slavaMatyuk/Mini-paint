@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat';
 import { ThunkAction } from 'redux-thunk';
 import { AuthAction, SET_ERROR, SET_USER, RegisterData, User } from '../interfaces';
-import { RootState } from '../services/store';
+import { RootState } from '../reducers';
 
 const register = (data: RegisterData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
   return async (dispatch) => {
