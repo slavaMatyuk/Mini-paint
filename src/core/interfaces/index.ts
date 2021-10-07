@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 
 export const SET_USER = 'SET_USER';
-export const SIGN_OUT = 'SIGN_OUT';
+export const LOG_OUT = 'LOG_OUT';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_ERROR = 'SET_ERROR';
 export const SET_SUCCESS = 'SET_SUCCESS';
@@ -25,13 +25,13 @@ export interface AuthState {
   success: string;
 }
 
-export interface SignUpData {
+export interface RegisterData {
   firstName: string;
   email: string;
   password: string;
 }
 
-export interface SignInData {
+export interface LogInData {
   email: string;
   password: string;
 }
@@ -46,8 +46,8 @@ interface SetLoadingAction {
   payload: boolean;
 }
 
-interface SignOutAction {
-  type: typeof SIGN_OUT;
+interface LogOutAction {
+  type: typeof LOG_OUT;
 }
 
 interface SetErrorAction {
@@ -60,4 +60,4 @@ interface SetSuccessAction {
   payload: string;
 }
 
-export type AuthAction = SetUserAction | SetLoadingAction | SignOutAction | SetErrorAction | SetSuccessAction;
+export type AuthAction = SetUserAction | SetLoadingAction | LogOutAction | SetErrorAction | SetSuccessAction;

@@ -2,7 +2,7 @@ import firebase from 'firebase/compat';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Router, Switch } from 'react-router-dom';
-import { getUserById } from './core/actions/authActions';
+import getUserById from './core/actions/getUserById';
 import setLoading from './core/actions/setLoading';
 import Loader from './core/components/Loader';
 import routesConst from './core/helpers/constants/routesConst';

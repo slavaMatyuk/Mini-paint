@@ -1,4 +1,4 @@
-import { AuthState, AuthAction, SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS } from '../interfaces/index';
+import { AuthState, AuthAction, SET_USER, SET_LOADING, LOG_OUT, SET_ERROR, SET_SUCCESS } from '../interfaces/index';
 
 const initialState: AuthState = {
   user: null,
@@ -21,7 +21,7 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
         ...state,
         loading: action.payload,
       };
-    case SIGN_OUT:
+    case LOG_OUT:
       return {
         ...state,
         user: null,
