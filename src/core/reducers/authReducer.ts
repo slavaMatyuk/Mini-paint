@@ -1,42 +1,21 @@
-import { AuthState, AuthAction, SET_USER, SET_LOADING, LOG_OUT, SET_ERROR, SET_SUCCESS } from '../interfaces/index';
+import { AuthActionTypes } from '../interfaces';
 
-const initialState: AuthState = {
+const initialState = {
   user: null,
-  authenticated: false,
-  loading: false,
-  error: '',
-  success: '',
+  error: null,
 };
 
-const authReducer = (state = initialState, action: AuthAction): AuthState => {
+const authReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case SET_USER:
+    case AuthActionTypes.SET_CURRENT_USER:
       return {
         ...state,
         user: action.payload,
-        authenticated: true,
       };
-    case SET_LOADING:
+    case AuthActionTypes.SET_ERROR_MESSAGE:
       return {
         ...state,
-        loading: action.payload,
-      };
-    case LOG_OUT:
-      return {
-        ...state,
-        user: null,
-        authenticated: false,
-        loading: false,
-      };
-    case SET_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
-    case SET_SUCCESS:
-      return {
-        ...state,
-        success: action.payload,
+        error: action.errorMessage,
       };
     default:
       return state;

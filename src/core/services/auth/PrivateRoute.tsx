@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import routesConst from '../../helpers/constants/routesConst';
-import { RootState } from '../store';
+import { RootState } from '../../reducers';
 
 interface Props extends RouteProps {
   component: any;

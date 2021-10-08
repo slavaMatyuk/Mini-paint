@@ -1,20 +1,21 @@
 import { InputHTMLAttributes } from 'react';
 
-export const SET_USER = 'SET_USER';
-export const LOG_OUT = 'LOG_OUT';
-export const SET_LOADING = 'SET_LOADING';
-export const SET_ERROR = 'SET_ERROR';
-export const SET_SUCCESS = 'SET_SUCCESS';
+export const AuthActionTypes = {
+  SET_CURRENT_USER: 'SET_CURRENT_USER',
+  SIGN_IN_WITH_EMAIL: 'SIGN_IN_WITH_EMAIL',
+  SIGN_UP_WITH_EMAIL_AND_PASSWORD: 'SIGN_UP_WITH_EMAIL_AND_PASSWORD',
+  SIGN_OUT: 'SIGN_OUT',
+  SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
+};
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
 export interface User {
-  firstName: string;
-  email: string;
-  id: string;
-  createdAt: any;
+  email: string | null;
+  uid: string | null;
+  photo: string | null;
 }
 
 export interface AuthState {
@@ -22,7 +23,6 @@ export interface AuthState {
   authenticated: boolean;
   loading: boolean;
   error: string;
-  success: string;
 }
 
 export interface RegisterData {
@@ -37,27 +37,17 @@ export interface LogInData {
 }
 
 interface SetUserAction {
-  type: typeof SET_USER;
+  type: typeof AuthActionTypes.SET_CURRENT_USER;
   payload: User;
 }
 
-interface SetLoadingAction {
-  type: typeof SET_LOADING;
-  payload: boolean;
-}
-
 interface LogOutAction {
-  type: typeof LOG_OUT;
+  type: typeof AuthActionTypes.SIGN_OUT;
 }
 
 interface SetErrorAction {
-  type: typeof SET_ERROR;
+  type: typeof AuthActionTypes.SET_ERROR_MESSAGE;
   payload: string;
 }
 
-interface SetSuccessAction {
-  type: typeof SET_SUCCESS;
-  payload: string;
-}
-
-export type AuthAction = SetUserAction | SetLoadingAction | LogOutAction | SetErrorAction | SetSuccessAction;
+export type AuthAction = SetUserAction | LogOutAction | SetErrorAction;
