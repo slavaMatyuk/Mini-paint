@@ -8,6 +8,7 @@ import ProfilePage from '../../../pages/profile';
 import RegisterPage from '../../../pages/register';
 import { setCurrentUser } from '../../actions/authActions';
 import { auth } from '../../configs/firebase';
+import StyledApp from '../../configs/styles/StyledApp';
 import StyledContainer from '../../configs/styles/StyledContainer';
 import routesConst from '../../helpers/constants/routesConst';
 import Header from '../Header';
@@ -38,12 +39,12 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <StyledContainer className="App">
+    <StyledApp>
       <Header />
       {isLoading ? (
         <Spinner />
       ) : (
-        <StyledContainer className="main">
+        <StyledContainer>
           {user ? (
             <Switch>
               <Route exact path={routesConst.HOME}>
@@ -59,7 +60,7 @@ const App: React.FC = () => {
           ) : (
             <Redirect to={routesConst.LOGIN} />
           )}
-          {user === null ? ( // !user проверить вариант
+          {user === null ? (
             <Switch>
               <Route exact path={routesConst.REGISTER}>
                 <RegisterPage />
@@ -67,7 +68,7 @@ const App: React.FC = () => {
               <Route exact path={routesConst.LOGIN}>
                 <LoginPage />
               </Route>
-              <Route path="*">
+              <Route path={routesConst.ANY}>
                 <Redirect to={routesConst.LOGIN} />
               </Route>
             </Switch>
@@ -76,7 +77,7 @@ const App: React.FC = () => {
           )}
         </StyledContainer>
       )}
-    </StyledContainer>
+    </StyledApp>
   );
 };
 

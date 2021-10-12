@@ -8,6 +8,27 @@ export const AuthActionTypes = {
   SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
 };
 
+export const ImgActionTypes = {
+  FETCH_IMAGES: 'FETCH_IMAGES',
+  SET_IMAGES: 'SET_IMAGES',
+  REMOVE_IMAGE: 'REMOVE_IMAGE',
+  DELETE_IMAGE: 'DELETE_IMAGE',
+  UPLOAD_IMAGE: 'UPLOAD_IMAGE',
+  SAVE_IMAGE: 'SAVE_IMAGE',
+  CREATE_IMAGE_INSTANCE_IN_DATABASE: 'CREATE_IMAGE_INSTANCE_IN_DATABASE',
+};
+
+export type ImageType = {
+  imageId: number;
+  imagePath: string;
+  imageURL: string;
+  userEmail: string;
+};
+
+export type ImageStateType = {
+  images: ImageType[];
+};
+
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }

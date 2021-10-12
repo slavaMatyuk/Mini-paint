@@ -1,17 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import logout from '../../actions/logout';
+import { signOut } from '../../actions/authActions';
+import HeaderWrapper from '../../configs/styles/HeaderWrapper';
+import StyledTitle from '../../configs/styles/StyledTitle';
 
 const Header: React.FC = React.memo(() => {
   const user = useSelector((state: any) => state.auth.user);
   const dispatch = useDispatch();
   const onSignOut = () => {
-    dispatch(logout());
+    dispatch(signOut());
   };
   return (
-    <div>
+    <HeaderWrapper>
       <div>
-        <h1>Paint</h1>
+        <StyledTitle>Mini Paint</StyledTitle>
         {user ? (
           <div>
             <h1>{user.email}</h1>
@@ -24,7 +26,7 @@ const Header: React.FC = React.memo(() => {
           ''
         )}
       </div>
-    </div>
+    </HeaderWrapper>
   );
 });
 

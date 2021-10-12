@@ -1,5 +1,7 @@
-import { all, AllEffect } from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
+import authSaga from './authSagas';
+import imgContainerSaga from './imgContainerSagas';
 
-export default function* rootSaga(): Generator<AllEffect<never>, void, unknown> {
-  yield all([]);
+export default function* rootSaga(): Generator {
+  yield all([authSaga(), imgContainerSaga()]);
 }

@@ -5,13 +5,14 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './core/components/App';
 import GlobalStyles from './GlobalStyles';
-import theme from './Theme';
 import store from './core/services/store';
+import dark from './core/configs/styles/themes/dark';
+import light from './core/configs/styles/themes/light';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={light || dark}>
         <GlobalStyles />
         <App />
       </ThemeProvider>
