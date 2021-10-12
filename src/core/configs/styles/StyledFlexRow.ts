@@ -10,6 +10,7 @@ const StyledFlexRow = styled.div`
     font-family: 'Indie Flower';
     font-size: 18px;
     font-weight: 700;
+    color: ${(props) => props.color || props.theme.text};
   }
 `;
 
