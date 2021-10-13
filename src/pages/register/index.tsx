@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setErrorMessage, signUpWithEmailAndPassword } from '../../core/actions/authActions';
+import Input from '../../core/components/Input';
+import StyledButton from '../../core/configs/styles/StyledButton';
+import StyledContainer from '../../core/configs/styles/StyledContainer';
+import StyledForm from '../../core/configs/styles/StyledForm';
+import StyledLinkDiv from '../../core/configs/styles/StyledLinkDiv';
+import StyledTitle from '../../core/configs/styles/StyledTitle';
 import routesConst from '../../core/helpers/constants/routesConst';
 
 const RegisterPage: React.FC = React.memo(() => {
@@ -40,21 +46,28 @@ const RegisterPage: React.FC = React.memo(() => {
   };
 
   return (
-    <div>
+    <StyledContainer>
       {error ? toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT }) : ''}
-      <h2>Register with e-mail and password</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" value={email} onChange={onEmailChange} required />
-        <input type="password" name="password" value={password} onChange={onPasswordChange} required />
-        <input type="password" name="confirmPassword" value={confirmPassword} onChange={onConfirmedPasswordChange} required />
-        <div>
+      <StyledTitle style={{ fontSize: '24px' }}>Register with e-mail and password</StyledTitle>
+      <StyledForm onSubmit={handleSubmit}>
+        <Input type="email" name="email" value={email} onChange={onEmailChange} required label="E-mail" />
+        <Input type="password" name="password" value={password} onChange={onPasswordChange} required label="Password" />
+        <Input
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={onConfirmedPasswordChange}
+          required
+          label="Confirm"
+        />
+        <StyledLinkDiv>
           <Link to={routesConst.LOGIN}>
-            <button type="button">BACK</button>
+            <StyledButton type="button">Back</StyledButton>
           </Link>
-          <button type="submit">REGISTER</button>
-        </div>
-      </form>
-    </div>
+          <StyledButton type="submit">Register</StyledButton>
+        </StyledLinkDiv>
+      </StyledForm>
+    </StyledContainer>
   );
 });
 
