@@ -9,7 +9,7 @@ const HeaderWrapper = styled.div`
   padding: 0 0 5px 30px;
   width: 100%;
   height: 50px;
-  opacity: 0.5;
+  opacity: 0.7;
   &:hover {
     opacity: 1;
   }

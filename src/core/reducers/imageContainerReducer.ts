@@ -1,10 +1,11 @@
+import { AnyAction } from 'redux';
 import { ImgActionTypes, ImageStateType } from '../interfaces';
 
 const initialState: ImageStateType = {
   images: [],
 };
 
-const imageContainerReducer = (state = initialState, action: any) => {
+const imageContainerReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case ImgActionTypes.SET_IMAGES:
       return {

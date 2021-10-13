@@ -4,9 +4,10 @@ import { ToastContainer } from 'react-toastify';
 import { signOut } from '../../actions/authActions';
 import HeaderWrapper from '../../configs/styles/HeaderWrapper';
 import StyledTitle from '../../configs/styles/StyledTitle';
+import { RootState } from '../../reducers';
 
 const Header: React.FC = React.memo(() => {
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
   const onSignOut = () => {
     dispatch(signOut());
@@ -15,7 +16,7 @@ const Header: React.FC = React.memo(() => {
     <HeaderWrapper>
       <div>
         <StyledTitle>Mini Paint</StyledTitle>
-        <ToastContainer />
+        <ToastContainer autoClose={3000} />
         {user ? (
           <div>
             <h1>{user.email}</h1>

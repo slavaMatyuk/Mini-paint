@@ -11,13 +11,14 @@ import StyledForm from '../../core/configs/styles/StyledForm';
 import StyledLinkDiv from '../../core/configs/styles/StyledLinkDiv';
 import StyledTitle from '../../core/configs/styles/StyledTitle';
 import routesConst from '../../core/helpers/constants/routesConst';
+import { RootState } from '../../core/reducers';
 
 const RegisterPage: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const error = useSelector((state: any) => state.auth.error);
+  const error = useSelector((state: RootState) => state.auth.error);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -47,7 +48,7 @@ const RegisterPage: React.FC = React.memo(() => {
 
   return (
     <StyledContainer>
-      {error ? toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT }) : ''}
+      {error && toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT })}
       <StyledTitle style={{ fontSize: '24px' }}>Register with e-mail and password</StyledTitle>
       <StyledForm onSubmit={handleSubmit}>
         <Input type="email" name="email" value={email} onChange={onEmailChange} required label="E-mail" />

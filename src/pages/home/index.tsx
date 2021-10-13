@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,13 +9,15 @@ import Spinner from '../../core/components/Spinner';
 import StyledOption from '../../core/configs/styles/StyledOption';
 import StyledSelect from '../../core/configs/styles/StyledSelect';
 import routesConst from '../../core/helpers/constants/routesConst';
+import { ImageType, RootStateType } from '../../core/interfaces';
 
-const HomePage: React.FC = React.memo(() => {
+const HomePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [artist, setArtist] = useState('All');
+  const [painter, setPainter] = useState('All painters');
   const dispatch = useDispatch();
-  const images = useSelector((state: any) => state.images.images);
-  const error = useSelector((state: any) => state.auth.error);
+  const images = useSelector((state: RootStateType) => state.images.images);
+  const error = useSelector((state: RootStateType) => state.auth.error);
+  const usersArray: Array<string> = ['All painters'];
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,14 +25,13 @@ const HomePage: React.FC = React.memo(() => {
     setIsLoading(false);
   }, [dispatch]);
 
-  const usersArray: any = ['All'];
-  images.forEach((image: any) => {
+  images.forEach((image: ImageType) => {
     if (!usersArray.includes(image.userEmail)) {
       usersArray.push(image.userEmail);
     }
   });
 
-  const filteredImages = artist === 'All' ? images : images.filter((image: any) => image.userEmail === artist);
+  const filteredImages = painter === 'All painters' ? images : images.filter((image: ImageType) => image.userEmail === painter);
 
   return (
     <div>
@@ -46,8 +47,8 @@ const HomePage: React.FC = React.memo(() => {
             <button type="submit">
               <NavLink to={routesConst.EDITOR}>Editor</NavLink>
             </button>
-            <StyledSelect value={artist} onChange={(e: any) => setArtist(e.target.value)}>
-              {usersArray.map((user: any) => (
+            <StyledSelect value={painter} onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}>
+              {usersArray.map((user: string) => (
                 <StyledOption key={user} value={user}>
                   {user}
                 </StyledOption>
@@ -56,7 +57,7 @@ const HomePage: React.FC = React.memo(() => {
           </div>
           <div>
             {images && images.length > 0 ? (
-              filteredImages.map((image: any) => <ImageContainer alt={image} image={image} key={image.imageId} />)
+              filteredImages.map((image: ImageType) => <ImageContainer image={image} key={image.imageId} />)
             ) : (
               <h1>No any pictures</h1>
             )}
@@ -65,6 +66,6 @@ const HomePage: React.FC = React.memo(() => {
       )}
     </div>
   );
-});
+};
 
 export default HomePage;

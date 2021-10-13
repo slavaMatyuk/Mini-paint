@@ -26,18 +26,53 @@ export type ImageType = {
 };
 
 export type ImageStateType = {
-  images: ImageType[];
+  images: Array<ImageType>;
+};
+
+export type ImagePropsType = {
+  image: ImageType;
+};
+
+export type RootStateType = {
+  auth: AuthStateType;
+  images: ImageStateType;
+};
+
+export type AuthStateType = {
+  user: User;
+  error: string | null;
 };
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-export interface User {
+export type User = {
   email: string | null;
   uid: string | null;
-  photo: string | null;
-}
+  photo: string | null | undefined;
+} | null;
+
+export type CurrentUserType = () => void;
+export type ErrorMessageType = () => void;
+export type UserStateType = User | null;
+
+export type ImageCreateType = {
+  user: User;
+  imageURL: string;
+  imageId: number;
+  imagePath: string;
+};
+
+export type ImageDeleteType = {
+  imagePath: string;
+  imageId: number;
+};
+
+export type ImageUploadType = {
+  imagePath: string;
+  imageURL: string;
+};
 
 export interface AuthState {
   user: User | null;
@@ -72,3 +107,4 @@ interface SetErrorAction {
 }
 
 export type AuthAction = SetUserAction | LogOutAction | SetErrorAction;
+export type MouseEventType = number | null | undefined;

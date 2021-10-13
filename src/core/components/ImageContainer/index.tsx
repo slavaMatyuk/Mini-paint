@@ -4,10 +4,12 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setErrorMessage } from '../../actions/authActions';
 import { deleteImage } from '../../actions/imageContainerActions';
+import { ImagePropsType } from '../../interfaces';
+import { RootState } from '../../reducers';
 
-const ImageContainer: React.FC<any> = ({ image }) => {
-  const user = useSelector((state: any) => state.auth.user);
-  const error = useSelector((state: any) => state.auth.error);
+const ImageContainer: React.FC<ImagePropsType> = ({ image }) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const error = useSelector((state: RootState) => state.auth.error);
   const dispatch = useDispatch();
 
   const handleRemoveImage = async () => {
@@ -29,7 +31,7 @@ const ImageContainer: React.FC<any> = ({ image }) => {
         <div>
           <h4>{image.userEmail}</h4>
         </div>
-        <img src={image.imageURL} alt={image} />
+        <img src={image.imageURL} alt="user drawing" />
       </div>
     </div>
   );

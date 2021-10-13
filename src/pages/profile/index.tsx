@@ -1,14 +1,14 @@
-/* eslint-disable no-shadow */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteImage, fetchImages } from '../../core/actions/imageContainerActions';
+import { ImageType, RootStateType } from '../../core/interfaces';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
-  const userName = useSelector((state: any) => state.auth.user);
-  const images = useSelector((state: any) => state.images.images);
-  const id = useSelector((state: any) => state.images.imageId);
-  const imgUrl = useSelector((state: any) => state.images.imageURL);
+  const userName = useSelector((state: RootStateType) => state.auth.user?.email);
+  const images = useSelector((state: RootStateType) => state.images.images);
+  const id = useSelector((state: ImageType) => state.imageId);
+  const imgUrl = useSelector((state: ImageType) => state.imageURL);
   const delUserImageFromDB = () => dispatch(deleteImage(id, imgUrl));
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const ProfilePage: React.FC = () => {
     <div>
       <div>
         <div>
-          <div>{userName.substr(0, 1).toUpperCase()}</div>
+          <div>{userName && userName.substr(0, 1).toUpperCase()}</div>
           <h3>{userName}</h3>
         </div>
         <div>

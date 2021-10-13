@@ -11,10 +11,11 @@ import StyledForm from '../../core/configs/styles/StyledForm';
 import StyledLinkDiv from '../../core/configs/styles/StyledLinkDiv';
 import StyledTitle from '../../core/configs/styles/StyledTitle';
 import routesConst from '../../core/helpers/constants/routesConst';
+import { RootState } from '../../core/reducers';
 
 const LoginPage: React.FC = React.memo(() => {
   const dispatch = useDispatch();
-  const error = useSelector((state: any) => state.auth.error);
+  const error = useSelector((state: RootState) => state.auth.error);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -35,7 +36,7 @@ const LoginPage: React.FC = React.memo(() => {
 
   return (
     <StyledContainer>
-      {error ? toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT }) : ''}
+      {error && toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT })}
       <StyledTitle style={{ fontSize: '24px' }}>Log in with email and password</StyledTitle>
       <StyledForm onSubmit={handleSubmit}>
         <Input value={email} onChange={onEmailChange} required type="email" label="E-mail" />

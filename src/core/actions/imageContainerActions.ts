@@ -32,7 +32,7 @@ export const uploadImage = (imagePath: string, imageURL: string) => ({
   imageURL,
 });
 
-export const createImageInstanceInDB = (user: User, imageURL: any, imageId: any, imagePath: any) => ({
+export const createImageInstanceInDB = (user: User, imageURL: string, imageId: number, imagePath: string) => ({
   type: ImgActionTypes.CREATE_IMAGE_INSTANCE_IN_DATABASE,
   user,
   imageURL,

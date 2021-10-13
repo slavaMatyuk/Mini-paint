@@ -1,6 +1,6 @@
-import { AuthActionTypes } from '../interfaces';
+import { User, AuthActionTypes } from '../interfaces';
 
-export const setCurrentUser = (user: any) => ({
+export const setCurrentUser = (user: User) => ({
   type: AuthActionTypes.SET_CURRENT_USER,
   payload: user,
 });
@@ -21,7 +21,7 @@ export const signOut = () => ({
   type: AuthActionTypes.SIGN_OUT,
 });
 
-export const setErrorMessage = (errorMessage: any) => ({
+export const setErrorMessage = (errorMessage: string | null) => ({
   type: AuthActionTypes.SET_ERROR_MESSAGE,
   errorMessage,
 });

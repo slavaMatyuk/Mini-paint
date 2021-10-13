@@ -11,23 +11,24 @@ import { auth } from '../../configs/firebase';
 import StyledApp from '../../configs/styles/StyledApp';
 import StyledContainer from '../../configs/styles/StyledContainer';
 import routesConst from '../../helpers/constants/routesConst';
+import { RootState } from '../../reducers';
 import Header from '../Header';
 import Spinner from '../Spinner';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
     setIsLoading(true);
-    auth.onAuthStateChanged((user1) => {
-      if (user1) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
         dispatch(
           setCurrentUser({
-            uid: user1.uid,
-            email: user1.email,
-            photo: user1.photoURL,
+            uid: user.uid,
+            email: user.email,
+            photo: user.photoURL,
           })
         );
         setIsLoading(false);

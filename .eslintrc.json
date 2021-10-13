@@ -25,38 +25,22 @@
   },
   "plugins": [
     "react",
-    "@typescript-eslint",
-    "prettier"
+    "@typescript-eslint"
   ],
   "settings": {
     "import/resolver": {
       "node": {
         "extensions": [
-          ".ts",
-          ".tsx",
           ".js",
-          ".jsx"
+          ".jsx",
+          ".ts",
+          ".tsx"
         ]
       }
     }
   },
   "rules": {
     "require-jsdoc": "off",
-    "react/jsx-props-no-spreading": "off",
-    "max-len": [
-      "error",
-      140,
-      {
-        "ignoreUrls": true
-      }
-    ],
-    "prettier/prettier": [
-      "warn",
-      {
-        "singleQuote": true,
-        "semi": true
-      }
-    ],
     "react/jsx-filename-extension": [
       2,
       {
@@ -83,9 +67,6 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": [
       "error"
-    ],
-    "no-shadow": [2, {"builtinGlobals": false, "hoist": "functions", "allow": []}],
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    ]
   }
 }
