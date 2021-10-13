@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import { signOut } from '../../actions/authActions';
 import HeaderWrapper from '../../configs/styles/HeaderWrapper';
 import StyledTitle from '../../configs/styles/StyledTitle';
@@ -14,6 +15,7 @@ const Header: React.FC = React.memo(() => {
     <HeaderWrapper>
       <div>
         <StyledTitle>Mini Paint</StyledTitle>
+        <ToastContainer />
         {user ? (
           <div>
             <h1>{user.email}</h1>
