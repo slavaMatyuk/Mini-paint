@@ -1,4 +1,5 @@
 import { takeEvery, call, put } from '@redux-saga/core/effects';
+import { AnyAction } from 'redux';
 import { all } from 'redux-saga/effects';
 import { setErrorMessage } from '../../actions/authActions';
 import { removeImage, setImages } from '../../actions/imageContainerActions';
@@ -9,61 +10,72 @@ import {
   fetchAllImages,
   loadImageToStorage,
 } from '../../configs/firebase/imgFirebase';
-import { ImgActionTypes } from '../../interfaces';
+import { ImageType, ImgActionTypes } from '../../interfaces';
 
-function* workerFetchImages(): any {
+function* fetchImagesWorker(): Generator {
   try {
-    const imagesArray: any = [];
-    const querySnapshot = yield call(fetchAllImages);
-    querySnapshot.forEach((doc: any) => imagesArray.push(doc.data()));
+    const imagesArray: Array<ImageType> = [];
+    const response: any = yield call(fetchAllImages);
+    response.forEach((doc: any) => imagesArray.push(doc.data()));
     yield put(setImages(imagesArray.reverse()));
-  } catch (error: any) {
-    yield put(setErrorMessage(error.message));
+  } catch (error) {
+    if (error instanceof Error) {
+      yield put(setErrorMessage(error.message));
+    }
   }
 }
 
-function* workerDeleteImage({ imagePath, imageId }: any) {
+function* deleteImageWorker(payload: AnyAction) {
+  const { imagePath, imageId } = payload;
   try {
     yield call(deleteImageInStorage, imagePath);
     yield call(deleteImageInDatabase, imageId);
     yield put(removeImage(imageId));
-  } catch (error: any) {
-    yield put(setErrorMessage(error.message));
+  } catch (error) {
+    if (error instanceof Error) {
+      yield put(setErrorMessage(error.message));
+    }
   }
 }
 
-function* workerUploadImage({ imagePath, imageURL }: any) {
+function* uploadImageWorker(payload: AnyAction) {
+  const { imagePath, imageURL } = payload;
   try {
     yield call(loadImageToStorage, imagePath, imageURL);
-  } catch (error: any) {
-    yield put(setErrorMessage(error.message));
+  } catch (error) {
+    if (error instanceof Error) {
+      yield put(setErrorMessage(error.message));
+    }
   }
 }
 
-function* workerCreateImageInstance({ user, imageURL, imageId, imagePath }: any) {
+function* createImageInstanceWorker(payload: AnyAction) {
+  const { user, imageURL, imageId, imagePath } = payload;
   try {
     yield call(createNewImageReferenceInDB, user, imageURL, imageId, imagePath);
-  } catch (error: any) {
-    yield put(setErrorMessage(error.message));
+  } catch (error) {
+    if (error instanceof Error) {
+      yield put(setErrorMessage(error.message));
+    }
   }
 }
 
-function* watchFetchImages() {
-  yield takeEvery(ImgActionTypes.FETCH_IMAGES, workerFetchImages);
+function* fetchImagesWatcher() {
+  yield takeEvery(ImgActionTypes.FETCH_IMAGES, fetchImagesWorker);
 }
 
-function* watchDeleteImage() {
-  yield takeEvery(ImgActionTypes.DELETE_IMAGE, workerDeleteImage);
+function* deleteImageWatcher() {
+  yield takeEvery(ImgActionTypes.DELETE_IMAGE, deleteImageWorker);
 }
 
-function* watchUploadImage() {
-  yield takeEvery(ImgActionTypes.UPLOAD_IMAGE, workerUploadImage);
+function* uploadImageWatcher() {
+  yield takeEvery(ImgActionTypes.UPLOAD_IMAGE, uploadImageWorker);
 }
 
-function* watchCreateImageInstance() {
-  yield takeEvery(ImgActionTypes.CREATE_IMAGE_INSTANCE_IN_DATABASE, workerCreateImageInstance);
+function* сreateImageInstanceWatcher() {
+  yield takeEvery(ImgActionTypes.CREATE_IMAGE_INSTANCE_IN_DATABASE, createImageInstanceWorker);
 }
 
 export default function* imgContainerSaga(): Generator {
-  yield all([watchFetchImages(), watchDeleteImage(), watchUploadImage(), watchCreateImageInstance()]);
+  yield all([fetchImagesWatcher(), deleteImageWatcher(), uploadImageWatcher(), сreateImageInstanceWatcher()]);
 }

@@ -13,7 +13,7 @@ import StyledTitle from '../../core/configs/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
 import { RootState } from '../../core/reducers';
 
-const LoginPage: React.FC = React.memo(() => {
+const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const error = useSelector((state: RootState) => state.auth.error);
   const [email, setEmail] = useState('');
@@ -51,6 +51,6 @@ const LoginPage: React.FC = React.memo(() => {
       </StyledLinkDiv>
     </StyledContainer>
   );
-});
+};
 
 export default LoginPage;

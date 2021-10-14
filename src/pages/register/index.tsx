@@ -13,7 +13,7 @@ import StyledTitle from '../../core/configs/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
 import { RootState } from '../../core/reducers';
 
-const RegisterPage: React.FC = React.memo(() => {
+const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -70,6 +70,6 @@ const RegisterPage: React.FC = React.memo(() => {
       </StyledForm>
     </StyledContainer>
   );
-});
+};
 
 export default RegisterPage;
