@@ -5,7 +5,7 @@ const StyledFlexRow = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
-  width: 320px;
+  align-self: normal;
   & label {
     font-family: 'Indie Flower';
     font-size: 18px;

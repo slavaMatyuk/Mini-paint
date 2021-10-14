@@ -1,14 +1,17 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchImages } from '../../core/actions/imageContainerActions';
 import ImageContainer from '../../core/components/ImageContainer';
 import Spinner from '../../core/components/Spinner';
+import StyledButton from '../../core/configs/styles/StyledButton';
+import StyledContainer from '../../core/configs/styles/StyledContainer';
 import StyledOption from '../../core/configs/styles/StyledOption';
 import StyledSelect from '../../core/configs/styles/StyledSelect';
+import StyledTitle from '../../core/configs/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
+import notify from '../../core/helpers/notify';
 import { ImageType, RootStateType } from '../../core/interfaces';
 
 const HomePage: React.FC = () => {
@@ -16,14 +19,17 @@ const HomePage: React.FC = () => {
   const [painter, setPainter] = useState('All painters');
   const dispatch = useDispatch();
   const images = useSelector((state: RootStateType) => state.images.images);
-  const error = useSelector((state: RootStateType) => state.auth.error);
+  // const error = useSelector((state: RootStateType) => state.auth.error);
   const usersArray: Array<string> = ['All painters'];
 
   useEffect(() => {
     setIsLoading(true);
     dispatch(fetchImages());
     setIsLoading(false);
-  }, [dispatch]);
+    if (!images.length) {
+      notify('There are no pictures yet');
+    }
+  }, [dispatch, images]);
 
   images.forEach((image: ImageType) => {
     if (!usersArray.includes(image.userEmail)) {
@@ -39,17 +45,14 @@ const HomePage: React.FC = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div>
-          {error
-            ? toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT })
-            : ''}
+        <StyledContainer>
           <div>
-            <button type="submit">
-              <NavLink to={RoutesConst.HOME}>Feed</NavLink>
-            </button>
-            <button type="submit">
+            <StyledButton type="submit">
+              <NavLink to={RoutesConst.PROFILE}>Profile</NavLink>
+            </StyledButton>
+            <StyledButton type="submit">
               <NavLink to={RoutesConst.EDITOR}>Editor</NavLink>
-            </button>
+            </StyledButton>
             <StyledSelect
               value={painter}
               onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}
@@ -65,10 +68,10 @@ const HomePage: React.FC = () => {
             {images && images.length > 0 ? (
               filteredImages.map((image: ImageType) => <ImageContainer image={image} key={image.imageId} />)
             ) : (
-              <h1>No any pictures</h1>
+              <StyledTitle>No any pictures</StyledTitle>
             )}
           </div>
-        </div>
+        </StyledContainer>
       )}
     </div>
   );

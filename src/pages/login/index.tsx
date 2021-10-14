@@ -32,11 +32,13 @@ const LoginPage: React.FC = () => {
     dispatch(signInWithEmail(email, password));
     setEmail('');
     setPassword('');
+    if (error) {
+      notify('Fetching error');
+    }
   };
 
   return (
     <StyledContainer>
-      {error && notify('Authorization error')}
       <StyledTitle style={{ fontSize: '24px' }}>Log in with email and password</StyledTitle>
       <StyledForm onSubmit={handleSubmit}>
         <Input value={email} onChange={onEmailChange} required type="email" label="E-mail" />

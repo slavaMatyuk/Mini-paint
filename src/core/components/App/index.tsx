@@ -22,14 +22,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    auth.onAuthStateChanged((user) => {
-      if (user) {
+    auth.onAuthStateChanged((user1) => {
+      if (user1) {
         dispatch(
           setCurrentUser({
-            uid: user.uid,
-            email: user.email,
-            photo: user.photoURL,
+            uid: user1.uid,
+            email: user1.email,
+            photo: user1.photoURL,
           })
         );
         setIsLoading(false);

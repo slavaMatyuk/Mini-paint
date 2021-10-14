@@ -45,6 +45,7 @@
     "require-jsdoc": "off",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [
       2,
       {

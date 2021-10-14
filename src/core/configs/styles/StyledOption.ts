@@ -6,7 +6,7 @@ const StyledOption = styled.option`
   display: flex;
   white-space: pre;
   min-height: 20px;
-  padding: 0px 2px 1px;
+  padding: 2px 5px;
 `;
 
 export default StyledOption;

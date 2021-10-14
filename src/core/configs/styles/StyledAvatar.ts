@@ -7,7 +7,7 @@ const StyledAvatar = styled.div`
   box-shadow: 0 0 3px 2px #545454;
   background-color: ${(props) => props.color || props.theme.bg};
   color: ${(props) => props.color || props.theme.text};
-  font-size: 28px;
+  font-size: 24px;
   font-family: sans-serif;
   font-weight: 700;
   display: flex;

@@ -2,7 +2,7 @@ enum RoutesConst {
   LOGIN = '/login',
   REGISTER = '/register',
   HOME = '/',
-  PROFILE = '/profile/:uderId?',
+  PROFILE = '/profile',
   EDITOR = '/editor',
   ANY = '*',
 }

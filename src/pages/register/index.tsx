@@ -32,6 +32,10 @@ const RegisterPage: React.FC = () => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+
+    if (error) {
+      notify('Fetching error');
+    }
   };
 
   const onEmailChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -48,7 +52,6 @@ const RegisterPage: React.FC = () => {
 
   return (
     <StyledContainer>
-      {error && notify('Authorization error')}
       <StyledTitle style={{ fontSize: '24px' }}>Register with e-mail and password</StyledTitle>
       <StyledForm onSubmit={handleSubmit}>
         <Input type="email" name="email" value={email} onChange={onEmailChange} required label="E-mail" />

@@ -8,10 +8,18 @@ const HeaderWrapper = styled.div`
   top: 0;
   padding: 0 0 5px 30px;
   width: 100%;
-  height: 50px;
+  height: 55px;
   opacity: 0.7;
   &:hover {
     opacity: 1;
+  }
+
+  & button {
+    background-color: ${(props) => props.color || props.theme.secondary};
+    &:hover {
+      background-color: ${(props) => props.color || props.theme.primary};
+      border: 1px solid ${(props) => props.color || props.theme.secondary};
+    }
   }
 `;
 

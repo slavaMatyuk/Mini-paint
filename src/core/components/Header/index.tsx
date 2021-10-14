@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { signOut } from '../../actions/authActions';
 import HeaderWrapper from '../../configs/styles/HeaderWrapper';
+import StyledAvatar from '../../configs/styles/StyledAvatar';
+import StyledButton from '../../configs/styles/StyledButton';
+import StyledFlexRow from '../../configs/styles/StyledFlexRow';
 import StyledTitle from '../../configs/styles/StyledTitle';
 import { RootState } from '../../reducers';
 
@@ -14,21 +17,25 @@ const Header: React.FC = React.memo(() => {
   };
   return (
     <HeaderWrapper>
-      <div>
+      <StyledFlexRow style={{ width: '100%' }}>
         <StyledTitle>Mini Paint</StyledTitle>
-        <ToastContainer autoClose={3000} />
+        <ToastContainer autoClose={2000} />
         {user ? (
-          <div>
-            <h1>{user.email}</h1>
-            <img alt="User profile" src={user.photo ? user.photo : ''} />
-            <button type="button" onClick={onSignOut}>
+          <StyledFlexRow style={{ width: '320px' }}>
+            <StyledTitle style={{ fontSize: '20px' }}>{user.email}</StyledTitle>
+            {user.photo ? (
+              <img alt="user avatar" src={user.photo ? user.photo : ''} />
+            ) : (
+              <StyledAvatar>{user.email && user.email.substring(0, 1).toUpperCase()}</StyledAvatar>
+            )}
+            <StyledButton type="button" onClick={onSignOut}>
               Sign out
-            </button>
-          </div>
+            </StyledButton>
+          </StyledFlexRow>
         ) : (
           ''
         )}
-      </div>
+      </StyledFlexRow>
     </HeaderWrapper>
   );
 });

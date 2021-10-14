@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledLinkDiv = styled.form`
+const StyledLinkDiv = styled.div`
   & a {
     text-decoration: none;
   }
