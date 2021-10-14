@@ -2,7 +2,12 @@ import { takeEvery, call, put } from '@redux-saga/core/effects';
 import { AnyAction } from 'redux';
 import { all } from 'redux-saga/effects';
 import { setCurrentUser, setErrorMessage } from '../../actions/authActions';
-import { createNewUserInDB, getAuthDataFromEmailSignIn, getAuthDataFromEmailSignUp, signOut } from '../../configs/firebase/authFirebase';
+import {
+  createNewUserInDB,
+  getAuthDataFromEmailSignIn,
+  getAuthDataFromEmailSignUp,
+  signOut,
+} from '../../configs/firebase/authFirebase';
 import { AuthActionTypes } from '../../interfaces';
 
 function* signUpWithEmailAndPasswordWorker(payload: AnyAction) {

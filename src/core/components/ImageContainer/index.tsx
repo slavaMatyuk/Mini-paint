@@ -21,7 +21,13 @@ const ImageContainer: React.FC<ImagePropsType> = ({ image }) => {
   };
   return (
     <div>
-      {error ? toast('Cannot fetch images', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT }) : ''}
+      {error
+        ? toast('Cannot fetch images', {
+            className: 'error-toast',
+            draggable: true,
+            position: toast.POSITION.TOP_RIGHT,
+          })
+        : ''}
       <div>
         <div>
           <button type="button" onClick={handleRemoveImage}>

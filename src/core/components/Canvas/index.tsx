@@ -75,7 +75,8 @@ const Canvas: React.FC = () => {
             mouseDownX,
             mouseDownY,
             Math.sqrt(
-              (e.pageX - mouseDownX - wrapperRef.current.offsetLeft) ** 2 + (e.pageY - mouseDownY - wrapperRef.current.offsetTop) ** 2
+              (e.pageX - mouseDownX - wrapperRef.current.offsetLeft) ** 2 +
+                (e.pageY - mouseDownY - wrapperRef.current.offsetTop) ** 2
             ),
             0,
             Math.PI * 2,
@@ -162,7 +163,14 @@ const Canvas: React.FC = () => {
       </div>
       <div ref={wrapperRef}>
         <canvas ref={subCanvasRef} width={600} height={400} />
-        <canvas ref={canvasRef} width={600} height={400} onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp} />
+        <canvas
+          ref={canvasRef}
+          width={600}
+          height={400}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+        />
       </div>
     </div>
   );

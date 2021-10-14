@@ -11,7 +11,7 @@ export async function fetchAllImages() {
 export async function createNewImageReferenceInDB(user: User, imageURL: any, imageId: any, imagePath: any) {
   const newImageRef = db.collection('library').doc(`${imageId}`);
   const res = await newImageRef.set({
-    userEmail: user.email,
+    userEmail: user?.email,
     imageURL,
     imageId,
     imagePath,

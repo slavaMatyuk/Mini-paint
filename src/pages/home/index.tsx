@@ -31,7 +31,8 @@ const HomePage: React.FC = () => {
     }
   });
 
-  const filteredImages = painter === 'All painters' ? images : images.filter((image: ImageType) => image.userEmail === painter);
+  const filteredImages =
+    painter === 'All painters' ? images : images.filter((image: ImageType) => image.userEmail === painter);
 
   return (
     <div>
@@ -39,7 +40,9 @@ const HomePage: React.FC = () => {
         <Spinner />
       ) : (
         <div>
-          {error ? toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT }) : ''}
+          {error
+            ? toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT })
+            : ''}
           <div>
             <button type="submit">
               <NavLink to={RoutesConst.HOME}>Feed</NavLink>
@@ -47,7 +50,10 @@ const HomePage: React.FC = () => {
             <button type="submit">
               <NavLink to={RoutesConst.EDITOR}>Editor</NavLink>
             </button>
-            <StyledSelect value={painter} onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}>
+            <StyledSelect
+              value={painter}
+              onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}
+            >
               {usersArray.map((user: string) => (
                 <StyledOption key={user} value={user}>
                   {user}
