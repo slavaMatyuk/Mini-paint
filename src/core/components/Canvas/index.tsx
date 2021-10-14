@@ -6,6 +6,7 @@ import { createImageInstanceInDB } from '../../actions/imageContainerActions';
 import { storage } from '../../configs/firebase';
 import StyledOption from '../../configs/styles/StyledOption';
 import StyledSelect from '../../configs/styles/StyledSelect';
+import { RootState } from '../../reducers';
 
 const Canvas: React.FC = () => {
   const canvasRef = useRef<any>();
@@ -20,7 +21,7 @@ const Canvas: React.FC = () => {
   const [context, setContext] = useState<any>();
   const [subContext, setSubContext] = useState<any>();
   const [tool, setTool] = useState('brush');
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -118,13 +119,16 @@ const Canvas: React.FC = () => {
   const handleDash = () => {
     setDash(dash === false);
   };
+
   const handleBlur = () => {
     setBlur(blur === 0 ? 10 : 0);
   };
+
   const amountOfWidthOption = [];
   for (let i = 1; i < 101; i += 1) {
     amountOfWidthOption.push(i);
   }
+
   return (
     <div>
       <div>

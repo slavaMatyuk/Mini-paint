@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { User } from '../../interfaces';
+import { ImageType, User } from '../../interfaces';
 import { db, storage } from './index';
 
 export async function fetchAllImages() {
@@ -8,7 +8,12 @@ export async function fetchAllImages() {
   return res;
 }
 
-export async function createNewImageReferenceInDB(user: User, imageURL: any, imageId: any, imagePath: any) {
+export async function createNewImageReferenceInDB(
+  user: User,
+  imageURL: ImageType,
+  imageId: ImageType,
+  imagePath: ImageType
+) {
   const newImageRef = db.collection('library').doc(`${imageId}`);
   const res = await newImageRef.set({
     userEmail: user?.email,
@@ -19,12 +24,12 @@ export async function createNewImageReferenceInDB(user: User, imageURL: any, ima
   return res;
 }
 
-export async function deleteImageInStorage(imagePath: any) {
-  const res = await storage.ref().child(imagePath).delete();
+export async function deleteImageInStorage(imagePath: ImageType) {
+  const res = await storage.ref().child(`${imagePath}`).delete();
   return res;
 }
 
-export async function deleteImageInDatabase(imageId: any) {
+export async function deleteImageInDatabase(imageId: ImageType) {
   const res = await db.collection('library').doc(`${imageId}`).delete();
   return res;
 }
