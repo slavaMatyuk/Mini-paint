@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import RoutesConst from '../../helpers/constants/routesConst';
 import EditorPage from '../../../pages/editor';
 import Homepage from '../../../pages/home';
 import LoginPage from '../../../pages/login';
@@ -10,18 +11,18 @@ import { setCurrentUser } from '../../actions/authActions';
 import { auth } from '../../configs/firebase';
 import StyledApp from '../../configs/styles/StyledApp';
 import StyledContainer from '../../configs/styles/StyledContainer';
-import routesConst from '../../helpers/constants/routesConst';
-import { RootState } from '../../reducers';
+import { RootStateType } from '../../interfaces';
 import Header from '../Header';
 import Spinner from '../Spinner';
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = useSelector((state: RootStateType) => state.auth.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading(true);
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(
@@ -48,33 +49,33 @@ const App: React.FC = () => {
         <StyledContainer>
           {user ? (
             <Switch>
-              <Route exact path={routesConst.HOME}>
+              <Route exact path={RoutesConst.HOME}>
                 <Homepage />
               </Route>
-              <Route exact path={routesConst.EDITOR}>
+              <Route exact path={RoutesConst.EDITOR}>
                 <EditorPage />
               </Route>
-              <Route exact path={routesConst.PROFILE}>
+              <Route exact path={RoutesConst.PROFILE}>
                 <ProfilePage />
               </Route>
             </Switch>
           ) : (
-            <Redirect to={routesConst.LOGIN} />
+            <Redirect to={RoutesConst.LOGIN} />
           )}
           {user === null ? (
             <Switch>
-              <Route exact path={routesConst.REGISTER}>
+              <Route exact path={RoutesConst.REGISTER}>
                 <RegisterPage />
               </Route>
-              <Route exact path={routesConst.LOGIN}>
+              <Route exact path={RoutesConst.LOGIN}>
                 <LoginPage />
               </Route>
-              <Route path={routesConst.ANY}>
-                <Redirect to={routesConst.LOGIN} />
+              <Route path={RoutesConst.ANY}>
+                <Redirect to={RoutesConst.LOGIN} />
               </Route>
             </Switch>
           ) : (
-            <Redirect to={routesConst.HOME} />
+            <Redirect to={RoutesConst.HOME} />
           )}
         </StyledContainer>
       )}

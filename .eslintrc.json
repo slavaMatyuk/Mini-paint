@@ -1,16 +1,18 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
   "extends": [
-    "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
     "airbnb",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "prettier"
   ],
@@ -24,7 +26,6 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
-    "react",
     "@typescript-eslint"
   ],
   "settings": {
@@ -41,6 +42,8 @@
   },
   "rules": {
     "require-jsdoc": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     "react/jsx-filename-extension": [
       2,
       {
@@ -67,6 +70,18 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": [
       "error"
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error"
+    ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ],
+    "jsx-quotes": [
+      1,
+      "prefer-double"
     ]
   }
 }

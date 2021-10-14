@@ -10,7 +10,7 @@ import StyledContainer from '../../core/configs/styles/StyledContainer';
 import StyledForm from '../../core/configs/styles/StyledForm';
 import StyledLinkDiv from '../../core/configs/styles/StyledLinkDiv';
 import StyledTitle from '../../core/configs/styles/StyledTitle';
-import routesConst from '../../core/helpers/constants/routesConst';
+import RoutesConst from '../../core/helpers/constants/routesConst';
 import { RootState } from '../../core/reducers';
 
 const RegisterPage: React.FC = React.memo(() => {
@@ -62,7 +62,7 @@ const RegisterPage: React.FC = React.memo(() => {
           label="Confirm"
         />
         <StyledLinkDiv>
-          <Link to={routesConst.LOGIN}>
+          <Link to={RoutesConst.LOGIN}>
             <StyledButton type="button">Back</StyledButton>
           </Link>
           <StyledButton type="submit">Register</StyledButton>

@@ -10,7 +10,7 @@ import StyledContainer from '../../core/configs/styles/StyledContainer';
 import StyledForm from '../../core/configs/styles/StyledForm';
 import StyledLinkDiv from '../../core/configs/styles/StyledLinkDiv';
 import StyledTitle from '../../core/configs/styles/StyledTitle';
-import routesConst from '../../core/helpers/constants/routesConst';
+import RoutesConst from '../../core/helpers/constants/routesConst';
 import { RootState } from '../../core/reducers';
 
 const LoginPage: React.FC = React.memo(() => {
@@ -45,7 +45,7 @@ const LoginPage: React.FC = React.memo(() => {
       </StyledForm>
       <StyledTitle style={{ fontSize: '24px' }}>I still have no account</StyledTitle>
       <StyledLinkDiv>
-        <Link to={routesConst.REGISTER}>
+        <Link to={RoutesConst.REGISTER}>
           <StyledButton>Register me</StyledButton>
         </Link>
       </StyledLinkDiv>

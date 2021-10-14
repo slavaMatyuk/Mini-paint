@@ -1,4 +1,4 @@
-enum routesConst {
+enum RoutesConst {
   LOGIN = '/login',
   REGISTER = '/register',
   HOME = '/',
@@ -7,4 +7,4 @@ enum routesConst {
   ANY = '*',
 }
 
-export default routesConst;
+export default RoutesConst;

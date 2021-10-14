@@ -8,7 +8,7 @@ import ImageContainer from '../../core/components/ImageContainer';
 import Spinner from '../../core/components/Spinner';
 import StyledOption from '../../core/configs/styles/StyledOption';
 import StyledSelect from '../../core/configs/styles/StyledSelect';
-import routesConst from '../../core/helpers/constants/routesConst';
+import RoutesConst from '../../core/helpers/constants/routesConst';
 import { ImageType, RootStateType } from '../../core/interfaces';
 
 const HomePage: React.FC = () => {
@@ -42,10 +42,10 @@ const HomePage: React.FC = () => {
           {error ? toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT }) : ''}
           <div>
             <button type="submit">
-              <NavLink to={routesConst.HOME}>Feed</NavLink>
+              <NavLink to={RoutesConst.HOME}>Feed</NavLink>
             </button>
             <button type="submit">
-              <NavLink to={routesConst.EDITOR}>Editor</NavLink>
+              <NavLink to={RoutesConst.EDITOR}>Editor</NavLink>
             </button>
             <StyledSelect value={painter} onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}>
               {usersArray.map((user: string) => (
