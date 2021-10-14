@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setErrorMessage, signUpWithEmailAndPassword } from '../../core/actions/authActions';
 import Input from '../../core/components/Input';
@@ -11,6 +10,7 @@ import StyledForm from '../../core/configs/styles/StyledForm';
 import StyledLinkDiv from '../../core/configs/styles/StyledLinkDiv';
 import StyledTitle from '../../core/configs/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
+import notify from '../../core/helpers/notify';
 import { RootState } from '../../core/reducers';
 
 const RegisterPage: React.FC = () => {
@@ -48,7 +48,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <StyledContainer>
-      {error && toast('Auth Error', { className: 'error-toast', draggable: true, position: toast.POSITION.TOP_RIGHT })}
+      {error && notify('Authorization error')}
       <StyledTitle style={{ fontSize: '24px' }}>Register with e-mail and password</StyledTitle>
       <StyledForm onSubmit={handleSubmit}>
         <Input type="email" name="email" value={email} onChange={onEmailChange} required label="E-mail" />
