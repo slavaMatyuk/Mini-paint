@@ -8,6 +8,7 @@ declare module 'styled-components' {
     text?: string;
     bg?: string;
     canvas?: string;
+    controls?: string;
     bgImage?: string;
   }
 }

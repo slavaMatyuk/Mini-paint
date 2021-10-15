@@ -9,6 +9,7 @@ const dark: DefaultTheme = {
   text: '#fad8d8',
   bg: '#483b66',
   canvas: '#fffeee',
+  controls: '#696969',
   bgImage: darkImage,
 };
 

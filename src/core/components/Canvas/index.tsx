@@ -8,8 +8,17 @@ import StyledOption from '../../configs/styles/StyledOption';
 import StyledSelect from '../../configs/styles/StyledSelect';
 import { RootState } from '../../reducers';
 import Input from '../Input';
-import StyledButton from '../../configs/styles/StyledButton';
 import CanvasWrapper from '../../configs/styles/CanvasWrapper';
+import StyledControl from '../../configs/styles/StyledControl';
+import BrushPath from '../../../assets/icons/pencil.png';
+import LinePath from '../../../assets/icons/line.png';
+import RectPath from '../../../assets/icons/rectangle.png';
+import CirclePath from '../../../assets/icons/circle.png';
+import ClearPath from '../../../assets/icons/trash.png';
+import SavePath from '../../../assets/icons/saving.png';
+import BlurPath from '../../../assets/icons/blur.png';
+import DashPath from '../../../assets/icons/dash.png';
+import ControlsWrapper from '../../configs/styles/ControlsWrapper';
 
 const Canvas: React.FC = () => {
   const canvasRef = useRef<any>();
@@ -119,13 +128,9 @@ const Canvas: React.FC = () => {
     history.push('/');
   };
 
-  const handleDash = () => {
-    setDash(dash === false);
-  };
+  const handleDash = () => setDash(dash === false);
 
-  const handleBlur = () => {
-    setBlur(blur === 0 ? 10 : 0);
-  };
+  const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
 
   const amountOfWidthOption = [];
   for (let i = 1; i < 101; i += 1) {
@@ -134,36 +139,48 @@ const Canvas: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <button type="button" color={tool === 'brush' ? 'primary' : 'inherit'} onClick={() => setTool('brush')}>
-          <img src="../../../assets/icons/pencil.png" alt="brush" />
-        </button>
-        <button type="button" color={tool === 'rectangle' ? 'primary' : 'inherit'} onClick={() => setTool('rectangle')}>
-          <img src="../../../assets/icons/rectangle.png" alt="rectangle" />
-        </button>
-        <button type="button" color={tool === 'circle' ? 'primary' : 'inherit'} onClick={() => setTool('circle')}>
-          <img src="../../../assets/icons/circle.png" alt="circle" />
-        </button>
-        <button type="button" color={tool === 'line' ? 'primary' : 'inherit'} onClick={() => setTool('line')}>
-          <img src="../../../assets/icons/line.png" alt="line" />
-        </button>
-        <button type="button" color={dash === true ? 'primary' : 'inherit'} onClick={handleDash}>
-          Dash
-        </button>
-        <button type="button" color={blur > 0 ? 'primary' : 'inherit'} onClick={handleBlur}>
-          Blur
-        </button>
+      <ControlsWrapper>
+        <StyledControl type="button" color={tool === 'brush' ? 'primary' : 'inherit'} onClick={() => setTool('brush')}>
+          <img src={BrushPath} alt="brush" title="Brush" />
+        </StyledControl>
+        <StyledControl
+          type="button"
+          color={tool === 'rectangle' ? 'primary' : 'inherit'}
+          onClick={() => setTool('rectangle')}
+        >
+          <img src={RectPath} alt="rectangle" title="Rectangle" />
+        </StyledControl>
+        <StyledControl
+          type="button"
+          color={tool === 'circle' ? 'primary' : 'inherit'}
+          onClick={() => setTool('circle')}
+        >
+          <img src={CirclePath} alt="circle" title="Circle" />
+        </StyledControl>
+        <StyledControl type="button" color={tool === 'line' ? 'primary' : 'inherit'} onClick={() => setTool('line')}>
+          <img src={LinePath} alt="line" title="Line" />
+        </StyledControl>
+        <StyledControl type="button" color={dash ? 'primary' : 'inherit'} onClick={handleDash}>
+          <img src={DashPath} alt="dash" title="Dashed" />
+        </StyledControl>
+        <StyledControl type="button" color={blur > 0 ? 'primary' : 'inherit'} onClick={handleBlur}>
+          <img src={BlurPath} alt="blur" title="Blur" />
+        </StyledControl>
         <Input type="color" value={color} onChange={(event) => setColor(event.target.value)} label="" />
-        <StyledSelect value={lineWidth} onChange={(e) => setLineWidth(e.target.value)}>
+        <StyledSelect value={lineWidth} style={{ width: '60px' }} onChange={(e) => setLineWidth(e.target.value)}>
           {amountOfWidthOption.map((num) => (
             <StyledOption key={num} value={num}>
               {num}
             </StyledOption>
           ))}
         </StyledSelect>
-        <StyledButton onClick={clearCanvas}>Clear</StyledButton>
-        <StyledButton onClick={saveImage}>Save</StyledButton>
-      </div>
+        <StyledControl onClick={clearCanvas}>
+          <img src={ClearPath} alt="clear" title="Clear" />
+        </StyledControl>
+        <StyledControl onClick={saveImage}>
+          <img src={SavePath} alt="save" title="Save" />
+        </StyledControl>
+      </ControlsWrapper>
       <CanvasWrapper ref={wrapperRef}>
         <canvas ref={subCanvasRef} width={600} height={400} />
         <canvas

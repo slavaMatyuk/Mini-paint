@@ -9,6 +9,7 @@ const light: DefaultTheme = {
   text: '#053b3c',
   bg: '#d3feff',
   canvas: '#fffeee',
+  controls: '#87ceeb',
   bgImage: lightImage,
 };
 

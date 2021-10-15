@@ -12,7 +12,7 @@ import light from './core/configs/styles/themes/light';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ThemeProvider theme={light || dark}>
+      <ThemeProvider theme={dark || light}>
         <GlobalStyles />
         <App />
       </ThemeProvider>
