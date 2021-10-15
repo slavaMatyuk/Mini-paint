@@ -16,6 +16,7 @@ const HeaderWrapper = styled.div`
 
   & button {
     background-color: ${(props) => props.color || props.theme.secondary};
+    border: 1px solid transparent;
     &:hover {
       background-color: ${(props) => props.color || props.theme.primary};
       border: 1px solid ${(props) => props.color || props.theme.secondary};

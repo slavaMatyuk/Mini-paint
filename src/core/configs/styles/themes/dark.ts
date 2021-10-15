@@ -8,6 +8,7 @@ const dark: DefaultTheme = {
   secondary: '#545454',
   text: '#fad8d8',
   bg: '#483b66',
+  canvas: '#fffeee',
   bgImage: darkImage,
 };
 

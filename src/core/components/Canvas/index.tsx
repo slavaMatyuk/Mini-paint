@@ -7,12 +7,15 @@ import { storage } from '../../configs/firebase';
 import StyledOption from '../../configs/styles/StyledOption';
 import StyledSelect from '../../configs/styles/StyledSelect';
 import { RootState } from '../../reducers';
+import Input from '../Input';
+import StyledButton from '../../configs/styles/StyledButton';
+import CanvasWrapper from '../../configs/styles/CanvasWrapper';
 
 const Canvas: React.FC = () => {
   const canvasRef = useRef<any>();
   const subCanvasRef = useRef<any>();
   const wrapperRef = useRef<any>();
-  const [color, setColor] = useState(theme.primary);
+  const [color, setColor] = useState(theme.text);
   const [dash, setDash] = useState(false);
   const [blur, setBlur] = useState(0);
   const [lineWidth, setLineWidth] = useState<any>(3);
@@ -132,8 +135,8 @@ const Canvas: React.FC = () => {
   return (
     <div>
       <div>
-        <button type="button" color={tool === 'pencil' ? 'primary' : 'inherit'} onClick={() => setTool('brush')}>
-          <img src="../../../assets/icons/pencil.png" alt="pencil" />
+        <button type="button" color={tool === 'brush' ? 'primary' : 'inherit'} onClick={() => setTool('brush')}>
+          <img src="../../../assets/icons/pencil.png" alt="brush" />
         </button>
         <button type="button" color={tool === 'rectangle' ? 'primary' : 'inherit'} onClick={() => setTool('rectangle')}>
           <img src="../../../assets/icons/rectangle.png" alt="rectangle" />
@@ -150,22 +153,18 @@ const Canvas: React.FC = () => {
         <button type="button" color={blur > 0 ? 'primary' : 'inherit'} onClick={handleBlur}>
           Blur
         </button>
-        <input type="color" value={color} onChange={(event) => setColor(event.target.value)} />
-        <StyledSelect value={lineWidth} onChange={(e: any) => setLineWidth(e.target.value)}>
+        <Input type="color" value={color} onChange={(event) => setColor(event.target.value)} label="" />
+        <StyledSelect value={lineWidth} onChange={(e) => setLineWidth(e.target.value)}>
           {amountOfWidthOption.map((num) => (
             <StyledOption key={num} value={num}>
               {num}
             </StyledOption>
           ))}
         </StyledSelect>
-        <button type="button" onClick={clearCanvas}>
-          Clear
-        </button>
-        <button type="button" onClick={saveImage}>
-          Save
-        </button>
+        <StyledButton onClick={clearCanvas}>Clear</StyledButton>
+        <StyledButton onClick={saveImage}>Save</StyledButton>
       </div>
-      <div ref={wrapperRef}>
+      <CanvasWrapper ref={wrapperRef}>
         <canvas ref={subCanvasRef} width={600} height={400} />
         <canvas
           ref={canvasRef}
@@ -175,7 +174,7 @@ const Canvas: React.FC = () => {
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
         />
-      </div>
+      </CanvasWrapper>
     </div>
   );
 };

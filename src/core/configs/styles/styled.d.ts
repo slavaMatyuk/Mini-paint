@@ -7,6 +7,7 @@ declare module 'styled-components' {
     secondary?: string;
     text?: string;
     bg?: string;
+    canvas?: string;
     bgImage?: string;
   }
 }

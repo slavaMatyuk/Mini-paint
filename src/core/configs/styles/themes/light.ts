@@ -8,6 +8,7 @@ const light: DefaultTheme = {
   secondary: '#9ef8ff',
   text: '#053b3c',
   bg: '#d3feff',
+  canvas: '#fffeee',
   bgImage: lightImage,
 };
 

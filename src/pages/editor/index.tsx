@@ -1,21 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Canvas from '../../core/components/Canvas';
+import EditorWrapper from '../../core/configs/styles/EditorWrapper';
+import StyledButton from '../../core/configs/styles/StyledButton';
 import RoutesConst from '../../core/helpers/constants/routesConst';
 
 const EditorPage: React.FC = () => {
   return (
-    <div>
+    <EditorWrapper>
       <div>
-        <button type="button">
+        <StyledButton>
           <NavLink to={RoutesConst.HOME}>Home</NavLink>
-        </button>
-        <button type="button">
+        </StyledButton>
+        <StyledButton>
           <NavLink to={RoutesConst.EDITOR}>Editor</NavLink>
-        </button>
+        </StyledButton>
       </div>
       <Canvas />
-    </div>
+    </EditorWrapper>
   );
 };
 
