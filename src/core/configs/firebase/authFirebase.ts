@@ -17,11 +17,11 @@ export async function signOut() {
 }
 
 export async function createNewUserInDB(user: User) {
-  const newUserRef = db.collection('users').doc(`${user!.uid}`);
+  const newUserRef = db.collection('users').doc(`${user?.uid}`);
   const res = await newUserRef.set({
-    userId: user!.uid,
-    email: user!.email,
-    photo: user!.photo,
+    userId: user?.uid,
+    email: user?.email,
+    photo: user?.photo,
   });
   return res;
 }

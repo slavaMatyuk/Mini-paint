@@ -19,7 +19,6 @@ const HomePage: React.FC = () => {
   const [painter, setPainter] = useState('All painters');
   const dispatch = useDispatch();
   const images = useSelector((state: RootStateType) => state.images.images);
-  // const error = useSelector((state: RootStateType) => state.auth.error);
   const usersArray: Array<string> = ['All painters'];
 
   useEffect(() => {
@@ -56,6 +55,7 @@ const HomePage: React.FC = () => {
             <StyledSelect
               value={painter}
               onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}
+              style={{ width: '120px' }}
             >
               {usersArray.map((user: string) => (
                 <StyledOption key={user} value={user}>

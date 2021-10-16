@@ -3,7 +3,7 @@ import { ImageType, User } from '../../interfaces';
 import { db, storage } from './index';
 
 export async function fetchAllImages() {
-  const imagesRef = db.collection('library');
+  const imagesRef = await db.collection('images');
   const res = await imagesRef.get();
   return res;
 }
@@ -14,7 +14,7 @@ export async function createNewImageReferenceInDB(
   imageId: ImageType,
   imagePath: ImageType
 ) {
-  const newImageRef = db.collection('library').doc(`${imageId}`);
+  const newImageRef = db.collection('images').doc(`${imageId}`);
   const res = await newImageRef.set({
     userEmail: user?.email,
     imageURL,
@@ -30,7 +30,7 @@ export async function deleteImageInStorage(imagePath: ImageType) {
 }
 
 export async function deleteImageInDatabase(imageId: ImageType) {
-  const res = await db.collection('library').doc(`${imageId}`).delete();
+  const res = await db.collection('images').doc(`${imageId}`).delete();
   return res;
 }
 
