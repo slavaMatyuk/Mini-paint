@@ -6,13 +6,12 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './core/components/App';
 import GlobalStyles from './GlobalStyles';
 import store from './core/services/store';
-import dark from './core/configs/styles/themes/dark';
-import light from './core/configs/styles/themes/light';
+import themes from './core/configs/styles/themes';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ThemeProvider theme={dark || light}>
+      <ThemeProvider theme={themes.light}>
         <GlobalStyles />
         <App />
       </ThemeProvider>

@@ -8,7 +8,7 @@ const StyledControl = styled.button`
   outline: none;
   cursor: pointer;
   background-color: ${(props) => props.theme.controls};
-  opacity: 0.75;
+  opacity: 0.6;
   transition: 0.2s;
 
   &:hover,
