@@ -16,7 +16,6 @@ function* fetchImagesWorker(): Generator {
   try {
     const imagesArray: Array<ImageType> = [];
     const response: any = yield call(fetchAllImages);
-    console.log(`Something from FETCH`);
     response.forEach((doc: any) => imagesArray.push(doc.data()));
     yield put(setImages(imagesArray.reverse()));
   } catch (error) {

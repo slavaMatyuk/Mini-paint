@@ -44,26 +44,24 @@ const HomePage: React.FC = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <StyledContainer>
-          <div>
-            <StyledButton type="submit">
-              <NavLink to={RoutesConst.PROFILE}>Profile</NavLink>
-            </StyledButton>
-            <StyledButton type="submit">
-              <NavLink to={RoutesConst.EDITOR}>Editor</NavLink>
-            </StyledButton>
-            <StyledSelect
-              value={painter}
-              onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}
-              style={{ width: '120px' }}
-            >
-              {usersArray.map((user: string) => (
-                <StyledOption key={user} value={user}>
-                  {user}
-                </StyledOption>
-              ))}
-            </StyledSelect>
-          </div>
+        <StyledContainer style={{ marginTop: '40px' }}>
+          <StyledButton type="submit">
+            <NavLink to={RoutesConst.PROFILE}>Profile</NavLink>
+          </StyledButton>
+          <StyledButton type="submit">
+            <NavLink to={RoutesConst.EDITOR}>Editor</NavLink>
+          </StyledButton>
+          <StyledSelect
+            value={painter}
+            onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}
+            style={{ width: '120px', margin: 0 }}
+          >
+            {usersArray.map((user: string) => (
+              <StyledOption key={user} value={user}>
+                {user}
+              </StyledOption>
+            ))}
+          </StyledSelect>
           <div>
             {images && images.length > 0 ? (
               filteredImages.map((image: ImageType) => <ImageContainer image={image} key={image.imageId} />)
