@@ -33,7 +33,7 @@ const LoginPage: React.FC = () => {
     setEmail('');
     setPassword('');
     if (error) {
-      notify('Fetching error');
+      notify('Auth error');
     }
   };
 
