@@ -11,7 +11,7 @@ import themes from './core/configs/styles/themes';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ThemeProvider theme={themes.light}>
+      <ThemeProvider theme={themes.dark}>
         <GlobalStyles />
         <App />
       </ThemeProvider>

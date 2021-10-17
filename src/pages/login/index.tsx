@@ -33,7 +33,7 @@ const LoginPage: React.FC = () => {
     setEmail('');
     setPassword('');
     if (error) {
-      notify('Auth error');
+      notify('Please, enter correct data or register!');
     }
   };
 

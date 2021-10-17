@@ -9,7 +9,7 @@ import StyledFlexRow from '../../configs/styles/StyledFlexRow';
 import StyledTitle from '../../configs/styles/StyledTitle';
 import { RootState } from '../../reducers';
 
-const Header: React.FC = React.memo(() => {
+const Header: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
   const onSignOut = () => {
@@ -21,8 +21,8 @@ const Header: React.FC = React.memo(() => {
         <StyledTitle>Mini Paint</StyledTitle>
         <ToastContainer autoClose={2000} />
         {user ? (
-          <StyledFlexRow style={{ width: '320px' }}>
-            <StyledTitle style={{ fontSize: '20px' }}>{user.email}</StyledTitle>
+          <StyledFlexRow>
+            <StyledTitle style={{ fontSize: '20px', marginRight: '10px' }}>{user.email}</StyledTitle>
             {user.photo ? (
               <img alt="user avatar" src={user.photo ? user.photo : ''} />
             ) : (
@@ -38,6 +38,6 @@ const Header: React.FC = React.memo(() => {
       </StyledFlexRow>
     </HeaderWrapper>
   );
-});
+};
 
 export default Header;
