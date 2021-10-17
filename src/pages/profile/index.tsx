@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { fetchImages } from '../../core/actions/imageContainerActions';
 import ImageContainer from '../../core/components/ImageContainer';
+import Spinner from '../../core/components/Spinner';
 import StyledAvatar from '../../core/configs/styles/StyledAvatar';
 import StyledButton from '../../core/configs/styles/StyledButton';
 import StyledContainer from '../../core/configs/styles/StyledContainer';
@@ -13,11 +14,14 @@ import { ImageType, RootStateType } from '../../core/interfaces';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const userName = useSelector((state: RootStateType) => state.auth.user?.email);
   const images = useSelector((state: RootStateType) => state.images.images);
 
   useEffect(() => {
+    setIsLoading(true);
     dispatch(fetchImages());
+    setIsLoading(false);
   }, [dispatch, userName]);
 
   return (
@@ -30,6 +34,7 @@ const ProfilePage: React.FC = () => {
         <StyledTitle style={{ fontSize: '28px' }}>{userName && getNameFromEmail(userName)}</StyledTitle>
       </StyledContainer>
       <div>
+        {isLoading && <Spinner />}
         {images && images.length > 0 ? (
           images.map((image: ImageType) => <ImageContainer image={image} key={image.imageId} />)
         ) : (
