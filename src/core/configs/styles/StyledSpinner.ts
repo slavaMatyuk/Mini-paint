@@ -5,10 +5,12 @@ const StyledSpinner = styled.svg`
   margin: 40px;
   width: 50px;
   height: 50px;
+  margin-top: 70px;
 
-  & .path {
-    stroke: '##00dd22';
+  & #path {
+    stroke: ${(props) => props.color || props.theme.spinner};
     stroke-linecap: round;
+    stroke-width: 4px;
     animation: dash 1.5s ease-in-out infinite;
   }
 

@@ -11,6 +11,7 @@ const dark: DefaultTheme = {
   canvas: '#fffeee',
   controls: '#696969',
   bgImage: darkImage,
+  spinner: '#000000',
 };
 
 export default dark;

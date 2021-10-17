@@ -11,6 +11,7 @@ const light: DefaultTheme = {
   canvas: '#fffeee',
   controls: '#87ceeb',
   bgImage: lightImage,
+  spinner: '#ffffff',
 };
 
 export default light;

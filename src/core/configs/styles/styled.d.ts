@@ -10,6 +10,7 @@ declare module 'styled-components' {
     canvas?: string;
     controls?: string;
     bgImage?: string;
+    spinner?: string;
   }
 }
 
