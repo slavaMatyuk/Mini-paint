@@ -3,7 +3,7 @@ import { ImageType, User } from '../../interfaces';
 import { db, storage } from './index';
 
 export async function fetchAllImages() {
-  const imagesRef = await db.collection('images');
+  const imagesRef = db.collection('images');
   const res = await imagesRef.get();
   return res;
 }

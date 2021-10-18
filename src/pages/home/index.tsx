@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
     if (!images.length) {
       notify('There are no pictures yet');
     }
-  }, [dispatch, images]);
+  }, [dispatch, images.length]);
 
   images.forEach((image: ImageType) => {
     if (!usersArray.includes(image.userEmail)) {
