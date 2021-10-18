@@ -107,4 +107,4 @@ interface SetErrorAction {
 }
 
 export type AuthAction = SetUserAction | LogOutAction | SetErrorAction;
-export type MouseEventType = number | null | undefined;
+export type MouseEventType = undefined | null | number;

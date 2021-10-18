@@ -5,7 +5,7 @@ declare module 'styled-components' {
     title?: string;
     primary?: string;
     secondary?: string;
-    text?: string;
+    text: string;
     bg?: string;
     canvas?: string;
     controls?: string;

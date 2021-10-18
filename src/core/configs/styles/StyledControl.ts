@@ -4,7 +4,7 @@ const StyledControl = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 3px;
-  border: none;
+  border: 1px solid transparent;
   outline: none;
   cursor: pointer;
   background-color: ${(props) => props.theme.controls};
@@ -12,8 +12,10 @@ const StyledControl = styled.button`
   transition: 0.2s;
 
   &:hover,
-  &:active {
+  &:active,
+  &.selected {
     opacity: 1;
+    border: 1px solid ${(props) => props.theme.text};
   }
 
   & img {
