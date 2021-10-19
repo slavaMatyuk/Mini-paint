@@ -26,9 +26,11 @@ const ProfilePage: React.FC = () => {
 
   return (
     <StyledContainer style={{ marginTop: '20px' }}>
-      <StyledButton type="submit">
-        <NavLink to={RoutesConst.HOME}>Home</NavLink>
-      </StyledButton>
+      <NavLink to={RoutesConst.HOME}>
+        <StyledButton type="submit">
+          Home
+        </StyledButton>
+      </NavLink>
       <StyledContainer style={{ marginTop: '20px' }}>
         <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
         <StyledTitle style={{ fontSize: '28px' }}>{userName && getNameFromEmail(userName)}</StyledTitle>

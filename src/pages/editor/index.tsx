@@ -9,12 +9,16 @@ import RoutesConst from '../../core/helpers/constants/routesConst';
 const EditorPage: React.FC = () => (
   <EditorWrapper>
     <StyledBtnsInEditor>
-      <StyledButton>
-        <NavLink to={RoutesConst.HOME}>Home</NavLink>
-      </StyledButton>
-      <StyledButton>
-        <NavLink to={RoutesConst.PROFILE}>Profile</NavLink>
-      </StyledButton>
+      <NavLink to={RoutesConst.HOME}>
+        <StyledButton type="submit">
+          Home
+        </StyledButton>
+      </NavLink>
+      <NavLink to={RoutesConst.PROFILE}>
+        <StyledButton type="submit">
+          Profile
+        </StyledButton>
+      </NavLink>
     </StyledBtnsInEditor>
     <Canvas />
   </EditorWrapper>

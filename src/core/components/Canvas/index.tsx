@@ -24,7 +24,7 @@ const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const [color, setColor] = useState<string>('black');
+  const [color, setColor] = useState<string>('#000000');
   const [dash, setDash] = useState(false);
   const [blur, setBlur] = useState(0);
   const [lineWidth, setLineWidth] = useState<number>(3);

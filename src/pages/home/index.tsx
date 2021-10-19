@@ -45,12 +45,16 @@ const HomePage: React.FC = () => {
         <Spinner />
       ) : (
         <StyledContainer style={{ marginTop: '40px' }}>
-          <StyledButton type="submit">
-            <NavLink to={RoutesConst.PROFILE}>Profile</NavLink>
-          </StyledButton>
-          <StyledButton type="submit">
-            <NavLink to={RoutesConst.EDITOR}>Editor</NavLink>
-          </StyledButton>
+          <NavLink to={RoutesConst.PROFILE}>
+            <StyledButton type="submit">
+              Profile
+            </StyledButton>
+          </NavLink>
+          <NavLink to={RoutesConst.EDITOR}>
+            <StyledButton type="submit">
+              Editor
+            </StyledButton>
+          </NavLink>
           <StyledSelect
             value={painter}
             onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}
