@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import theme from '../../configs/styles/themes/light';
 import { createImageInstanceInDB } from '../../actions/imageContainerActions';
 import { storage } from '../../configs/firebase';
 import StyledOption from '../../configs/styles/StyledOption';
