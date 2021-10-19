@@ -29,7 +29,7 @@ const App: React.FC = () => {
             uid: user1.uid,
             email: user1.email,
             photo: user1.photoURL,
-          })
+          }),
         );
         setIsLoading(false);
       } else {

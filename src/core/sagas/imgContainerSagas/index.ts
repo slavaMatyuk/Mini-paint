@@ -50,7 +50,9 @@ function* uploadImageWorker(payload: AnyAction) {
 }
 
 function* createImageInstanceWorker(payload: AnyAction) {
-  const { user, imageURL, imageId, imagePath } = payload;
+  const {
+    user, imageURL, imageId, imagePath,
+  } = payload;
   try {
     yield call(createNewImageReferenceInDB, user, imageURL, imageId, imagePath);
   } catch (error) {

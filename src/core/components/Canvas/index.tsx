@@ -97,12 +97,12 @@ const Canvas: React.FC = () => {
             mouseDownX,
             mouseDownY,
             Math.sqrt(
-              (e.pageX - mouseDownX - wrapperRef.current.offsetLeft) ** 2 +
-                (e.pageY - mouseDownY - wrapperRef.current.offsetTop) ** 2
+              (e.pageX - mouseDownX - wrapperRef.current.offsetLeft) ** 2
+                + (e.pageY - mouseDownY - wrapperRef.current.offsetTop) ** 2,
             ),
             0,
             Math.PI * 2,
-            false
+            false,
           );
           context.stroke();
           break;
@@ -149,22 +149,30 @@ const Canvas: React.FC = () => {
   return (
     <div>
       <ControlsWrapper>
-        <StyledControl type="button" onClick={() => setTool('brush')}>
+        <StyledControl type="button" className={tool === 'brush' ? 'selected' : ''} onClick={() => setTool('brush')}>
           <img src={BrushPath} alt="brush" title="Brush" />
         </StyledControl>
-        <StyledControl type="button" onClick={() => setTool('rectangle')}>
+        <StyledControl
+          type="button"
+          className={tool === 'rectangle' ? 'selected' : ''}
+          onClick={() => setTool('rectangle')}
+        >
           <img src={RectPath} alt="rectangle" title="Rectangle" />
         </StyledControl>
-        <StyledControl type="button" onClick={() => setTool('circle')}>
+        <StyledControl
+          type="button"
+          className={tool === 'circle' ? 'selected' : ''}
+          onClick={() => setTool('circle')}
+        >
           <img src={CirclePath} alt="circle" title="Circle" />
         </StyledControl>
-        <StyledControl type="button" onClick={() => setTool('line')}>
+        <StyledControl type="button" className={tool === 'line' ? 'selected' : ''} onClick={() => setTool('line')}>
           <img src={LinePath} alt="line" title="Line" />
         </StyledControl>
-        <StyledControl type="button" onClick={handleDash}>
+        <StyledControl type="button" className={dash ? 'selected' : ''} onClick={handleDash}>
           <img src={DashPath} alt="dash" title="Dashed" />
         </StyledControl>
-        <StyledControl type="button" onClick={handleBlur}>
+        <StyledControl type="button" className={blur > 0 ? 'selected' : ''} onClick={handleBlur}>
           <img src={BlurPath} alt="blur" title="Blur" />
         </StyledControl>
         <Input type="color" value={color} onChange={(event) => setColor(event.target.value)} label="" />

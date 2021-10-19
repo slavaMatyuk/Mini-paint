@@ -12,7 +12,7 @@ export async function createNewImageReferenceInDB(
   user: User,
   imageURL: ImageType,
   imageId: ImageType,
-  imagePath: ImageType
+  imagePath: ImageType,
 ) {
   const newImageRef = db.collection('images').doc(`${imageId}`);
   const res = await newImageRef.set({

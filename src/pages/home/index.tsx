@@ -36,8 +36,8 @@ const HomePage: React.FC = () => {
     }
   });
 
-  const filteredImages =
-    painter === 'All painters' ? images : images.filter((image: ImageType) => image.userEmail === painter);
+  const filteredImages = painter === 'All painters'
+    ? images : images.filter((image: ImageType) => image.userEmail === painter);
 
   return (
     <div>
