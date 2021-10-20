@@ -128,9 +128,9 @@ const Canvas: React.FC = () => {
 
   const saveImage = async () => {
     const date = Date.now();
-    const imageURL = subContext?.canvas?.toDataURL();
+    const imageURL = subContext?.canvas?.toDataURL() || '';
     const imagePath = `library/${user.uid}/photo${date}.png`;
-    await storage.ref().child(imagePath).putString(imageURL!, 'data_url');
+    await storage.ref().child(imagePath).putString(imageURL, 'data_url');
     const imageDatabaseURL = await storage.ref(`library/${user.uid}/photo${date}.png`).getDownloadURL();
     dispatch(createImageInstanceInDB(user, imageDatabaseURL, date, imagePath));
     history.push('/');

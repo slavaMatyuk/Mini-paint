@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ImageType, User } from '../../interfaces';
 import { db, storage } from './index';
 

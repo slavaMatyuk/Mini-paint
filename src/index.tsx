@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import App from './core/components/App';
+import App from './App';
 import GlobalStyles from './GlobalStyles';
 import store from './core/services/store';
 import themes from './core/configs/styles/themes';

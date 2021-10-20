@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import RoutesConst from '../../helpers/constants/routesConst';
-import EditorPage from '../../../pages/editor';
-import Homepage from '../../../pages/home';
-import LoginPage from '../../../pages/login';
-import ProfilePage from '../../../pages/profile';
-import RegisterPage from '../../../pages/register';
-import { setCurrentUser } from '../../actions/authActions';
-import { auth } from '../../configs/firebase';
-import StyledApp from '../../configs/styles/StyledApp';
-import StyledContainer from '../../configs/styles/StyledContainer';
-import { RootStateType } from '../../interfaces';
-import Header from '../Header';
-import Spinner from '../Spinner';
+import RoutesConst from './core/helpers/constants/routesConst';
+import EditorPage from './pages/editor';
+import Homepage from './pages/home';
+import LoginPage from './pages/login';
+import ProfilePage from './pages/profile';
+import RegisterPage from './pages/register';
+import { setCurrentUser } from './core/actions/authActions';
+import { auth } from './core/configs/firebase';
+import StyledApp from './core/configs/styles/StyledApp';
+import StyledContainer from './core/configs/styles/StyledContainer';
+import { RootStateType } from './core/interfaces';
+import Header from './core/components/Header';
+import Spinner from './core/components/Spinner';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
