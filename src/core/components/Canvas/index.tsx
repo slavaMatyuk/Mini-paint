@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { createImageInstanceInDB } from '../../actions/imageContainerActions';
 import { storage } from '../../configs/firebase';
-import StyledOption from '../../configs/styles/StyledOption';
-import StyledSelect from '../../configs/styles/StyledSelect';
+import StyledOption from '../styles/StyledOption';
+import StyledSelect from '../styles/StyledSelect';
 import { RootState } from '../../reducers';
 import Input from '../Input';
-import CanvasWrapper from '../../configs/styles/CanvasWrapper';
-import StyledControl from '../../configs/styles/StyledControl';
+import CanvasWrapper from '../styles/CanvasWrapper';
+import StyledControl from '../styles/StyledControl';
 import BrushPath from '../../../assets/icons/pencil.png';
 import LinePath from '../../../assets/icons/line.png';
 import RectPath from '../../../assets/icons/rectangle.png';
@@ -17,7 +17,7 @@ import ClearPath from '../../../assets/icons/trash.png';
 import SavePath from '../../../assets/icons/saving.png';
 import BlurPath from '../../../assets/icons/blur.png';
 import DashPath from '../../../assets/icons/dash.png';
-import ControlsWrapper from '../../configs/styles/ControlsWrapper';
+import ControlsWrapper from '../styles/ControlsWrapper';
 import { MouseEventType } from '../../interfaces';
 
 const Canvas: React.FC = () => {

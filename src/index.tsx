@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import GlobalStyles from './GlobalStyles';
-import store from './core/services/store';
-import themes from './core/configs/styles/themes';
+import store from './core/reducers/store';
+import themes from './core/components/styles/themes';
 
 ReactDOM.render(
   <Provider store={store}>

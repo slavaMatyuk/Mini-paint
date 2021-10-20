@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { signOut } from '../../actions/authActions';
-import HeaderWrapper from '../../configs/styles/HeaderWrapper';
-import StyledAvatar from '../../configs/styles/StyledAvatar';
-import StyledButton from '../../configs/styles/StyledButton';
-import StyledFlexRow from '../../configs/styles/StyledFlexRow';
-import StyledTitle from '../../configs/styles/StyledTitle';
+import HeaderWrapper from '../styles/HeaderWrapper';
+import StyledAvatar from '../styles/StyledAvatar';
+import StyledButton from '../styles/StyledButton';
+import StyledFlexRow from '../styles/StyledFlexRow';
+import StyledTitle from '../styles/StyledTitle';
 import { RootState } from '../../reducers';
 
 const Header: React.FC = () => {

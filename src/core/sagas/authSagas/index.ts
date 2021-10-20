@@ -7,7 +7,7 @@ import {
   getAuthDataFromEmailSignIn,
   getAuthDataFromEmailSignUp,
   signOut,
-} from '../../configs/firebase/authFirebase';
+} from '../../services/firebase/authFirebase';
 import { AuthActionTypes } from '../../interfaces';
 
 function* signUpWithEmailAndPasswordWorker(payload: AnyAction) {

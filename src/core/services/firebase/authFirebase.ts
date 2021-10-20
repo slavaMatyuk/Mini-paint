@@ -1,5 +1,5 @@
 import { User } from '../../interfaces';
-import { auth, db } from './index';
+import { auth, db } from '../../configs/firebase';
 
 export async function getAuthDataFromEmailSignIn(email: string, password: string) {
   const res = await auth.signInWithEmailAndPassword(email, password);

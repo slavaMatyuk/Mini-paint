@@ -9,7 +9,7 @@ import {
   deleteImageInStorage,
   fetchAllImages,
   loadImageToStorage,
-} from '../../configs/firebase/imgFirebase';
+} from '../../services/firebase/imgFirebase';
 import { ImageType, ImgActionTypes } from '../../interfaces';
 
 function* fetchImagesWorker(): Generator {

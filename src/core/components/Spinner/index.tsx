@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledSpinner from '../../configs/styles/StyledSpinner';
+import StyledSpinner from '../styles/StyledSpinner';
 
 const Spinner: React.FC = () => (
   <StyledSpinner viewBox="0 0 50 50">

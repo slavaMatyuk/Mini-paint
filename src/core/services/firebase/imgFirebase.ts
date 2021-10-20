@@ -1,5 +1,5 @@
 import { ImageType, User } from '../../interfaces';
-import { db, storage } from './index';
+import { db, storage } from '../../configs/firebase';
 
 export async function fetchAllImages() {
   const imagesRef = db.collection('images');

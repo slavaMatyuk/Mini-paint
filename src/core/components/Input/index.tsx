@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledFlexRow from '../../configs/styles/StyledFlexRow';
+import StyledFlexRow from '../styles/StyledFlexRow';
 import { InputProps } from '../../interfaces';
 
 const Input: React.FC<InputProps> = ({
