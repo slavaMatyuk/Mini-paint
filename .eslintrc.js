@@ -17,8 +17,8 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'react',
     '@typescript-eslint',
+    'react-hooks',
   ],
   settings: {
     'import/resolver': {
@@ -33,6 +33,8 @@ module.exports = {
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
     'react/jsx-props-no-spreading': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-filename-extension': [
       2,
       {

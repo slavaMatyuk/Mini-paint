@@ -19,6 +19,7 @@ import BlurPath from '../../../assets/icons/blur.png';
 import DashPath from '../../../assets/icons/dash.png';
 import ControlsWrapper from '../styles/ControlsWrapper';
 import { MouseEventType } from '../../interfaces';
+import AMOUNT_OF_WIDTH_POINTS from '../../helpers/constants/amountOfWidthPoints';
 
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -140,11 +141,6 @@ const Canvas: React.FC = () => {
 
   const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
 
-  const amountOfWidthOption = [];
-  for (let i = 1; i < 101; i += 1) {
-    amountOfWidthOption.push(i);
-  }
-
   return (
     <div>
       <ControlsWrapper>
@@ -180,7 +176,7 @@ const Canvas: React.FC = () => {
           style={{ width: '60px' }}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number)}
         >
-          {amountOfWidthOption.map((num) => (
+          {AMOUNT_OF_WIDTH_POINTS.map((num) => (
             <StyledOption key={num} value={num}>
               {num}
             </StyledOption>
