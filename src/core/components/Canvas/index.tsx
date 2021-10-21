@@ -7,16 +7,9 @@ import StyledOption from '../styles/StyledOption';
 import StyledSelect from '../styles/StyledSelect';
 import { RootState } from '../../reducers';
 import Input from '../Input';
+import iconsConst from '../../helpers/constants/iconsConst';
 import CanvasWrapper from '../styles/CanvasWrapper';
 import StyledControl from '../styles/StyledControl';
-import BrushPath from '../../../assets/icons/pencil.png';
-import LinePath from '../../../assets/icons/line.png';
-import RectPath from '../../../assets/icons/rectangle.png';
-import CirclePath from '../../../assets/icons/circle.png';
-import ClearPath from '../../../assets/icons/trash.png';
-import SavePath from '../../../assets/icons/saving.png';
-import BlurPath from '../../../assets/icons/blur.png';
-import DashPath from '../../../assets/icons/dash.png';
 import ControlsWrapper from '../styles/ControlsWrapper';
 import { MouseEventType } from '../../interfaces';
 import AMOUNT_OF_WIDTH_POINTS from '../../helpers/constants/amountOfWidthPoints';
@@ -145,30 +138,30 @@ const Canvas: React.FC = () => {
     <div>
       <ControlsWrapper>
         <StyledControl type="button" className={tool === 'brush' ? 'selected' : ''} onClick={() => setTool('brush')}>
-          <img src={BrushPath} alt="brush" title="Brush" />
+          <img src={iconsConst.BRUSH} alt="brush" title="Brush" />
         </StyledControl>
         <StyledControl
           type="button"
           className={tool === 'rectangle' ? 'selected' : ''}
           onClick={() => setTool('rectangle')}
         >
-          <img src={RectPath} alt="rectangle" title="Rectangle" />
+          <img src={iconsConst.RECT} alt="rectangle" title="Rectangle" />
         </StyledControl>
         <StyledControl
           type="button"
           className={tool === 'circle' ? 'selected' : ''}
           onClick={() => setTool('circle')}
         >
-          <img src={CirclePath} alt="circle" title="Circle" />
+          <img src={iconsConst.CIRCLE} alt="circle" title="Circle" />
         </StyledControl>
         <StyledControl type="button" className={tool === 'line' ? 'selected' : ''} onClick={() => setTool('line')}>
-          <img src={LinePath} alt="line" title="Line" />
+          <img src={iconsConst.LINE} alt="line" title="Line" />
         </StyledControl>
         <StyledControl type="button" className={dash ? 'selected' : ''} onClick={handleDash}>
-          <img src={DashPath} alt="dash" title="Dashed" />
+          <img src={iconsConst.DASH} alt="dash" title="Dashed" />
         </StyledControl>
         <StyledControl type="button" className={blur > 0 ? 'selected' : ''} onClick={handleBlur}>
-          <img src={BlurPath} alt="blur" title="Blur" />
+          <img src={iconsConst.BLUR} alt="blur" title="Blur" />
         </StyledControl>
         <Input type="color" value={color} onChange={(event) => setColor(event.target.value)} label="" />
         <StyledSelect
@@ -183,10 +176,10 @@ const Canvas: React.FC = () => {
           ))}
         </StyledSelect>
         <StyledControl onClick={clearCanvas}>
-          <img src={ClearPath} alt="clear" title="Clear" />
+          <img src={iconsConst.CLEAR} alt="clear" title="Clear" />
         </StyledControl>
         <StyledControl onClick={saveImage}>
-          <img src={SavePath} alt="save" title="Save" />
+          <img src={iconsConst.SAVE} alt="save" title="Save" />
         </StyledControl>
       </ControlsWrapper>
       <CanvasWrapper ref={wrapperRef}>
