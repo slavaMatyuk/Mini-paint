@@ -14,9 +14,9 @@ import { ImageType, ImgActionTypes } from '../../interfaces';
 
 function* fetchImagesWorker(): Generator {
   try {
-    const imagesArray: Array<ImageType> = [];
-    const querySnapshot: any = yield call(fetchAllImages);
-    querySnapshot.forEach((doc: any) => imagesArray.push(doc.data()));
+    const imagesArray: ImageType[] = [];
+    const querySnapshot: unknown = yield call(fetchAllImages);
+    (querySnapshot as []).forEach((doc: { data: () => ImageType}) => imagesArray.push(doc.data()));
     yield put(setImages(imagesArray.reverse()));
   } catch (error) {
     if (error instanceof Error) {

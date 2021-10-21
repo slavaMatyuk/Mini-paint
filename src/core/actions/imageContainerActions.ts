@@ -9,12 +9,12 @@ export const setImages = (images: ImageType[]) => ({
   payload: images,
 });
 
-export const removeImage = (imageId: any) => ({
+export const removeImage = (imageId: number) => ({
   type: ImgActionTypes.REMOVE_IMAGE,
   payload: imageId,
 });
 
-export const deleteImage = (imagePath: any, imageId: any) => ({
+export const deleteImage = (imagePath: string, imageId: number) => ({
   type: ImgActionTypes.DELETE_IMAGE,
   imagePath,
   imageId,
