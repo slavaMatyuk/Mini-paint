@@ -1,13 +1,13 @@
 import { User } from '../../interfaces';
 import { auth, db } from '../../configs/firebase';
 
-export async function getAuthDataFromEmailSignIn(email: string, password: string) {
-  const res = await auth.signInWithEmailAndPassword(email, password);
+export async function getAuthDataFromEmailSignIn(payload: {email: string, password: string}) {
+  const res = await auth.signInWithEmailAndPassword(payload.email, payload.password);
   return res;
 }
 
-export async function getAuthDataFromEmailSignUp(email: string, password: string) {
-  const res = await auth.createUserWithEmailAndPassword(email, password);
+export async function getAuthDataFromEmailSignUp(payload: {email: string, password: string}) {
+  const res = await auth.createUserWithEmailAndPassword(payload.email, payload.password);
   return res;
 }
 

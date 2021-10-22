@@ -1,4 +1,14 @@
-import { ImgActionTypes, ImageType, User } from '../interfaces';
+import { ImageType, User } from '../interfaces';
+
+export const ImgActionTypes = {
+  FETCH_IMAGES: 'FETCH_IMAGES',
+  SET_IMAGES: 'SET_IMAGES',
+  REMOVE_IMAGE: 'REMOVE_IMAGE',
+  DELETE_IMAGE: 'DELETE_IMAGE',
+  UPLOAD_IMAGE: 'UPLOAD_IMAGE',
+  SAVE_IMAGE: 'SAVE_IMAGE',
+  CREATE_IMAGE_INSTANCE_IN_DATABASE: 'CREATE_IMAGE_INSTANCE_IN_DATABASE',
+};
 
 export const fetchImages = () => ({
   type: ImgActionTypes.FETCH_IMAGES,
@@ -18,18 +28,6 @@ export const deleteImage = (imagePath: string, imageId: number) => ({
   type: ImgActionTypes.DELETE_IMAGE,
   imagePath,
   imageId,
-});
-
-export const saveImage = (imagePath: string, imageURL: string) => ({
-  type: ImgActionTypes.SAVE_IMAGE,
-  imagePath,
-  imageURL,
-});
-
-export const uploadImage = (imagePath: string, imageURL: string) => ({
-  type: ImgActionTypes.UPLOAD_IMAGE,
-  imagePath,
-  imageURL,
 });
 
 export const createImageInstanceInDB = (user: User, imageURL: string, imageId: number, imagePath: string) => ({
