@@ -1,5 +1,5 @@
 import {
-  takeEvery, call, all, put,
+  takeEvery, call, all, put, fork,
 } from '@redux-saga/core/effects';
 import { AnyAction } from 'redux';
 import { setErrorAction } from '../../actions/authActions';
@@ -77,9 +77,9 @@ export function* getImageFetchAsyncWatcher() {
 
 export default function* imageSaga(): Generator {
   yield all([
-    call(getUserImageFetchAsyncWatcher),
-    call(delImageFetchAsyncWatcher),
-    call(getImageFetchAsyncWatcher),
-    call(uploadImageFetchAsyncWatcher),
+    fork(getUserImageFetchAsyncWatcher),
+    fork(delImageFetchAsyncWatcher),
+    fork(getImageFetchAsyncWatcher),
+    fork(uploadImageFetchAsyncWatcher),
   ]);
 }

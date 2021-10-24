@@ -31,23 +31,23 @@ export const saveImage = async (dataUrl: string, userID: string, userName: strin
   await imgRef.putString(dataUrl, 'data_url');
   const imgUrl = await storage.refFromURL(`gs://${process.env.REACT_APP_STORAGE_BUCKET}/${path}`).getDownloadURL();
 
-  const saveImageToDB = () => db.collection('users').doc(userID.toString()).update({
+  const saveImageToDB = () => db.collection('users').doc(`${userID}`).update({
     images: firebase.firestore.FieldValue.arrayUnion({ imgUrl, id }),
   });
 
-  db.collection('users').doc(userID.toString()).get().then((doc) => {
+  db.collection('users').doc(`${userID}`).get().then((doc) => {
     if (doc.exists) {
       saveImageToDB();
     } else {
-      db.collection('users').doc(userID.toString()).set({ userName });
+      db.collection('users').doc(`${userID}`).set({ userName });
       saveImageToDB();
     }
   });
 };
 
 export const deleteUserImage = async (id: string, userID: string, imgUrl: string, userName: string) => {
-  await db.collection('users').doc(userID.toString());
-  db.collection('users').doc(userID.toString()).update({
+  await db.collection('users').doc(`${userID}`);
+  db.collection('users').doc(`${userID}`).update({
     images: firebase.firestore.FieldValue.arrayRemove({ id, imgUrl }),
   });
   const path = `library/${userID}/photo:${id}`;

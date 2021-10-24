@@ -1,5 +1,5 @@
 import {
-  all, call, put, takeEvery,
+  all, call, fork, put, takeEvery,
 } from '@redux-saga/core/effects';
 import { AnyAction } from 'redux';
 import {
@@ -8,25 +8,21 @@ import {
   LOG_IN,
   LOG_OUT,
 } from '../../actions/authActions';
-import { getAuthDataFromEmailSignIn, getAuthDataFromEmailSignUp, signOut } from '../../services/firebase/authFirebase';
-
-export interface FirebaseCreateUserResponse {
-    userID: string,
-    userName: string,
-    images: string[]
-}
+import { DBcreateUserRes } from '../../interfaces';
+import {
+  createNewUserInDB, getAuthDataFromEmailSignIn, getAuthDataFromEmailSignUp, signOut,
+} from '../../services/firebase/authFirebase';
 
 export function* createUserWithEmailFetchWorker(data: AnyAction) {
   const { payload } = data;
   try {
-    yield call(getAuthDataFromEmailSignUp, payload);
-    // const response: FirebaseCreateUserResponse = yield call(getAuthDataFromEmailSignUp, payload);
-    // const currentUser = {
-    //   userID: response.userID,
-    //   userName: response.userName,
-    //   images: response.images,
-    // };
-    // yield call(createNewUserInDB, currentUser);
+    const response: DBcreateUserRes = yield call(getAuthDataFromEmailSignUp, payload);
+    const currentUser = {
+      userID: response.userID,
+      userName: response.userName,
+      images: response.images,
+    };
+    yield call(createNewUserInDB, currentUser);
   } catch (error) {
     if (error instanceof Error) {
       yield put(setErrorAction(error.message));
@@ -36,7 +32,7 @@ export function* createUserWithEmailFetchWorker(data: AnyAction) {
 
 export function* signInWithEmailFetchWorker(data: AnyAction) {
   const { payload } = data;
-  const userData: { userName: string, userID: string} = {
+  const userData: { userName: string, userID: string } = {
     userName: '',
     userID: '',
   };
@@ -78,8 +74,8 @@ export function* signInWithEmailFetchAsyncWatcher() {
 
 export default function* authSaga(): Generator {
   yield all([
-    call(signOutFetchAsyncWatcher),
-    call(createUserWithEmailFetchAsyncWatcher),
-    call(signInWithEmailFetchAsyncWatcher),
+    fork(signOutFetchAsyncWatcher),
+    fork(createUserWithEmailFetchAsyncWatcher),
+    fork(signInWithEmailFetchAsyncWatcher),
   ]);
 }

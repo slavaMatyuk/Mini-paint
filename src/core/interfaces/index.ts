@@ -5,3 +5,9 @@ export interface AppState {
   auth: AuthState,
   image: ImageState,
 }
+
+export interface DBcreateUserRes {
+  userID: string,
+  userName: string,
+  images: string[]
+}
