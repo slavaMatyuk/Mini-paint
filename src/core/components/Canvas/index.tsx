@@ -1,51 +1,73 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { createImageInstanceInDB } from '../../actions/imageContainerActions';
-import { storage } from '../../configs/firebase';
-import StyledOption from '../styles/StyledOption';
-import StyledSelect from '../styles/StyledSelect';
-import { RootState } from '../../reducers';
-import Input from '../Input';
+import { setDataUrlAction } from '../../actions/imageContainerActions';
 import iconsConst from '../../helpers/constants/iconsConst';
+import { AppState } from '../../interfaces';
 import CanvasWrapper from '../styles/CanvasWrapper';
 import StyledControl from '../styles/StyledControl';
-import ControlsWrapper from '../styles/ControlsWrapper';
-import { MouseEventType } from '../../interfaces';
-import AMOUNT_OF_WIDTH_POINTS from '../../helpers/constants/amountOfWidthPoints';
 
-const Canvas: React.FC = () => {
+interface CanvasProps {
+  tool: string;
+  color: string;
+  dash: boolean;
+  blur: number;
+  lineWidth: number;
+}
+
+const Canvas: React.FC<CanvasProps> = ({
+  tool, color, dash, blur, lineWidth,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const [color, setColor] = useState<string>('#000000');
-  const [dash, setDash] = useState(false);
-  const [blur, setBlur] = useState(0);
-  const [lineWidth, setLineWidth] = useState<number>(3);
-  const [mouseDownX, setMouseDownX] = useState<MouseEventType>();
-  const [mouseDownY, setMouseDownY] = useState<MouseEventType>();
+
+  const [canvasWidth, setCanvasWidth] = useState(0);
+  const [canvasHeight, setCanvasHeight] = useState(0);
+  const [mouseDownX, setMouseDownX] = useState<number | null>();
+  const [mouseDownY, setMouseDownY] = useState<number | null>();
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [subContext, setSubContext] = useState<CanvasRenderingContext2D | null>(null);
-  const [tool, setTool] = useState('brush');
-  const user = useSelector((state: RootState) => state.auth.user);
-  const history = useHistory();
   const dispatch = useDispatch();
 
+  const userName = useSelector((state: AppState) => state.auth.userName);
+  const userID = useSelector((state: AppState) => state.auth.userID);
+
   useEffect(() => {
-    if (canvasRef.current && subCanvasRef.current) {
+    if (canvasRef.current && subCanvasRef.current && wrapperRef.current?.clientWidth) {
+      setCanvasWidth(wrapperRef.current.offsetWidth);
+      setCanvasHeight(wrapperRef.current.offsetHeight);
       setContext(canvasRef.current.getContext('2d'));
       setSubContext(subCanvasRef.current.getContext('2d'));
     }
   }, []);
 
+  useEffect(() => {
+    if (canvasRef.current && subCanvasRef.current && wrapperRef.current?.clientWidth) {
+      canvasRef.current.width = subCanvasRef.current.width;
+      canvasRef.current.height = subCanvasRef.current.height;
+      subCanvasRef.current.width = canvasWidth;
+      subCanvasRef.current.height = canvasHeight;
+    }
+  }, [canvasWidth, canvasHeight]);
+
   const clearContext = (ctx: CanvasRenderingContext2D, ref: React.MutableRefObject<HTMLCanvasElement>) => {
-    ctx!.clearRect(0, 0, ref.current!.width, ref.current!.height);
+    ctx.clearRect(0, 0, ref.current.width, ref.current.height);
   };
 
   const clearCanvas = () => {
     if (context && subContext && canvasRef && subCanvasRef) {
       clearContext(context, canvasRef as React.MutableRefObject<HTMLCanvasElement>);
       clearContext(subContext, subCanvasRef as React.MutableRefObject<HTMLCanvasElement>);
+    }
+  };
+
+  const setDataUrl = (dataUrl: string) => {
+    dispatch(setDataUrlAction(dataUrl, userID, userName));
+  };
+
+  const handleSaveImage = () => {
+    if (subContext) {
+      setDataUrl(subContext?.canvas.toDataURL());
     }
   };
 
@@ -120,74 +142,20 @@ const Canvas: React.FC = () => {
     }
   };
 
-  const saveImage = async () => {
-    const date = Date.now();
-    const imageURL = subContext?.canvas?.toDataURL() || '';
-    const imagePath = `library/${user.uid}/photo${date}.png`;
-    await storage.ref().child(imagePath).putString(imageURL, 'data_url');
-    const imageDatabaseURL = await storage.ref(`library/${user.uid}/photo${date}.png`).getDownloadURL();
-    dispatch(createImageInstanceInDB(user, imageDatabaseURL, date, imagePath));
-    history.push('/');
-  };
-
-  const handleDash = () => setDash(dash === false);
-
-  const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
-
   return (
     <div>
-      <ControlsWrapper>
-        <StyledControl type="button" className={tool === 'brush' ? 'selected' : ''} onClick={() => setTool('brush')}>
-          <img src={iconsConst.BRUSH} alt="brush" title="Brush" />
-        </StyledControl>
-        <StyledControl
-          type="button"
-          className={tool === 'rectangle' ? 'selected' : ''}
-          onClick={() => setTool('rectangle')}
-        >
-          <img src={iconsConst.RECT} alt="rectangle" title="Rectangle" />
-        </StyledControl>
-        <StyledControl
-          type="button"
-          className={tool === 'circle' ? 'selected' : ''}
-          onClick={() => setTool('circle')}
-        >
-          <img src={iconsConst.CIRCLE} alt="circle" title="Circle" />
-        </StyledControl>
-        <StyledControl type="button" className={tool === 'line' ? 'selected' : ''} onClick={() => setTool('line')}>
-          <img src={iconsConst.LINE} alt="line" title="Line" />
-        </StyledControl>
-        <StyledControl type="button" className={dash ? 'selected' : ''} onClick={handleDash}>
-          <img src={iconsConst.DASH} alt="dash" title="Dashed" />
-        </StyledControl>
-        <StyledControl type="button" className={blur > 0 ? 'selected' : ''} onClick={handleBlur}>
-          <img src={iconsConst.BLUR} alt="blur" title="Blur" />
-        </StyledControl>
-        <Input type="color" value={color} onChange={(event) => setColor(event.target.value)} label="" />
-        <StyledSelect
-          value={lineWidth}
-          style={{ width: '60px' }}
-          onChange={(e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number)}
-        >
-          {AMOUNT_OF_WIDTH_POINTS.map((num) => (
-            <StyledOption key={num} value={num}>
-              {num}
-            </StyledOption>
-          ))}
-        </StyledSelect>
-        <StyledControl onClick={clearCanvas}>
-          <img src={iconsConst.CLEAR} alt="clear" title="Clear" />
-        </StyledControl>
-        <StyledControl onClick={saveImage}>
-          <img src={iconsConst.SAVE} alt="save" title="Save" />
-        </StyledControl>
-      </ControlsWrapper>
+      <StyledControl onClick={clearCanvas}>
+        <img src={iconsConst.CLEAR} alt="clear" title="Clear" />
+      </StyledControl>
+      <StyledControl onClick={handleSaveImage}>
+        <img src={iconsConst.SAVE} alt="save" title="Save" />
+      </StyledControl>
       <CanvasWrapper ref={wrapperRef}>
-        <canvas ref={subCanvasRef} width={600} height={400} />
+        <canvas ref={subCanvasRef} width={canvasWidth} height={canvasHeight} />
         <canvas
           ref={canvasRef}
-          width={600}
-          height={400}
+          width={canvasWidth}
+          height={canvasHeight}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}

@@ -1,81 +1,88 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchImages } from '../../core/actions/imageContainerActions';
-import ImageContainer from '../../core/components/ImageContainer';
-import Spinner from '../../core/components/Spinner';
+import { getAllImagesFromDbAction, sortImagesAction } from '../../core/actions/imageContainerActions';
+import Input from '../../core/components/Input';
+import StyledAvatar from '../../core/components/styles/StyledAvatar';
 import StyledButton from '../../core/components/styles/StyledButton';
 import StyledContainer from '../../core/components/styles/StyledContainer';
-import StyledOption from '../../core/components/styles/StyledOption';
-import StyledSelect from '../../core/components/styles/StyledSelect';
-import StyledTitle from '../../core/components/styles/StyledTitle';
+import checkObject from '../../core/helpers/checkObject';
 import RoutesConst from '../../core/helpers/constants/routesConst';
+import handleSortImages from '../../core/helpers/handleSortImages';
 import notify from '../../core/helpers/notify';
-import { ImageType, RootStateType } from '../../core/interfaces';
+import { AppState } from '../../core/interfaces';
 
 const HomePage: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [painter, setPainter] = useState('All painters');
   const dispatch = useDispatch();
-  const images = useSelector((state: RootStateType) => state.images.images);
-  const usersArray: Array<string> = ['All painters'];
+  const [inputValue, setInputValue] = useState('');
+  const sortedImagesData = useSelector((state: AppState) => state.image.sortedImagesData);
+  const imagesData = useSelector((state: AppState) => state.image.imagesData);
+
+  console.log(`OOOOOOOOOOOOO ${imagesData}`);
+
+  const sortImagesData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    return dispatch(sortImagesAction(handleSortImages(imagesData, e.target.value)));
+  };
 
   useEffect(() => {
-    setIsLoading(true);
-    dispatch(fetchImages());
-    setIsLoading(false);
-    if (!images.length) {
-      notify('There are no pictures yet');
-    }
-  }, [dispatch, images.length]);
-
-  images.forEach((image: ImageType) => {
-    if (!usersArray.includes(image.userEmail)) {
-      usersArray.push(image.userEmail);
-    }
-  });
-
-  const filteredImages = painter === 'All painters'
-    ? images : images.filter((image: ImageType) => image.userEmail === painter);
+    dispatch(getAllImagesFromDbAction());
+  }, [dispatch]);
 
   return (
-    <div>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <StyledContainer style={{ marginTop: '40px' }}>
-          <NavLink to={RoutesConst.PROFILE}>
-            <StyledButton type="submit">
-              Profile
-            </StyledButton>
-          </NavLink>
-          <NavLink to={RoutesConst.EDITOR}>
-            <StyledButton type="submit">
-              Editor
-            </StyledButton>
-          </NavLink>
-          <StyledSelect
-            value={painter}
-            onChange={(e: ChangeEvent<{ value: unknown }>) => setPainter(e.target.value as string)}
-            style={{ width: '120px', margin: 0 }}
-          >
-            {usersArray.map((user: string) => (
-              <StyledOption key={user} value={user}>
-                {user}
-              </StyledOption>
-            ))}
-          </StyledSelect>
-          <div>
-            {images && images.length > 0 ? (
-              filteredImages.map((image: ImageType) => <ImageContainer image={image} key={image.imageId} />)
-            ) : (
-              <StyledTitle>No any pictures</StyledTitle>
-            )}
-          </div>
-        </StyledContainer>
-      )}
-    </div>
+    <StyledContainer style={{ marginTop: '40px' }}>
+      <NavLink to={RoutesConst.PROFILE}>
+        <StyledButton type="submit">
+          Profile
+        </StyledButton>
+      </NavLink>
+      <NavLink to={RoutesConst.EDITOR}>
+        <StyledButton type="submit">
+          Editor
+        </StyledButton>
+      </NavLink>
+      <Input
+        type="text"
+        onChange={sortImagesData}
+        name="email"
+        placeholder="Enter name"
+        value={inputValue}
+        className=""
+        label="Enter user"
+      />
+      {
+        checkObject(sortedImagesData) && inputValue
+          ? notify('There are no such users yet')
+          : null
+      }
+      {
+        (checkObject(sortedImagesData)
+          ? imagesData
+          : sortedImagesData).map((elem: { userName: string, images: [] }, key) => {
+          if (elem.images.length) {
+            return (
+              <div key={+key}>
+                <div>
+                  <StyledAvatar>{elem.userName.substring(0, 1).toUpperCase()}</StyledAvatar>
+                  <h3>{elem.userName}</h3>
+                </div>
+                <div>
+                  {
+                    elem.images.map((images: { imgUrl: string }, keyImg) => (
+                      <div key={+keyImg}>
+                        <img src={images.imgUrl} alt={images.imgUrl} />
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            );
+          }
+          return 'No collections yet!';
+        })
+      }
+    </StyledContainer>
   );
 };
 

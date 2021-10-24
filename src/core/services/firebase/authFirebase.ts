@@ -1,5 +1,4 @@
-import { User } from '../../interfaces';
-import { auth, db } from '../../configs/firebase';
+import { auth } from '../../configs/firebase';
 
 export async function getAuthDataFromEmailSignIn(payload: {email: string, password: string}) {
   const res = await auth.signInWithEmailAndPassword(payload.email, payload.password);
@@ -16,12 +15,12 @@ export async function signOut() {
   return res;
 }
 
-export async function createNewUserInDB(user: User) {
-  const newUserRef = db.collection('users').doc(`${user?.uid}`);
-  const res = await newUserRef.set({
-    userId: user?.uid,
-    email: user?.email,
-    photo: user?.photo,
-  });
-  return res;
-}
+// export async function createNewUserInDB(user: FirebaseCreateUserResponse) {
+//   const newUserRef = db.collection('users').doc(`${user?.userID}`);
+//   const res = await newUserRef.set({
+//     userID: user?.userID,
+//     userName: user?.userName,
+//     images: user?.images,
+//   });
+//   return res;
+// }

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { fetchImages } from '../../core/actions/imageContainerActions';
-import ImageContainer from '../../core/components/ImageContainer';
+import {
+  delUserImageFromDbAction,
+  getUserIDAction,
+  getUserImagesFromDbAction,
+  getUserNameAction,
+} from '../../core/actions/imageContainerActions';
 import Spinner from '../../core/components/Spinner';
 import StyledAvatar from '../../core/components/styles/StyledAvatar';
 import StyledButton from '../../core/components/styles/StyledButton';
@@ -10,19 +14,26 @@ import StyledContainer from '../../core/components/styles/StyledContainer';
 import StyledTitle from '../../core/components/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
 import getNameFromEmail from '../../core/helpers/getNameFromEmail';
-import { ImageType, RootStateType } from '../../core/interfaces';
+import { AppState } from '../../core/interfaces';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const userName = useSelector((state: RootStateType) => state.auth.user?.email);
-  const images = useSelector((state: RootStateType) => state.images.images);
+  const userName = useSelector((state: AppState) => state.auth.userName);
+  const userID = useSelector((state: AppState) => state.auth.userID);
+  const images = useSelector((state: AppState) => state.image.imagesData);
+  const id = useSelector((state: AppState) => state.image.deleteWithID);
+  const imgUrl = useSelector((state: AppState) => state.image.deleteWithURL);
+
+  const delUserImageFromDB = () => dispatch(delUserImageFromDbAction(id, userID, imgUrl, userName));
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(fetchImages());
+    dispatch(getUserNameAction());
+    dispatch(getUserIDAction());
+    dispatch(getUserImagesFromDbAction(userID, userName));
     setIsLoading(false);
-  }, [dispatch, userName]);
+  }, [dispatch, userID, userName]);
 
   return (
     <StyledContainer style={{ marginTop: '20px' }}>
@@ -37,11 +48,18 @@ const ProfilePage: React.FC = () => {
       </StyledContainer>
       <div>
         {isLoading && <Spinner />}
-        {images && images.length > 0 ? (
-          images.map((image: ImageType) => <ImageContainer image={image} key={image.imageId} />)
-        ) : (
-          <StyledTitle>No any pictures</StyledTitle>
-        )}
+        {
+          images.map((image: { id: string, imgUrl: string }, key: number) => (
+            <div key={+key}>
+              <div>
+                <img src={image.imgUrl} alt={image.imgUrl} />
+              </div>
+              <div>
+                <button type="button" onClick={delUserImageFromDB}>Delete</button>
+              </div>
+            </div>
+          ))
+        }
       </div>
     </StyledContainer>
   );

@@ -1,39 +1,29 @@
-import { ImageType, User } from '../interfaces';
+export const GET_USER_NAME = 'IMAGE/GET_USER_NAME';
+export const GET_USER_ID = 'IMAGE/GET_USER_ID';
+export const GET_USER_IMAGES_FROM_DB = 'IMAGE/GET_USER_IMAGES_FROM_DB';
+export const DEL_USER_IMAGE_FROM_DB = 'IMAGE/DEL_USER_IMAGE_FROM_DB';
+export const GET_ALL_IMAGES_FROM_DB = 'IMAGE/GET_ALL_IMAGES_FROM_DB';
+export const SORT_IMAGES = 'IMAGE/SORT_IMAGES';
+export const SET_DATA_URL = 'IMAGE/SET_DATA_URL';
 
-export const ImgActionTypes = {
-  FETCH_IMAGES: 'FETCH_IMAGES',
-  SET_IMAGES: 'SET_IMAGES',
-  REMOVE_IMAGE: 'REMOVE_IMAGE',
-  DELETE_IMAGE: 'DELETE_IMAGE',
-  UPLOAD_IMAGE: 'UPLOAD_IMAGE',
-  SAVE_IMAGE: 'SAVE_IMAGE',
-  CREATE_IMAGE_INSTANCE_IN_DATABASE: 'CREATE_IMAGE_INSTANCE_IN_DATABASE',
-};
+export const getUserNameAction = () => ({ type: GET_USER_NAME });
 
-export const fetchImages = () => ({
-  type: ImgActionTypes.FETCH_IMAGES,
-});
+export const getUserIDAction = () => ({ type: GET_USER_ID });
 
-export const setImages = (images: ImageType[]) => ({
-  type: ImgActionTypes.SET_IMAGES,
-  payload: images,
-});
+export const getUserImagesFromDbAction = (userID: string, userName: string) => (
+  { type: GET_USER_IMAGES_FROM_DB, userID, userName }
+);
 
-export const removeImage = (imageId: number) => ({
-  type: ImgActionTypes.REMOVE_IMAGE,
-  payload: imageId,
-});
+export const delUserImageFromDbAction = (id: number | null, userID:string, imgUrl: string | null, userName:string) => (
+  {
+    type: DEL_USER_IMAGE_FROM_DB, id, userID, imgUrl, userName,
+  }
+);
 
-export const deleteImage = (imagePath: string, imageId: number) => ({
-  type: ImgActionTypes.DELETE_IMAGE,
-  imagePath,
-  imageId,
-});
+export const getAllImagesFromDbAction = () => ({ type: GET_ALL_IMAGES_FROM_DB });
 
-export const createImageInstanceInDB = (user: User, imageURL: string, imageId: number, imagePath: string) => ({
-  type: ImgActionTypes.CREATE_IMAGE_INSTANCE_IN_DATABASE,
-  user,
-  imageURL,
-  imageId,
-  imagePath,
+export const sortImagesAction = (data: object) => ({ type: SORT_IMAGES, data });
+
+export const setDataUrlAction = (dataUrl: string, userID: string, userName: string) => ({
+  type: SET_DATA_URL, dataUrl, userID, userName,
 });

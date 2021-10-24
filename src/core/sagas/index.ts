@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import authSaga from './authSagas';
-import imgContainerSaga from './imgContainerSagas';
+import imageSaga from './imageSagas';
 
 export default function* rootSaga(): Generator {
-  yield all([authSaga(), imgContainerSaga()]);
+  yield all([authSaga(), imageSaga()]);
 }

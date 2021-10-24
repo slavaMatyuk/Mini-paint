@@ -11,13 +11,15 @@ export const fetchAllImages = async () => {
   return data;
 };
 
-export const fetchUserImages = async (userID: string) => {
+export const fetchUserImages = async (userID: string, userName: string) => {
   let images: [] = [];
   const imagesRef = await db.collection('users').doc(userID);
   await imagesRef.get().then((doc) => {
-    if (doc.data()) {
-      images = doc.data()?.images;
+    const payload = doc.data();
+    if (payload) {
+      images = payload.images;
     }
+    return images;
   });
   return images;
 };
@@ -43,7 +45,7 @@ export const saveImage = async (dataUrl: string, userID: string, userName: strin
   });
 };
 
-export const deleteUserImage = async (id: string, userID: string, imgUrl: string) => {
+export const deleteUserImage = async (id: string, userID: string, imgUrl: string, userName: string) => {
   await db.collection('users').doc(userID.toString());
   db.collection('users').doc(userID.toString()).update({
     images: firebase.firestore.FieldValue.arrayRemove({ id, imgUrl }),

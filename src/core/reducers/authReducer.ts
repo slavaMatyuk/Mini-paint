@@ -1,23 +1,63 @@
-import { AnyAction } from 'redux';
-import { AuthActionTypes } from '../interfaces';
+import {
+  CREATE_USER_WITH_REGISTER,
+  LOG_IN,
+  SET_ERROR_MESSAGE,
+  SET_AUTH,
+  LOG_OUT,
+} from '../actions/authActions';
 
-const initialState = {
-  user: null,
-  error: null,
+interface Action {
+  type: string,
+  payload: {
+    userName: string,
+    userID: string
+  },
+  error: {
+    code:string,
+    message: string
+  },
+  userName: string,
+  userID: string
+}
+
+export interface AuthState {
+  error: boolean,
+  authenticated: boolean,
+  errorMessage: string | null,
+  userName: string,
+  userID: string,
+}
+
+const initialState: AuthState = {
+  error: false,
+  authenticated: false,
+  errorMessage: null,
+  userName: '',
+  userID: '',
 };
 
-const authReducer = (state = initialState, action: AnyAction) => {
+export const authReducer = (state = initialState, action: Action): object => {
   switch (action.type) {
-    case AuthActionTypes.SET_CURRENT_USER:
+    case SET_AUTH:
+      return {
+        ...state, authenticated: true, userName: action.userName, userID: action.userID,
+      };
+    case CREATE_USER_WITH_REGISTER:
+      return {
+        ...state, error: false, authenticated: true,
+      };
+    case LOG_IN:
       return {
         ...state,
-        user: action.payload,
+        error: false,
+        authenticated: true,
+        userName: action.payload.userName,
+        userID: action.payload.userID,
       };
-    case AuthActionTypes.SET_ERROR_MESSAGE:
-      return {
-        ...state,
-        error: action.errorMessage,
-      };
+    case LOG_OUT:
+      return { ...state, authenticated: false };
+    case SET_ERROR_MESSAGE:
+      return { ...state, error: true, errorMessage: action.error };
     default:
       return state;
   }

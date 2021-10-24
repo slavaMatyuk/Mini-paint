@@ -1,28 +1,21 @@
-import { AnyAction } from 'redux';
-import { User, AuthActionTypes } from '../interfaces';
+export const CREATE_USER_WITH_REGISTER = 'AUTH/CREATE_USER_WITH_REGISTER';
+export const LOG_IN = 'AUTH/LOG_IN';
+export const LOG_OUT = 'AUTH/LOG_OUT';
+export const SET_AUTH = 'AUTH/SET_AUTH';
+export const SET_ERROR_MESSAGE = 'AUTH/SET_ERROR_MESSAGE';
 
-export const setCurrentUser = (user: User): AnyAction => ({
-  type: AuthActionTypes.SET_CURRENT_USER,
-  payload: user,
-});
+export const createUserAction = (payload: {email: string, password: string}) => (
+  { type: CREATE_USER_WITH_REGISTER, payload }
+);
 
-export const signInWithEmail = (email: string, password: string): AnyAction => ({
-  type: AuthActionTypes.SIGN_IN_WITH_EMAIL,
-  email,
-  password,
-});
+export const logInAction = (payload: {email: string, password: string}) => (
+  { type: LOG_IN, payload }
+);
 
-export const signUpWithEmailAndPassword = (email: string, password: string): AnyAction => ({
-  type: AuthActionTypes.SIGN_UP_WITH_EMAIL_AND_PASSWORD,
-  email,
-  password,
-});
+export const setErrorAction = (error: {code: string, message: string} | unknown) => (
+  { type: SET_ERROR_MESSAGE, error }
+);
 
-export const signOut = (): AnyAction => ({
-  type: AuthActionTypes.SIGN_OUT,
-});
+export const setAuthAction = (userName: string, userID: string) => ({ type: SET_AUTH, userName, userID });
 
-export const setErrorMessage = (errorMessage: string | null): AnyAction => ({
-  type: AuthActionTypes.SET_ERROR_MESSAGE,
-  errorMessage,
-});
+export const logOutAction = () => ({ type: LOG_OUT });

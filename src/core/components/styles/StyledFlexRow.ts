@@ -12,6 +12,9 @@ const StyledFlexRow = styled.div`
     font-weight: 700;
     color: ${(props) => props.color || props.theme.text};
   }
+  & input {
+    color: ${(props) => props.color || props.theme.text};
+  }
 `;
 
 export default StyledFlexRow;

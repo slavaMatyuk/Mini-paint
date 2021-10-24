@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import StyledFlexRow from '../styles/StyledFlexRow';
-import { InputProps } from '../../interfaces';
+
+interface InputProps {
+  type: string;
+  className: string;
+  placeholder: string;
+  value: string;
+  name: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  label: string;
+}
 
 const Input: React.FC<InputProps> = ({
   type = 'text', className, placeholder, value, name, onChange, label,
@@ -16,7 +25,7 @@ const Input: React.FC<InputProps> = ({
       id={name}
       onChange={onChange}
       required
-      autoComplete="off"
+      autoComplete="on"
     />
   </StyledFlexRow>
 );

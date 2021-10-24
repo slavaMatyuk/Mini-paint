@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
-import imageContainerReducer from './imageContainerReducer';
+import imageReducer from './imageReducer';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
-  images: imageContainerReducer,
+  images: imageReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

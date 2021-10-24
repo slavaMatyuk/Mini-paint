@@ -1,73 +1,85 @@
-import { takeEvery, call, put } from '@redux-saga/core/effects';
-import { AnyAction } from 'redux';
-import { all } from 'redux-saga/effects';
-import { setCurrentUser, setErrorMessage } from '../../actions/authActions';
 import {
-  createNewUserInDB,
-  getAuthDataFromEmailSignIn,
-  getAuthDataFromEmailSignUp,
-  signOut,
-} from '../../services/firebase/authFirebase';
-import { AuthActionTypes } from '../../interfaces';
+  all, call, put, takeEvery,
+} from '@redux-saga/core/effects';
+import { AnyAction } from 'redux';
+import {
+  CREATE_USER_WITH_REGISTER,
+  setErrorAction,
+  LOG_IN,
+  LOG_OUT,
+} from '../../actions/authActions';
+import { getAuthDataFromEmailSignIn, getAuthDataFromEmailSignUp, signOut } from '../../services/firebase/authFirebase';
 
-function* signUpWithEmailAndPasswordWorker(payload: AnyAction) {
-  const { email, password } = payload;
+export interface FirebaseCreateUserResponse {
+    userID: string,
+    userName: string,
+    images: string[]
+}
+
+export function* createUserWithEmailFetchWorker(data: AnyAction) {
+  const { payload } = data;
   try {
-    const { user } = yield call(getAuthDataFromEmailSignUp, email, password);
-    const currentUser = {
-      uid: user.uid,
-      email: user.email,
-      photo: user.photoURL,
-    };
-    yield call(createNewUserInDB, currentUser);
-    yield put(setCurrentUser(currentUser));
+    yield call(getAuthDataFromEmailSignUp, payload);
+    // const response: FirebaseCreateUserResponse = yield call(getAuthDataFromEmailSignUp, payload);
+    // const currentUser = {
+    //   userID: response.userID,
+    //   userName: response.userName,
+    //   images: response.images,
+    // };
+    // yield call(createNewUserInDB, currentUser);
   } catch (error) {
     if (error instanceof Error) {
-      yield put(setErrorMessage(error.message));
+      yield put(setErrorAction(error.message));
     }
   }
 }
 
-function* signInWithEmailWorker(payload: AnyAction) {
-  const { email, password } = payload;
+export function* signInWithEmailFetchWorker(data: AnyAction) {
+  const { payload } = data;
+  const userData: { userName: string, userID: string} = {
+    userName: '',
+    userID: '',
+  };
   try {
-    const { user } = yield call(getAuthDataFromEmailSignIn, email, password);
-    const currentUser = {
-      uid: user.uid,
-      email: user.email,
-      photo: user.photoURL,
-    };
-    yield put(setCurrentUser(currentUser));
+    yield getAuthDataFromEmailSignIn(payload).then((loginData) => {
+      if (loginData.user && loginData.user?.email) {
+        userData.userID = loginData.user?.uid;
+        userData.userName = loginData.user?.email;
+      }
+    });
   } catch (error) {
     if (error instanceof Error) {
-      yield put(setErrorMessage(error.message));
+      yield put(setErrorAction(error.message));
     }
   }
 }
 
-function* signOutWorker() {
+export function* signOutFetchAsyncWorker() {
   try {
     yield call(signOut);
-    yield put(setCurrentUser(null));
   } catch (error) {
     if (error instanceof Error) {
-      yield put(setErrorMessage(error.message));
+      yield put(setErrorAction(error.message));
     }
   }
 }
 
-function* signUpWithEmailAndPasswordWatcher() {
-  yield takeEvery(AuthActionTypes.SIGN_UP_WITH_EMAIL_AND_PASSWORD, signUpWithEmailAndPasswordWorker);
+export function* signOutFetchAsyncWatcher() {
+  yield takeEvery(LOG_OUT, signOutFetchAsyncWorker);
 }
 
-function* signInWithEmailWatcher() {
-  yield takeEvery(AuthActionTypes.SIGN_IN_WITH_EMAIL, signInWithEmailWorker);
+export function* createUserWithEmailFetchAsyncWatcher() {
+  yield takeEvery(CREATE_USER_WITH_REGISTER, createUserWithEmailFetchWorker);
 }
 
-function* signOutWatcher() {
-  yield takeEvery(AuthActionTypes.SIGN_OUT, signOutWorker);
+export function* signInWithEmailFetchAsyncWatcher() {
+  yield takeEvery(LOG_IN, signInWithEmailFetchWorker);
 }
 
 export default function* authSaga(): Generator {
-  yield all([signUpWithEmailAndPasswordWatcher(), signInWithEmailWatcher(), signOutWatcher()]);
+  yield all([
+    call(signOutFetchAsyncWatcher),
+    call(createUserWithEmailFetchAsyncWatcher),
+    call(signInWithEmailFetchAsyncWatcher),
+  ]);
 }
