@@ -2,10 +2,10 @@ import {
   all, call, put, takeEvery,
 } from '@redux-saga/core/effects';
 import { AnyAction } from 'redux';
-import { setErrorAction } from '../../actions/authActions';
 import {
-  DEL_USER_IMAGE_FROM_DB, GET_ALL_IMAGES_FROM_DB,
-  GET_USER_IMAGES_FROM_DB, SET_DATA_URL,
+  DEL_USER_IMAGE_FROM_DB, getUserImagesFromDbFailedAction, getUserImagesFromDbSucceededAction, GET_ALL_IMAGES_FROM_DB,
+  GET_USER_IMAGES_FROM_DB, SET_DATA_URL, delUserImageFromDbFailedAction, delUserImageFromDbSucceededAction,
+  getAllImagesFromDbFailedAction, getAllImagesFromDbSucceededAction, saveImageFailedAction, saveImageSucceededAction,
 } from '../../actions/imageContainerActions';
 import {
   deleteUserImage, fetchAllImages, fetchUserImages, saveImage,
@@ -16,31 +16,28 @@ export function* uploadImageFetchWorker(payload: AnyAction): Generator {
   const id = Date.now().toString();
   try {
     yield call(saveImage, dataUrl, userID, userName, id);
+    yield put(saveImageSucceededAction());
   } catch (error) {
-    if (error instanceof Error) {
-      yield put(setErrorAction(error.message));
-    }
+    yield put(saveImageFailedAction(error));
   }
 }
 
 export function* getImageFetchWorker(): Generator {
   try {
-    yield call(fetchAllImages);
+    const data: any = yield call(fetchAllImages);
+    yield put(getAllImagesFromDbSucceededAction(data));
   } catch (error) {
-    if (error instanceof Error) {
-      yield put(setErrorAction(error.message));
-    }
+    yield put(getAllImagesFromDbFailedAction(error));
   }
 }
 
 export function* getUserImageFetchWorker(payload: AnyAction): Generator {
   const { userID, userName } = payload;
   try {
-    yield call(fetchUserImages, userID, userName);
+    const data: [object] | unknown = yield call(fetchUserImages, userID, userName);
+    yield put(getUserImagesFromDbSucceededAction(data));
   } catch (error) {
-    if (error instanceof Error) {
-      yield put(setErrorAction(error.message));
-    }
+    yield put(getUserImagesFromDbFailedAction(error));
   }
 }
 
@@ -50,10 +47,9 @@ export function* delImageFetchWorker(payload: AnyAction): Generator {
   } = payload;
   try {
     yield call(deleteUserImage, id, userID, imgUrl, userName);
+    yield put(delUserImageFromDbSucceededAction());
   } catch (error) {
-    if (error instanceof Error) {
-      yield put(setErrorAction(error.message));
-    }
+    yield put(delUserImageFromDbFailedAction(error));
   }
 }
 
