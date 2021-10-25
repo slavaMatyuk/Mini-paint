@@ -5,6 +5,7 @@ import iconsConst from '../../helpers/constants/iconsConst';
 import { AppState } from '../../interfaces';
 import CanvasWrapper from '../styles/CanvasWrapper';
 import StyledCanvasBtns from '../styles/StyledCanvasBtns';
+import StyledCommonCanvas from '../styles/StyledCommonCanvas';
 import StyledControl from '../styles/StyledControl';
 
 interface CanvasProps {
@@ -144,7 +145,7 @@ const Canvas: React.FC<CanvasProps> = ({
   };
 
   return (
-    <div>
+    <StyledCommonCanvas>
       <StyledCanvasBtns>
         <StyledControl onClick={clearCanvas}>
           <img src={iconsConst.CLEAR} alt="clear" title="Clear" />
@@ -164,7 +165,7 @@ const Canvas: React.FC<CanvasProps> = ({
           onMouseUp={onMouseUp}
         />
       </CanvasWrapper>
-    </div>
+    </StyledCommonCanvas>
   );
 };
 

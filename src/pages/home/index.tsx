@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
     if (error) {
       notify(`${error}`);
     }
-  }, [dispatch]);
+  }, [dispatch, error]);
 
   return (
     <StyledContainer style={{ marginTop: '40px' }}>
