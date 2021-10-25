@@ -4,6 +4,7 @@ import { setDataUrlAction } from '../../actions/imageContainerActions';
 import iconsConst from '../../helpers/constants/iconsConst';
 import { AppState } from '../../interfaces';
 import CanvasWrapper from '../styles/CanvasWrapper';
+import StyledCanvasBtns from '../styles/StyledCanvasBtns';
 import StyledControl from '../styles/StyledControl';
 
 interface CanvasProps {
@@ -21,8 +22,8 @@ const Canvas: React.FC<CanvasProps> = ({
   const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const [canvasWidth, setCanvasWidth] = useState(600);
-  const [canvasHeight, setCanvasHeight] = useState(400);
+  const [canvasWidth, setCanvasWidth] = useState(0);
+  const [canvasHeight, setCanvasHeight] = useState(0);
   const [mouseDownX, setMouseDownX] = useState<number | null>();
   const [mouseDownY, setMouseDownY] = useState<number | null>();
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
@@ -144,12 +145,14 @@ const Canvas: React.FC<CanvasProps> = ({
 
   return (
     <div>
-      <StyledControl onClick={clearCanvas}>
-        <img src={iconsConst.CLEAR} alt="clear" title="Clear" />
-      </StyledControl>
-      <StyledControl onClick={handleSaveImage}>
-        <img src={iconsConst.SAVE} alt="save" title="Save" />
-      </StyledControl>
+      <StyledCanvasBtns>
+        <StyledControl onClick={clearCanvas}>
+          <img src={iconsConst.CLEAR} alt="clear" title="Clear" />
+        </StyledControl>
+        <StyledControl onClick={handleSaveImage}>
+          <img src={iconsConst.SAVE} alt="save" title="Save" />
+        </StyledControl>
+      </StyledCanvasBtns>
       <CanvasWrapper ref={wrapperRef}>
         <canvas ref={subCanvasRef} width={canvasWidth} height={canvasHeight} />
         <canvas

@@ -35,8 +35,6 @@ const ProfilePage: React.FC = () => {
     setIsLoading(false);
   }, [dispatch, userID, userName]);
 
-  console.log(`IMAGES: ${images}`);
-
   return (
     <StyledContainer style={{ marginTop: '20px' }}>
       <NavLink to={RoutesConst.HOME}>

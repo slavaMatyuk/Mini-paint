@@ -37,55 +37,57 @@ const EditorPage: React.FC = () => {
           </StyledButton>
         </NavLink>
       </StyledBtnsInEditor>
-      <ControlsWrapper>
-        <StyledControl type="button" className={tool === 'brush' ? 'selected' : ''} onClick={() => setTool('brush')}>
-          <img src={iconsConst.BRUSH} alt="brush" title="Brush" />
-        </StyledControl>
-        <StyledControl
-          type="button"
-          className={tool === 'rectangle' ? 'selected' : ''}
-          onClick={() => setTool('rectangle')}
-        >
-          <img src={iconsConst.RECT} alt="rectangle" title="Rectangle" />
-        </StyledControl>
-        <StyledControl
-          type="button"
-          className={tool === 'circle' ? 'selected' : ''}
-          onClick={() => setTool('circle')}
-        >
-          <img src={iconsConst.CIRCLE} alt="circle" title="Circle" />
-        </StyledControl>
-        <StyledControl type="button" className={tool === 'line' ? 'selected' : ''} onClick={() => setTool('line')}>
-          <img src={iconsConst.LINE} alt="line" title="Line" />
-        </StyledControl>
-        <StyledControl type="button" className={dash ? 'selected' : ''} onClick={handleDash}>
-          <img src={iconsConst.DASH} alt="dash" title="Dashed" />
-        </StyledControl>
-        <StyledControl type="button" className={blur > 0 ? 'selected' : ''} onClick={handleBlur}>
-          <img src={iconsConst.BLUR} alt="blur" title="Blur" />
-        </StyledControl>
-        <Input
-          type="color"
-          value={color}
-          onChange={(event: any) => setColor(event.target.value)}
-          label=""
-          className=""
-          placeholder=""
-          name=""
-        />
-        <StyledSelect
-          value={lineWidth}
-          style={{ width: '60px' }}
-          onChange={(e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number)}
-        >
-          {AMOUNT_OF_WIDTH_POINTS.map((num) => (
-            <StyledOption key={num} value={num}>
-              {num}
-            </StyledOption>
-          ))}
-        </StyledSelect>
-      </ControlsWrapper>
-      <Canvas tool={tool} color={color} dash={dash} blur={blur} lineWidth={lineWidth} />
+      <div>
+        <ControlsWrapper>
+          <StyledControl type="button" className={tool === 'brush' ? 'selected' : ''} onClick={() => setTool('brush')}>
+            <img src={iconsConst.BRUSH} alt="brush" title="Brush" />
+          </StyledControl>
+          <StyledControl
+            type="button"
+            className={tool === 'rectangle' ? 'selected' : ''}
+            onClick={() => setTool('rectangle')}
+          >
+            <img src={iconsConst.RECT} alt="rectangle" title="Rectangle" />
+          </StyledControl>
+          <StyledControl
+            type="button"
+            className={tool === 'circle' ? 'selected' : ''}
+            onClick={() => setTool('circle')}
+          >
+            <img src={iconsConst.CIRCLE} alt="circle" title="Circle" />
+          </StyledControl>
+          <StyledControl type="button" className={tool === 'line' ? 'selected' : ''} onClick={() => setTool('line')}>
+            <img src={iconsConst.LINE} alt="line" title="Line" />
+          </StyledControl>
+          <StyledControl type="button" className={dash ? 'selected' : ''} onClick={handleDash}>
+            <img src={iconsConst.DASH} alt="dash" title="Dashed" />
+          </StyledControl>
+          <StyledControl type="button" className={blur > 0 ? 'selected' : ''} onClick={handleBlur}>
+            <img src={iconsConst.BLUR} alt="blur" title="Blur" />
+          </StyledControl>
+          <Input
+            type="color"
+            value={color}
+            onChange={(event: any) => setColor(event.target.value)}
+            label=""
+            className=""
+            placeholder=""
+            name=""
+          />
+          <StyledSelect
+            value={lineWidth}
+            style={{ width: '60px' }}
+            onChange={(e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number)}
+          >
+            {AMOUNT_OF_WIDTH_POINTS.map((num) => (
+              <StyledOption key={num} value={num}>
+                {num}
+              </StyledOption>
+            ))}
+          </StyledSelect>
+        </ControlsWrapper>
+        <Canvas tool={tool} color={color} dash={dash} blur={blur} lineWidth={lineWidth} />
+      </div>
     </EditorWrapper>
   );
 };
