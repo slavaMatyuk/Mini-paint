@@ -3,8 +3,10 @@ import {
 } from '@redux-saga/core/effects';
 import { AnyAction } from 'redux';
 import {
-  CREATE_USER_WITH_REGISTER, LOG_IN,
-  LOG_OUT, setErrorAction,
+  createUserFailedAction,
+  createUserSucceededAction,
+  CREATE_USER_WITH_REGISTER, logInFailedAction, logInSucceededAction, logOutFailedAction, logOutSucceededAction, LOG_IN,
+  LOG_OUT,
 } from '../../actions/authActions';
 import { DBcreateUserResponce } from '../../interfaces';
 import {
@@ -20,11 +22,10 @@ export function* createUserWithEmailFetchWorker(data: AnyAction) {
       userName: response.userName,
       images: response.images,
     };
+    yield put(createUserSucceededAction(response));
     yield call(createNewUserInDB, currentUser);
   } catch (error) {
-    if (error instanceof Error) {
-      yield put(setErrorAction(error.message));
-    }
+    yield put(createUserFailedAction(error));
   }
 }
 
@@ -41,20 +42,18 @@ export function* signInWithEmailFetchWorker(data: AnyAction) {
         userData.userName = loginData.user?.email;
       }
     });
+    yield put(logInSucceededAction(userData));
   } catch (error) {
-    if (error instanceof Error) {
-      yield put(setErrorAction(error.message));
-    }
+    yield put(logInFailedAction(error));
   }
 }
 
 export function* signOutFetchAsyncWorker() {
   try {
     yield call(signOut);
+    yield put(logOutSucceededAction());
   } catch (error) {
-    if (error instanceof Error) {
-      yield put(setErrorAction(error.message));
-    }
+    yield put(logOutFailedAction(error));
   }
 }
 
