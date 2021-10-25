@@ -29,6 +29,7 @@ export interface ImageState {
   loading: boolean,
   error: boolean,
   deleteWithID: number | null,
+  deleteWithURL: string | null,
   subContexDataUrl: string,
   imageName: string,
   imagesProfData: [],
@@ -40,6 +41,7 @@ const initialState: ImageState = {
   loading: false,
   error: false,
   deleteWithID: null,
+  deleteWithURL: null,
   subContexDataUrl: '',
   imageName: '',
   imagesProfData: [],
@@ -77,7 +79,7 @@ export const imageReducer = (state = initialState, action: ImageAction): object 
     case SORT_IMAGES:
       return { ...state, sortedImagesData: action.data };
     case DEL_USER_IMAGE_FROM_DB:
-      return { ...state, loading: true };
+      return { ...state, loading: true, deleteWithURL: action.imgUrl };
     case DEL_USER_IMAGE_FROM_DB_SUCCEEDED:
       return {
         ...state,

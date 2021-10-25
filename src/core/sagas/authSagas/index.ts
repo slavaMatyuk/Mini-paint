@@ -8,22 +8,15 @@ import {
   CREATE_USER_WITH_REGISTER, logInFailedAction, logInSucceededAction, logOutFailedAction, logOutSucceededAction, LOG_IN,
   LOG_OUT,
 } from '../../actions/authActions';
-import { DBcreateUserResponce } from '../../interfaces';
-import {
-  createNewUserInDB, getAuthDataFromEmailSignIn, getAuthDataFromEmailSignUp, signOut,
-} from '../../services/firebase/authFirebase';
+import { DBcreateUserResponse } from '../../interfaces';
+import { getAuthDataFromEmailSignIn, getAuthDataFromEmailSignUp, signOut } from '../../services/firebase/authFirebase';
 
 export function* createUserWithEmailFetchWorker(data: AnyAction) {
   const { payload } = data;
   try {
-    const response: DBcreateUserResponce = yield call(getAuthDataFromEmailSignUp, payload);
-    const currentUser = {
-      userID: response.userID,
-      userName: response.userName,
-      images: response.images,
-    };
+    const response: DBcreateUserResponse = yield call(getAuthDataFromEmailSignUp, payload);
     yield put(createUserSucceededAction(response));
-    yield call(createNewUserInDB, currentUser);
+    // yield call(createNewUserInDB, currentUser);
   } catch (error) {
     yield put(createUserFailedAction(error));
   }

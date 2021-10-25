@@ -6,8 +6,8 @@ export interface AppState {
   images: ImageState,
 }
 
-export interface DBcreateUserResponce {
+export interface DBcreateUserResponse {
   userID: string,
   userName: string,
-  images: string[]
+  images: string[],
 }

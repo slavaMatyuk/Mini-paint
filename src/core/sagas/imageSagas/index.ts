@@ -11,7 +11,7 @@ import {
   deleteUserImage, fetchAllImages, fetchUserImages, saveImage,
 } from '../../services/firebase/imgFirebase';
 
-export function* uploadImageFetchWorker(payload: AnyAction): Generator {
+export function* saveImageFetchWorker(payload: AnyAction): Generator {
   const { dataUrl, userID, userName } = payload;
   const id = Date.now().toString();
   try {
@@ -22,7 +22,7 @@ export function* uploadImageFetchWorker(payload: AnyAction): Generator {
   }
 }
 
-export function* getImageFetchWorker(): Generator {
+export function* getAllImagesFetchWorker(): Generator {
   try {
     const data: any = yield call(fetchAllImages);
     yield put(getAllImagesFromDbSucceededAction(data));
@@ -61,19 +61,19 @@ export function* getUserImageFetchAsyncWatcher() {
   yield takeEvery(GET_USER_IMAGES_FROM_DB, getUserImageFetchWorker);
 }
 
-export function* uploadImageFetchAsyncWatcher() {
-  yield takeEvery(SET_DATA_URL, uploadImageFetchWorker);
+export function* saveImageFetchAsyncWatcher() {
+  yield takeEvery(SET_DATA_URL, saveImageFetchWorker);
 }
 
-export function* getImageFetchAsyncWatcher() {
-  yield takeEvery(GET_ALL_IMAGES_FROM_DB, getImageFetchWorker);
+export function* getAllImagesFetchAsyncWatcher() {
+  yield takeEvery(GET_ALL_IMAGES_FROM_DB, getAllImagesFetchWorker);
 }
 
 export default function* imageSaga(): Generator {
   yield all([
     call(getUserImageFetchAsyncWatcher),
     call(delImageFetchAsyncWatcher),
-    call(getImageFetchAsyncWatcher),
-    call(uploadImageFetchAsyncWatcher),
+    call(getAllImagesFetchAsyncWatcher),
+    call(saveImageFetchAsyncWatcher),
   ]);
 }

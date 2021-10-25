@@ -13,7 +13,7 @@ export const fetchAllImages = async () => {
 
 export const fetchUserImages = async (userID: string, userName: string) => {
   let images: [] = [];
-  const imagesRef = await db.collection('users').doc(userID);
+  const imagesRef = await db.collection('users').doc(`${userID}`);
   await imagesRef.get().then((doc) => {
     const payload = doc.data();
     if (payload) {
