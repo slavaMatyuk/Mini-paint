@@ -1,13 +1,10 @@
 import {
-  all, call, fork, put, takeEvery,
+  all, call, put, takeEvery,
 } from '@redux-saga/core/effects';
 import { AnyAction } from 'redux';
 import {
-  CREATE_USER_WITH_REGISTER,
-  setErrorAction,
-  LOG_IN,
-  LOG_OUT,
-  createUserAction,
+  CREATE_USER_WITH_REGISTER, LOG_IN,
+  LOG_OUT, setErrorAction,
 } from '../../actions/authActions';
 import { DBcreateUserResponce } from '../../interfaces';
 import {
@@ -23,7 +20,6 @@ export function* createUserWithEmailFetchWorker(data: AnyAction) {
       userName: response.userName,
       images: response.images,
     };
-    yield put(createUserAction(payload));
     yield call(createNewUserInDB, currentUser);
   } catch (error) {
     if (error instanceof Error) {
@@ -76,8 +72,8 @@ export function* signInWithEmailFetchAsyncWatcher() {
 
 export default function* authSaga(): Generator {
   yield all([
-    fork(signOutFetchAsyncWatcher),
-    fork(createUserWithEmailFetchAsyncWatcher),
-    fork(signInWithEmailFetchAsyncWatcher),
+    call(signOutFetchAsyncWatcher),
+    call(createUserWithEmailFetchAsyncWatcher),
+    call(signInWithEmailFetchAsyncWatcher),
   ]);
 }

@@ -1,13 +1,11 @@
 import {
-  takeEvery, call, all, put, fork,
+  all, call, put, takeEvery,
 } from '@redux-saga/core/effects';
 import { AnyAction } from 'redux';
 import { setErrorAction } from '../../actions/authActions';
 import {
-  DEL_USER_IMAGE_FROM_DB,
-  GET_ALL_IMAGES_FROM_DB,
-  GET_USER_IMAGES_FROM_DB,
-  SET_DATA_URL,
+  DEL_USER_IMAGE_FROM_DB, GET_ALL_IMAGES_FROM_DB,
+  GET_USER_IMAGES_FROM_DB, SET_DATA_URL,
 } from '../../actions/imageContainerActions';
 import {
   deleteUserImage, fetchAllImages, fetchUserImages, saveImage,
@@ -77,9 +75,9 @@ export function* getImageFetchAsyncWatcher() {
 
 export default function* imageSaga(): Generator {
   yield all([
-    fork(getUserImageFetchAsyncWatcher),
-    fork(delImageFetchAsyncWatcher),
-    fork(getImageFetchAsyncWatcher),
-    fork(uploadImageFetchAsyncWatcher),
+    call(getUserImageFetchAsyncWatcher),
+    call(delImageFetchAsyncWatcher),
+    call(getImageFetchAsyncWatcher),
+    call(uploadImageFetchAsyncWatcher),
   ]);
 }

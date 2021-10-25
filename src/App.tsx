@@ -45,7 +45,7 @@ const App: React.FC = () => {
         ) : (
           <Redirect to={RoutesConst.LOGIN} />
         )}
-        {!(authenticated) ? (
+        {(!authenticated) ? (
           <Switch>
             <Route exact path={RoutesConst.REGISTER}>
               <RegisterPage />
