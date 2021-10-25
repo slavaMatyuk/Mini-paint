@@ -46,11 +46,11 @@ export const imageReducer = (state = initialState, action: ImageAction): object 
         error: false,
       };
     case GET_ALL_IMAGES_FROM_DB:
-      return { ...state, imagesData: action.payload };
+      return { ...state, imagesData: action.payload || [] };
     case SORT_IMAGES:
-      return { ...state, sortedImagesData: action.data };
+      return { ...state, sortedImagesData: action.data || [] };
     case GET_USER_IMAGES_FROM_DB:
-      return { ...state, imagesData: action.payload };
+      return { ...state, imagesData: action.payload || [] };
     case DEL_USER_IMAGE_FROM_DB:
       return {
         ...state,

@@ -21,7 +21,7 @@ const Header: React.FC = () => {
     <HeaderWrapper>
       <StyledFlexRow style={{ width: '100%' }}>
         <StyledTitle>Mini Paint</StyledTitle>
-        <ToastContainer autoClose={2000} />
+        <ToastContainer autoClose={3000} />
         {authenticated ? (
           <StyledFlexRow>
             <StyledTitle style={{ fontSize: '20px', marginRight: '10px' }}>{userName}</StyledTitle>

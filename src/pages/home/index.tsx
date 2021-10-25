@@ -7,6 +7,7 @@ import Input from '../../core/components/Input';
 import StyledAvatar from '../../core/components/styles/StyledAvatar';
 import StyledButton from '../../core/components/styles/StyledButton';
 import StyledContainer from '../../core/components/styles/StyledContainer';
+import StyledForm from '../../core/components/styles/StyledForm';
 import checkObject from '../../core/helpers/checkObject';
 import RoutesConst from '../../core/helpers/constants/routesConst';
 import handleSortImages from '../../core/helpers/handleSortImages';
@@ -16,10 +17,9 @@ import { AppState } from '../../core/interfaces';
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState('');
-  const sortedImagesData = useSelector((state: AppState) => state.image.sortedImagesData);
-  const imagesData = useSelector((state: AppState) => state.image.imagesData);
-
-  console.log(`OOOOOOOOOOOOO ${imagesData}`);
+  const sortedImagesData = useSelector((state: AppState) => state.images.sortedImagesData);
+  const imagesData = useSelector((state: AppState) => state.images.imagesData);
+  const error = useSelector((state: AppState) => state.auth.errorMessage);
 
   const sortImagesData = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -28,6 +28,9 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getAllImagesFromDbAction());
+    if (error) {
+      notify(`${error}`);
+    }
   }, [dispatch]);
 
   return (
@@ -42,20 +45,17 @@ const HomePage: React.FC = () => {
           Editor
         </StyledButton>
       </NavLink>
-      <Input
-        type="text"
-        onChange={sortImagesData}
-        name="email"
-        placeholder="Enter name"
-        value={inputValue}
-        className=""
-        label="Enter user"
-      />
-      {
-        checkObject(sortedImagesData) && inputValue
-          ? notify('There are no such users yet')
-          : null
-      }
+      <StyledForm>
+        <Input
+          type="text"
+          onChange={sortImagesData}
+          name="email"
+          placeholder="Enter name"
+          value={inputValue}
+          className=""
+          label="Enter user"
+        />
+      </StyledForm>
       {
         (checkObject(sortedImagesData)
           ? imagesData

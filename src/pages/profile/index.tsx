@@ -21,9 +21,9 @@ const ProfilePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const userName = useSelector((state: AppState) => state.auth.userName);
   const userID = useSelector((state: AppState) => state.auth.userID);
-  const images = useSelector((state: AppState) => state.image.imagesData);
-  const id = useSelector((state: AppState) => state.image.deleteWithID);
-  const imgUrl = useSelector((state: AppState) => state.image.deleteWithURL);
+  const images = useSelector((state: AppState) => state.images.imagesData);
+  const id = useSelector((state: AppState) => state.images.deleteWithID);
+  const imgUrl = useSelector((state: AppState) => state.images.deleteWithURL);
 
   const delUserImageFromDB = () => dispatch(delUserImageFromDbAction(id, userID, imgUrl, userName));
 
@@ -34,6 +34,8 @@ const ProfilePage: React.FC = () => {
     dispatch(getUserImagesFromDbAction(userID, userName));
     setIsLoading(false);
   }, [dispatch, userID, userName]);
+
+  console.log(`IMAGES: ${images}`);
 
   return (
     <StyledContainer style={{ marginTop: '20px' }}>

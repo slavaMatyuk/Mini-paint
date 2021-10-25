@@ -3,10 +3,10 @@ import { ImageState } from '../reducers/imageReducer';
 
 export interface AppState {
   auth: AuthState,
-  image: ImageState,
+  images: ImageState,
 }
 
-export interface DBcreateUserRes {
+export interface DBcreateUserResponce {
   userID: string,
   userName: string,
   images: string[]

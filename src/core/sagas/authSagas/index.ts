@@ -7,8 +7,9 @@ import {
   setErrorAction,
   LOG_IN,
   LOG_OUT,
+  createUserAction,
 } from '../../actions/authActions';
-import { DBcreateUserRes } from '../../interfaces';
+import { DBcreateUserResponce } from '../../interfaces';
 import {
   createNewUserInDB, getAuthDataFromEmailSignIn, getAuthDataFromEmailSignUp, signOut,
 } from '../../services/firebase/authFirebase';
@@ -16,12 +17,13 @@ import {
 export function* createUserWithEmailFetchWorker(data: AnyAction) {
   const { payload } = data;
   try {
-    const response: DBcreateUserRes = yield call(getAuthDataFromEmailSignUp, payload);
+    const response: DBcreateUserResponce = yield call(getAuthDataFromEmailSignUp, payload);
     const currentUser = {
       userID: response.userID,
       userName: response.userName,
       images: response.images,
     };
+    yield put(createUserAction(payload));
     yield call(createNewUserInDB, currentUser);
   } catch (error) {
     if (error instanceof Error) {

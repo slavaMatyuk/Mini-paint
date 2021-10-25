@@ -21,8 +21,8 @@ const Canvas: React.FC<CanvasProps> = ({
   const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const [canvasWidth, setCanvasWidth] = useState(0);
-  const [canvasHeight, setCanvasHeight] = useState(0);
+  const [canvasWidth, setCanvasWidth] = useState(600);
+  const [canvasHeight, setCanvasHeight] = useState(400);
   const [mouseDownX, setMouseDownX] = useState<number | null>();
   const [mouseDownY, setMouseDownY] = useState<number | null>();
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
