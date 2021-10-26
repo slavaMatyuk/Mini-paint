@@ -8,9 +8,12 @@ import {
   getUserNameAction,
 } from '../../core/actions/imageContainerActions';
 import Spinner from '../../core/components/Spinner';
+import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
 import StyledAvatar from '../../core/components/styles/StyledAvatar';
 import StyledButton from '../../core/components/styles/StyledButton';
 import StyledContainer from '../../core/components/styles/StyledContainer';
+import StyledGallery from '../../core/components/styles/StyledGallery';
+import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
 import StyledTitle from '../../core/components/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
 import getNameFromEmail from '../../core/helpers/getNameFromEmail';
@@ -21,7 +24,7 @@ const ProfilePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const userName = useSelector((state: AppState) => state.auth.userName);
   const userID = useSelector((state: AppState) => state.auth.userID);
-  const images = useSelector((state: AppState) => state.images.imagesData);
+  const imagesProfData = useSelector((state: AppState) => state.images.imagesProfData);
   const id = useSelector((state: AppState) => state.images.deleteWithID);
   const imgUrl = useSelector((state: AppState) => state.images.deleteWithURL);
 
@@ -42,25 +45,25 @@ const ProfilePage: React.FC = () => {
           Home
         </StyledButton>
       </NavLink>
-      <StyledContainer style={{ marginTop: '20px' }}>
+      <StyledContainer style={{ marginTop: 0 }}>
         <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
         <StyledTitle style={{ fontSize: '28px' }}>{userName && getNameFromEmail(userName)}</StyledTitle>
       </StyledContainer>
-      <div>
+      <StyledGalleryWrapper>
         {isLoading && <Spinner />}
         {
-          images.map((image: { id: string, imgUrl: string }, key: number) => (
-            <div key={+key}>
-              <div>
+          imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
+            <CanvasWrapper key={+key}>
+              <StyledGallery>
                 <img src={image.imgUrl} alt={image.imgUrl} />
-              </div>
-              <div>
-                <button type="button" onClick={delUserImageFromDB}>Delete</button>
-              </div>
-            </div>
+                <StyledButton onClick={delUserImageFromDB}>
+                  Delete
+                </StyledButton>
+              </StyledGallery>
+            </CanvasWrapper>
           ))
         }
-      </div>
+      </StyledGalleryWrapper>
     </StyledContainer>
   );
 };

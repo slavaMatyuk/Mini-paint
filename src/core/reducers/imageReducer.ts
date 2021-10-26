@@ -71,7 +71,7 @@ export const imageReducer = (state = initialState, action: ImageAction): object 
         ...state, loading: true, error: false,
       };
     case GET_ALL_IMAGES_FROM_DB_SUCCEEDED:
-      return { ...state, imagesData: action.payload };
+      return { ...state, loading: false, imagesData: action.payload };
     case GET_ALL_IMAGES_FROM_DB_FAILED:
       return {
         ...state, loading: false, error: true,
