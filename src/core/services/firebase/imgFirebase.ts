@@ -1,4 +1,4 @@
-import firebase, { db, storage, storageRef } from '../../configs/firebase';
+import firebase, { db, storageRef } from '../../configs/firebase';
 
 interface docState {
   data: () => never;
@@ -6,9 +6,8 @@ interface docState {
 
 export const fetchAllImages = async () => {
   const data: [] = [];
-  console.log(`show me init data: ${data}`);
   const fetchImages: any = await db.collection('users').get();
-  console.log(`show me the fetchImages: ${fetchImages}`);
+  console.log(`все юзеры здесь: ${fetchImages}`);
   fetchImages.docs.map((doc: docState) => data.push(doc.data()));
   return data;
 };
@@ -28,16 +27,12 @@ export const fetchUserImages = async (userID: string, userName: string) => {
 
 export const saveImage = async (dataUrl: string, userID: string, userName: string, id: string) => {
   const path = `library/${userID}/photo:${id}`;
-  console.log(`1 - Покажи path: ${path}`);
 
   const imgRef = storageRef.child(path);
-  console.log(`2 - Покажи ImgRef: ${imgRef}`);
 
   await imgRef.putString(dataUrl, 'data_url');
-  console.log(`2.2 - Покажи ImgRef putString: ${imgRef}`);
 
   const imgUrl = await imgRef.getDownloadURL();
-  console.log(`3 - Покажи imgUrl: ${imgUrl}`);
 
   const saveImageToDB = () => db.collection('users').doc(`${userID}`).update({
     images: firebase.firestore.FieldValue.arrayUnion({ imgUrl, id }),
