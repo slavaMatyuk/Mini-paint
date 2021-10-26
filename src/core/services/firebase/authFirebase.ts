@@ -20,13 +20,3 @@ export async function signOut() {
   const res = await auth.signOut();
   return res;
 }
-
-// export async function createNewUserInDB(user: DBcreateUserResponse) {
-//   const newUserRef = db.collection('users').doc(`${user.userID}`);
-//   const res = await newUserRef.set({
-//     userID: user.userID,
-//     userName: user.userName,
-//     images: user.images,
-//   });
-//   return res;
-// }

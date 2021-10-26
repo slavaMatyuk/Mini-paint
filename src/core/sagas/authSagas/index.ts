@@ -16,7 +16,6 @@ export function* createUserWithEmailFetchWorker(data: AnyAction) {
   try {
     const response: DBcreateUserResponse = yield call(getAuthDataFromEmailSignUp, payload);
     yield put(createUserSucceededAction(response));
-    // yield call(createNewUserInDB, currentUser);
   } catch (error) {
     yield put(createUserFailedAction(error));
   }
