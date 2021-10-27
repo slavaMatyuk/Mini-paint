@@ -1,15 +1,22 @@
 import firebase, { db, storageRef } from '../../configs/firebase';
 
-interface docState {
-  data: () => never;
-}
-
 export const fetchAllImages = async () => {
-  const data: [] = [];
-  const fetchImages: any = await db.collection('users').get();
-  console.log(`все юзеры здесь: ${fetchImages}`);
-  fetchImages.docs.map((doc: docState) => data.push(doc.data()));
-  return data;
+  const images: [] = [];
+  const fetchImages = await db.collection('users');
+  await fetchImages.get()
+    .then((querySnapshot) => {
+      let imagesE: [] = [];
+      querySnapshot.forEach((doc) => {
+        doc.get(doc.id).then(((doc2: any) => {
+          const payload = doc2.data();
+          if (payload) {
+            imagesE = payload.images;
+          }
+          return imagesE;
+        }));
+      });
+    });
+  return images;
 };
 
 export const fetchUserImages = async (userID: string, userName: string) => {
@@ -35,7 +42,7 @@ export const saveImage = async (dataUrl: string, userID: string, userName: strin
   const imgUrl = await imgRef.getDownloadURL();
 
   const saveImageToDB = () => db.collection('users').doc(`${userID}`).update({
-    images: firebase.firestore.FieldValue.arrayUnion({ imgUrl, id }),
+    images: firebase.firestore.FieldValue.arrayUnion({ imgUrl, id, userName }),
   });
 
   db.collection('users').doc(`${userID}`).get().then((doc) => {
@@ -51,9 +58,10 @@ export const saveImage = async (dataUrl: string, userID: string, userName: strin
 export const deleteUserImage = async (id: string, userID: string, imgUrl: string, userName: string) => {
   await db.collection('users').doc(`${userID}`);
   db.collection('users').doc(`${userID}`).update({
-    images: firebase.firestore.FieldValue.arrayRemove({ id, imgUrl }),
+    images: firebase.firestore.FieldValue.arrayRemove({ id, imgUrl, userName }),
   });
+
   const path = `library/${userID}/photo:${id}`;
-  const imgRef: {delete: () => void} = storageRef.child(path);
+  const imgRef = storageRef.child(path);
   await imgRef.delete();
 };

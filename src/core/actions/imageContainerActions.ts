@@ -56,10 +56,10 @@ export const getUserImagesFromDbFailedAction = (payload: {code: string, message:
   { type: GET_USER_IMAGES_FROM_DB_FAILED, payload }
 );
 
-export const getAllImagesFromDbSucceededAction = (payload: object | unknown) => (
+export const getAllImagesFromDbSucceededAction = (payload: [object] | unknown) => (
   { type: GET_ALL_IMAGES_FROM_DB_SUCCEEDED, payload }
 );
 
-export const getAllImagesFromDbFailedAction = (payload: {code:string, message: string} | unknown) => (
+export const getAllImagesFromDbFailedAction = (payload: {code: string, message: string} | unknown) => (
   { type: GET_ALL_IMAGES_FROM_DB_FAILED, payload }
 );

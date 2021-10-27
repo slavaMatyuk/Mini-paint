@@ -24,7 +24,7 @@ export function* saveImageFetchWorker(payload: AnyAction): Generator {
 
 export function* getAllImagesFetchWorker(): Generator {
   try {
-    const data: any = yield call(fetchAllImages);
+    const data: [object] | unknown = yield call(fetchAllImages);
     yield put(getAllImagesFromDbSucceededAction(data));
   } catch (error) {
     yield put(getAllImagesFromDbFailedAction(error));

@@ -33,8 +33,6 @@ export interface ImageState {
   subContexDataUrl: string,
   imageName: string,
   imagesProfData: [],
-  imagesData: [],
-  sortedImagesData: [],
 }
 
 const initialState: ImageState = {
@@ -45,8 +43,6 @@ const initialState: ImageState = {
   subContexDataUrl: '',
   imageName: '',
   imagesProfData: [],
-  imagesData: [],
-  sortedImagesData: [],
 };
 
 export const imageReducer = (state = initialState, action: ImageAction): object => {
@@ -71,13 +67,13 @@ export const imageReducer = (state = initialState, action: ImageAction): object 
         ...state, loading: true, error: false,
       };
     case GET_ALL_IMAGES_FROM_DB_SUCCEEDED:
-      return { ...state, loading: false, imagesData: action.payload };
+      return { ...state, loading: false, imagesProfData: action.payload };
     case GET_ALL_IMAGES_FROM_DB_FAILED:
       return {
-        ...state, loading: false, error: true,
+        ...state, loading: false,
       };
     case SORT_IMAGES:
-      return { ...state, sortedImagesData: action.data };
+      return { ...state, imagesProfData: action.data || [] };
     case DEL_USER_IMAGE_FROM_DB:
       return { ...state, loading: true, deleteWithURL: action.imgUrl };
     case DEL_USER_IMAGE_FROM_DB_SUCCEEDED:
