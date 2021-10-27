@@ -32,8 +32,6 @@ const HomePage: React.FC = () => {
     setIsLoading(false);
   }, [dispatch]);
 
-  console.log(`show me what i want! - ${imagesData}`);
-
   return (
     <StyledContainer style={{ marginTop: '40px' }}>
       <NavLink to={RoutesConst.PROFILE}>
@@ -81,7 +79,7 @@ const HomePage: React.FC = () => {
               </div>
             );
           }
-          return 'No collections yet!';
+          return null;
         })
       }
     </StyledContainer>

@@ -12,6 +12,7 @@ import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
 import StyledAvatar from '../../core/components/styles/StyledAvatar';
 import StyledButton from '../../core/components/styles/StyledButton';
 import StyledContainer from '../../core/components/styles/StyledContainer';
+import StyledDeleteBtn from '../../core/components/styles/StyledDeleteBtn';
 import StyledGallery from '../../core/components/styles/StyledGallery';
 import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
 import StyledTitle from '../../core/components/styles/StyledTitle';
@@ -39,7 +40,7 @@ const ProfilePage: React.FC = () => {
   }, [dispatch, userID, userName]);
 
   return (
-    <StyledContainer style={{ marginTop: '20px' }}>
+    <StyledContainer style={{ marginTop: 0 }}>
       <NavLink to={RoutesConst.HOME}>
         <StyledButton type="submit">
           Home
@@ -47,22 +48,22 @@ const ProfilePage: React.FC = () => {
       </NavLink>
       <StyledContainer style={{ marginTop: 0 }}>
         <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
-        <StyledTitle style={{ fontSize: '28px' }}>{userName && getNameFromEmail(userName)}</StyledTitle>
+        <StyledTitle style={{ fontSize: '28px', marginBottom: '10px' }}>
+          {userName && getNameFromEmail(userName)}
+        </StyledTitle>
       </StyledContainer>
       <StyledGalleryWrapper>
         {isLoading && <Spinner />}
-        {
+        <CanvasWrapper>
+          {
           imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
-            <CanvasWrapper key={+key}>
-              <StyledGallery>
-                <img src={image.imgUrl} alt={image.imgUrl} />
-                <StyledButton onClick={delUserImageFromDB}>
-                  Delete
-                </StyledButton>
-              </StyledGallery>
-            </CanvasWrapper>
+            <StyledGallery key={+key}>
+              <img src={image.imgUrl} alt={image.imgUrl} />
+              <StyledDeleteBtn onClick={delUserImageFromDB}>x</StyledDeleteBtn>
+            </StyledGallery>
           ))
-        }
+          }
+        </CanvasWrapper>
       </StyledGalleryWrapper>
     </StyledContainer>
   );

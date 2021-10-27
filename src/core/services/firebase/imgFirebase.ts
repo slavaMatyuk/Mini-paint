@@ -2,19 +2,22 @@ import firebase, { db, storageRef } from '../../configs/firebase';
 
 export const fetchAllImages = async () => {
   const images: [] = [];
-  const fetchImages = await db.collection('users');
+  const fetchImages = await db.collection('users').where('images', '>', 0);
+  console.log(fetchImages);
   await fetchImages.get()
     .then((querySnapshot) => {
-      let imagesE: [] = [];
+      let imagesAll: [] = [];
       querySnapshot.forEach((doc) => {
         doc.get(doc.id).then(((doc2: any) => {
           const payload = doc2.data();
           if (payload) {
-            imagesE = payload.images;
+            imagesAll = payload.images;
           }
-          return imagesE;
+          return imagesAll;
         }));
       });
+    }).catch((error) => {
+      console.log(`ERROR MESSAGE: ${error}`);
     });
   return images;
 };

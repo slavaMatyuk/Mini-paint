@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { setDataUrlAction } from '../../actions/imageContainerActions';
 import iconsConst from '../../helpers/constants/iconsConst';
 import { AppState } from '../../interfaces';
@@ -30,6 +31,7 @@ const Canvas: React.FC<CanvasProps> = ({
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [subContext, setSubContext] = useState<CanvasRenderingContext2D | null>(null);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const userName = useSelector((state: AppState) => state.auth.userName);
   const userID = useSelector((state: AppState) => state.auth.userID);
@@ -70,6 +72,7 @@ const Canvas: React.FC<CanvasProps> = ({
   const handleSaveImage = () => {
     if (subContext) {
       setDataUrl(subContext?.canvas.toDataURL());
+      history.push('/');
     }
   };
 
