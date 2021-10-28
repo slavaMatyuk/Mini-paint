@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { getAllImagesFromDbAction, sortImagesAction } from '../../core/actions/imageContainerActions';
+import {
+  getAllImagesFromDbAction, sortImagesAction,
+} from '../../core/actions/imageContainerActions';
 import Input from '../../core/components/Input';
 import Spinner from '../../core/components/Spinner';
 import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
@@ -67,7 +69,7 @@ const HomePage: React.FC = () => {
                 </div>
                 <div>
                   {
-                    elem.images.map((image: { id: string, imgUrl: string }, key2: number) => (
+                    elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
                       <CanvasWrapper key={+key2}>
                         <StyledGallery>
                           <img src={image.imgUrl} alt={image.imgUrl} />

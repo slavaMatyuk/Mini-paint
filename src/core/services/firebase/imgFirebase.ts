@@ -2,8 +2,8 @@ import firebase, { db, storageRef } from '../../configs/firebase';
 
 export const fetchAllImages = async () => {
   const images: [] = [];
-  const fetchImages = await db.collection('users').where('images', '>', 0);
-  console.log(fetchImages);
+  const fetchImages = await db.collection('users');
+  console.log(fetchImages); // TO REMOVE
   await fetchImages.get()
     .then((querySnapshot) => {
       let imagesAll: [] = [];
@@ -17,7 +17,7 @@ export const fetchAllImages = async () => {
         }));
       });
     }).catch((error) => {
-      console.log(`ERROR MESSAGE: ${error}`);
+      console.log(`ERROR MESSAGE: ${error}`); // TO REMOVE
     });
   return images;
 };
