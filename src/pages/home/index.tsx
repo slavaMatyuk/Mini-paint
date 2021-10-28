@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
         <CanvasWrapper style={{ background: 'transparent' }}>
           {
           imagesData.map((elem: { userName: string, images: [] }, key) => {
-            if (elem.images.length) {
+            if (elem.images && elem.images.length) {
               return (
                 <div key={+key}>
                   <StyledFlexRow>
@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
                   </StyledFlexRow>
                   {
                   elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
-                    <CanvasWrapper key={+key2} style={{ marginBottom: '20px' }}>
+                    <CanvasWrapper key={+key2} style={{ marginBottom: '40px' }}>
                       <StyledGallery>
                         <img src={image.imgUrl} alt={image.imgUrl} />
                       </StyledGallery>

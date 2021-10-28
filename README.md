@@ -37,16 +37,15 @@ npm run start
 ```
 └──users
      |──userId        
-          ├── email             
-          ├── photo
-          ├── userId
+          ├── userName           
+          ├── iserID
+          ├── images
+                 |── id
+                 |── imageUrl
+                 |── userName
 
 └──library                  
       ├──userId
            ├──photo
-                ├──userEmail
-                ├──imageURL
-                ├──imageId
-                ├──imagePath
 
 ```

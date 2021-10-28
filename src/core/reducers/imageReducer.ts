@@ -2,6 +2,7 @@ import {
   SET_DATA_URL,
   GET_ALL_IMAGES_FROM_DB,
   SORT_IMAGES,
+  DEL_TRIGGER,
   GET_USER_IMAGES_FROM_DB,
   DEL_USER_IMAGE_FROM_DB,
   SAVE_IMAGE_SUCCEEDED,
@@ -30,6 +31,7 @@ export interface ImageState {
   error: boolean,
   deleteWithID: number | null,
   deleteWithURL: string | null,
+  delTrigger: boolean,
   subContexDataUrl: string,
   imageName: string,
   imagesProfData: [],
@@ -40,6 +42,7 @@ const initialState: ImageState = {
   error: false,
   deleteWithID: null,
   deleteWithURL: null,
+  delTrigger: false,
   subContexDataUrl: '',
   imageName: '',
   imagesProfData: [],
@@ -74,6 +77,10 @@ export const imageReducer = (state = initialState, action: ImageAction): object 
       };
     case SORT_IMAGES:
       return { ...state, imagesProfData: action.data || [] };
+    case DEL_TRIGGER:
+      return {
+        ...state, delTrigger: !state.delTrigger, deleteWithID: action.id, deleteWithURL: action.imgUrl,
+      };
     case DEL_USER_IMAGE_FROM_DB:
       return { ...state, loading: true, deleteWithURL: action.imgUrl };
     case DEL_USER_IMAGE_FROM_DB_SUCCEEDED:
@@ -82,6 +89,7 @@ export const imageReducer = (state = initialState, action: ImageAction): object 
         imagesProfData: state.imagesProfData.filter((img: {id: string | number}) => img.id !== state.deleteWithID),
         loading: false,
         deleteWithID: null,
+        delTrigger: false,
       };
     case DEL_USER_IMAGE_FROM_DB_FAILED:
       return { ...state, loading: false };
