@@ -8,11 +8,13 @@ import {
 import Input from '../../core/components/Input';
 import Spinner from '../../core/components/Spinner';
 import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
-import StyledAvatar from '../../core/components/styles/StyledAvatar';
 import StyledButton from '../../core/components/styles/StyledButton';
 import StyledContainer from '../../core/components/styles/StyledContainer';
+import StyledFlexRow from '../../core/components/styles/StyledFlexRow';
 import StyledForm from '../../core/components/styles/StyledForm';
 import StyledGallery from '../../core/components/styles/StyledGallery';
+import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
+import StyledTitle from '../../core/components/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
 import handleSortImages from '../../core/helpers/handleSortImages';
 import { AppState } from '../../core/interfaces';
@@ -35,7 +37,7 @@ const HomePage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <StyledContainer style={{ marginTop: '40px' }}>
+    <StyledContainer style={{ marginTop: 0 }}>
       <NavLink to={RoutesConst.PROFILE}>
         <StyledButton type="submit">
           Profile
@@ -46,44 +48,45 @@ const HomePage: React.FC = () => {
           Editor
         </StyledButton>
       </NavLink>
-      <StyledForm>
+      <StyledForm style={{ marginTop: 0 }}>
         <Input
           type="text"
           onChange={sortImagesData}
           name="email"
-          placeholder="Enter name"
+          placeholder=""
           value={inputValue}
           className=""
           label="Enter user"
         />
       </StyledForm>
-      {isLoading && <Spinner />}
-      {
-        imagesData.map((elem: { userName: string, images: [] }, key) => {
-          if (elem.images) {
-            return (
-              <div key={+key}>
-                <div>
-                  <StyledAvatar>{elem.userName.substring(0, 1).toUpperCase()}</StyledAvatar>
-                  <h3>{elem.userName}</h3>
-                </div>
-                <div>
+      <StyledGalleryWrapper>
+        {isLoading && <Spinner />}
+        <CanvasWrapper style={{ background: 'transparent' }}>
+          {
+          imagesData.map((elem: { userName: string, images: [] }, key) => {
+            if (elem.images.length) {
+              return (
+                <div key={+key}>
+                  <StyledFlexRow>
+                    <StyledTitle style={{ fontSize: '20px', margin: '10px 0' }}>{elem.userName}</StyledTitle>
+                  </StyledFlexRow>
                   {
-                    elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
-                      <CanvasWrapper key={+key2}>
-                        <StyledGallery>
-                          <img src={image.imgUrl} alt={image.imgUrl} />
-                        </StyledGallery>
-                      </CanvasWrapper>
-                    ))
-                  }
+                  elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
+                    <CanvasWrapper key={+key2} style={{ marginBottom: '20px' }}>
+                      <StyledGallery>
+                        <img src={image.imgUrl} alt={image.imgUrl} />
+                      </StyledGallery>
+                    </CanvasWrapper>
+                  ))
+                }
                 </div>
-              </div>
-            );
-          }
-          return null;
-        })
-      }
+              );
+            }
+            return null;
+          })
+        }
+        </CanvasWrapper>
+      </StyledGalleryWrapper>
     </StyledContainer>
   );
 };

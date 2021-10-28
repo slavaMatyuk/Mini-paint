@@ -1,27 +1,14 @@
 import firebase, { db, storageRef } from '../../configs/firebase';
 
+interface IDoc {
+  data: () => never;
+}
+
 export const fetchAllImages = async () => {
-  const images: [] = [];
-  const fetchImages = await db.collection('users');
-
-  console.log(fetchImages); // TO REMOVE
-
-  await fetchImages.get()
-    .then((querySnapshot) => {
-      let imagesAll: [] = [];
-      querySnapshot.forEach((doc) => {
-        doc.get(doc.id).then(((doc2: any) => {
-          const payload = doc2.data();
-          if (payload) {
-            imagesAll = payload.images;
-          }
-          return imagesAll;
-        }));
-      });
-    }).catch((error) => {
-      console.log(`ERROR MESSAGE: ${error}`); // TO REMOVE
-    });
-  return images;
+  const data: [] = [];
+  const fetchImages: any = await db.collection('users').get();
+  fetchImages.docs.map((doc: IDoc) => data.push(doc.data()));
+  return data;
 };
 
 export const fetchUserImages = async (userID: string, userName: string) => {

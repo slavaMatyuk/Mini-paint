@@ -5,7 +5,6 @@ const CanvasWrapper = styled.div`
   height: 400px;
   background-color: ${(props) => props.theme.canvas};
   border-radius: 2px;
-  box-shadow: 0 0 10px 0 ${(props) => props.theme.text};
   cursor: crosshair;
 
   & canvas {

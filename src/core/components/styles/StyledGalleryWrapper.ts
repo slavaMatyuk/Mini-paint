@@ -6,7 +6,6 @@ const StyledGalleryWrapper = styled.div`
   align-items: center;
   overflow-y: auto;
   scroll-behavior: smooth;
-  background-color: #ffffff33;
   ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
