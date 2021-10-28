@@ -3,7 +3,9 @@ import firebase, { db, storageRef } from '../../configs/firebase';
 export const fetchAllImages = async () => {
   const images: [] = [];
   const fetchImages = await db.collection('users');
+
   console.log(fetchImages); // TO REMOVE
+
   await fetchImages.get()
     .then((querySnapshot) => {
       let imagesAll: [] = [];
