@@ -23,5 +23,11 @@
   "include": [
     "src",
     "./src/declaration.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "src/core/components/styles/styled.d.ts"
   ]
 }
