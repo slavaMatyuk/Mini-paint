@@ -62,18 +62,18 @@ const ProfilePage: React.FC = () => {
       </StyledContainer>
       <StyledGalleryWrapper>
         {isLoading && <Spinner />}
-        <CanvasWrapper>
-          {
-          imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
-            <StyledGallery key={+key} style={{ position: 'relative', marginBottom: '40px' }}>
+        {
+        imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
+          <CanvasWrapper key={+key}>
+            <StyledGallery style={{ position: 'relative', marginBottom: '40px' }}>
               <img src={image.imgUrl} alt={image.imgUrl} />
               <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)} style={{ position: 'absolute' }}>
                 x
               </StyledDeleteBtn>
             </StyledGallery>
-          ))
-          }
-        </CanvasWrapper>
+          </CanvasWrapper>
+        ))
+        }
         {isTrigger && (
           <StyledModalBg>
             <StyledModalWindow>
