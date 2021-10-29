@@ -1,13 +1,13 @@
 import firebase, { db, storageRef } from '../../configs/firebase';
 
-interface IDoc {
+interface DocProps {
   data: () => never;
 }
 
 export const fetchAllImages = async () => {
   const data: [] = [];
   const fetchImages: any = await db.collection('users').get();
-  fetchImages.docs.map((doc: IDoc) => data.push(doc.data()));
+  fetchImages.docs.map((doc: DocProps) => data.push(doc.data()));
   return data;
 };
 
@@ -16,7 +16,7 @@ export const fetchUserImages = async (userID: string, userName: string) => {
   const imagesRef = await db.collection('users').doc(`${userID}`);
   await imagesRef.get().then((doc) => {
     const payload = doc.data();
-    if (payload) {
+    if (payload && userName) {
       images = payload.images;
     }
     return images;

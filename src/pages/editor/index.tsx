@@ -22,6 +22,9 @@ const EditorPage: React.FC = () => {
 
   const handleDash = () => setDash(dash === false);
   const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
+  const handleTool = (currentTool: string) => () => setTool(currentTool);
+  const handleColor = (event: React.ChangeEvent<{ value: unknown }>) => setColor(event.target?.value as string);
+  const handleWidth = (e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number);
 
   return (
     <EditorWrapper>
@@ -39,24 +42,24 @@ const EditorPage: React.FC = () => {
       </StyledBtnsInEditor>
       <div>
         <ControlsWrapper>
-          <StyledControl type="button" className={tool === 'brush' ? 'selected' : ''} onClick={() => setTool('brush')}>
+          <StyledControl type="button" className={tool === 'brush' ? 'selected' : ''} onClick={handleTool('brush')}>
             <img src={iconsConst.BRUSH} alt="brush" title="Brush" />
           </StyledControl>
           <StyledControl
             type="button"
             className={tool === 'rectangle' ? 'selected' : ''}
-            onClick={() => setTool('rectangle')}
+            onClick={handleTool('rectangle')}
           >
             <img src={iconsConst.RECT} alt="rectangle" title="Rectangle" />
           </StyledControl>
           <StyledControl
             type="button"
             className={tool === 'circle' ? 'selected' : ''}
-            onClick={() => setTool('circle')}
+            onClick={handleTool('circle')}
           >
             <img src={iconsConst.CIRCLE} alt="circle" title="Circle" />
           </StyledControl>
-          <StyledControl type="button" className={tool === 'line' ? 'selected' : ''} onClick={() => setTool('line')}>
+          <StyledControl type="button" className={tool === 'line' ? 'selected' : ''} onClick={handleTool('line')}>
             <img src={iconsConst.LINE} alt="line" title="Line" />
           </StyledControl>
           <StyledControl type="button" className={dash ? 'selected' : ''} onClick={handleDash}>
@@ -68,7 +71,7 @@ const EditorPage: React.FC = () => {
           <Input
             type="color"
             value={color}
-            onChange={(event: any) => setColor(event.target.value)}
+            onChange={handleColor}
             label=""
             className=""
             placeholder=""
@@ -77,7 +80,7 @@ const EditorPage: React.FC = () => {
           <StyledSelect
             value={lineWidth}
             style={{ width: '60px' }}
-            onChange={(e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number)}
+            onChange={handleWidth}
           >
             {AMOUNT_OF_WIDTH_POINTS.map((num) => (
               <StyledOption key={num} value={num}>

@@ -6,7 +6,7 @@ export async function getAuthDataFromEmailSignIn(payload: {email: string, passwo
 }
 
 export async function getAuthDataFromEmailSignUp(payload: {email: string, password: string}) {
-  const res: any = await auth.createUserWithEmailAndPassword(payload.email, payload.password).then((userCredential) => {
+  const res = await auth.createUserWithEmailAndPassword(payload.email, payload.password).then((userCredential) => {
     db.collection('users').doc(userCredential.user?.uid).set({
       userID: userCredential.user?.uid,
       userName: userCredential.user?.email,
