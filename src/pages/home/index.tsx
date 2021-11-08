@@ -16,7 +16,7 @@ import StyledGallery from '../../core/components/styles/StyledGallery';
 import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
 import StyledTitle from '../../core/components/styles/StyledTitle';
 import RoutesConst from '../../core/helpers/constants/routesConst';
-import handleSortImages from '../../core/helpers/handleSortImages';
+import sortImages from '../../core/helpers/sortImages';
 import { AppState } from '../../core/interfaces';
 
 const HomePage: React.FC = () => {
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
 
   const sortImagesData = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    return dispatch(sortImagesAction(handleSortImages(imagesData, e.target.value)));
+    return dispatch(sortImagesAction(sortImages(imagesData, e.target.value)));
   };
 
   useEffect(() => {
