@@ -9,9 +9,9 @@ import StyledButton from '../../core/components/styles/StyledButton';
 import StyledControl from '../../core/components/styles/StyledControl';
 import StyledOption from '../../core/components/styles/StyledOption';
 import StyledSelect from '../../core/components/styles/StyledSelect';
-import AMOUNT_OF_WIDTH_POINTS from '../../core/helpers/constants/amountOfWidthPoints';
-import iconsConst from '../../core/helpers/constants/iconsConst';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import AMOUNT_OF_WIDTH_POINTS from '../../core/constants/amountOfWidthPoints';
+import iconsConst from '../../core/constants/iconsConst';
+import RoutesConst from '../../core/constants/routesConst';
 
 const EditorPage: React.FC = () => {
   const [tool, setTool] = useState<string>('brush');

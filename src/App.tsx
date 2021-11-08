@@ -6,7 +6,7 @@ import Header from './core/components/Header';
 import StyledApp from './core/components/styles/StyledApp';
 import StyledContainer from './core/components/styles/StyledContainer';
 import { auth } from './core/configs/firebase';
-import RoutesConst from './core/helpers/constants/routesConst';
+import RoutesConst from './core/constants/routesConst';
 import { AppState } from './core/interfaces';
 import EditorPage from './pages/editor';
 import Homepage from './pages/home';

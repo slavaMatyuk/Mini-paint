@@ -9,7 +9,7 @@ import StyledContainer from '../../core/components/styles/StyledContainer';
 import StyledForm from '../../core/components/styles/StyledForm';
 import StyledLinkDiv from '../../core/components/styles/StyledLinkDiv';
 import StyledTitle from '../../core/components/styles/StyledTitle';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
 

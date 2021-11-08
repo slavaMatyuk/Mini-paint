@@ -21,7 +21,7 @@ import StyledModalBg from '../../core/components/styles/StyledModalBg';
 import StyledModalButton from '../../core/components/styles/StyledModalButton';
 import StyledModalWindow from '../../core/components/styles/StyledModalWindow';
 import StyledTitle from '../../core/components/styles/StyledTitle';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import RoutesConst from '../../core/constants/routesConst';
 import getNameFromEmail from '../../core/helpers/getNameFromEmail';
 import { AppState } from '../../core/interfaces';
 

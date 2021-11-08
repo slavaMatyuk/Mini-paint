@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { setDataUrlAction } from '../../actions/imageContainerActions';
-import iconsConst from '../../helpers/constants/iconsConst';
+import iconsConst from '../../constants/iconsConst';
 import { AppState } from '../../interfaces';
 import CanvasWrapper from '../styles/CanvasWrapper';
 import StyledCanvasBtns from '../styles/StyledCanvasBtns';

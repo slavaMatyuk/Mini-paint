@@ -15,7 +15,7 @@ import StyledForm from '../../core/components/styles/StyledForm';
 import StyledGallery from '../../core/components/styles/StyledGallery';
 import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
 import StyledTitle from '../../core/components/styles/StyledTitle';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import RoutesConst from '../../core/constants/routesConst';
 import sortImages from '../../core/helpers/sortImages';
 import { AppState } from '../../core/interfaces';
 
