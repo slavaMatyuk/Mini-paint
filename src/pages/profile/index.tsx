@@ -57,7 +57,7 @@ const ProfilePage: React.FC = () => {
       <StyledContainer style={{ marginTop: 0 }}>
         <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
         <StyledTitle style={{ fontSize: '28px', marginBottom: '10px' }}>
-          {userName && getNameFromEmail(userName)}
+          {userName && `Hello, ${getNameFromEmail(userName)}!`}
         </StyledTitle>
       </StyledContainer>
       <StyledGalleryWrapper>
