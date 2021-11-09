@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Canvas from '../../core/components/Canvas';
+import ControlsWrapper from '../../core/components/Canvas/styles/ControlsWrapper';
+import StyledBtnsInEditor from '../../core/components/Canvas/styles/StyledBtnsInEditor';
+import StyledControl from '../../core/components/Canvas/styles/StyledControl';
 import Input from '../../core/components/Input';
-import ControlsWrapper from '../../core/components/styles/ControlsWrapper';
-import EditorWrapper from '../../core/components/styles/EditorWrapper';
-import StyledBtnsInEditor from '../../core/components/styles/StyledBtnsInEditor';
-import StyledButton from '../../core/components/styles/StyledButton';
-import StyledControl from '../../core/components/styles/StyledControl';
-import StyledOption from '../../core/components/styles/StyledOption';
-import StyledSelect from '../../core/components/styles/StyledSelect';
+import EditorWrapper from '../../core/components/styles/common/EditorWrapper';
+import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import AMOUNT_OF_WIDTH_POINTS from '../../core/constants/amountOfWidthPoints';
 import iconsConst from '../../core/constants/iconsConst';
 import RoutesConst from '../../core/constants/routesConst';
+import StyledOption from '../../core/components/styles/forms/StyledOption';
+import StyledSelect from '../../core/components/styles/forms/StyledSelect';
 
 const EditorPage: React.FC = () => {
   const [tool, setTool] = useState('brush');

@@ -5,16 +5,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   getAllImagesFromDbAction, sortImagesAction,
 } from '../../core/actions/imageContainerActions';
+import CanvasWrapper from '../../core/components/Canvas/styles/CanvasWrapper';
+import StyledGallery from '../../core/components/Canvas/styles/StyledGallery';
+import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
 import Input from '../../core/components/Input';
 import Spinner from '../../core/components/Spinner';
-import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
-import StyledButton from '../../core/components/styles/StyledButton';
-import StyledContainer from '../../core/components/styles/StyledContainer';
-import StyledFlexRow from '../../core/components/styles/StyledFlexRow';
-import StyledForm from '../../core/components/styles/StyledForm';
-import StyledGallery from '../../core/components/styles/StyledGallery';
-import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
-import StyledTitle from '../../core/components/styles/StyledTitle';
+import StyledButton from '../../core/components/styles/buttons/StyledButton';
+import StyledContainer from '../../core/components/styles/common/StyledContainer';
+import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
+import StyledTitle from '../../core/components/styles/common/StyledTitle';
+import StyledForm from '../../core/components/styles/forms/StyledForm';
 import RoutesConst from '../../core/constants/routesConst';
 import sortImages from '../../core/helpers/sortImages';
 import { AppState } from '../../core/interfaces';

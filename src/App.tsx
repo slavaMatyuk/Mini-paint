@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { setAuthAction } from './core/actions/authActions';
 import Routes from './core/components/auth/Routes';
 import Header from './core/components/Header';
-import StyledApp from './core/components/styles/StyledApp';
-import StyledContainer from './core/components/styles/StyledContainer';
+import StyledApp from './core/components/styles/common/StyledApp';
+import StyledContainer from './core/components/styles/common/StyledContainer';
 import { auth } from './core/configs/firebase';
 
 const App: React.FC = () => {

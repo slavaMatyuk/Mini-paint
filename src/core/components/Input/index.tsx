@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from 'react';
-import StyledFlexRow from '../styles/StyledFlexRow';
+import StyledFlexRow from '../styles/common/StyledFlexRow';
 
 interface InputProps {
   type: string;

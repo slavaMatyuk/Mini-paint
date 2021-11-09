@@ -4,10 +4,10 @@ import { useHistory } from 'react-router';
 import { setDataUrlAction } from '../../actions/imageContainerActions';
 import iconsConst from '../../constants/iconsConst';
 import { AppState } from '../../interfaces';
-import CanvasWrapper from '../styles/CanvasWrapper';
-import StyledCanvasBtns from '../styles/StyledCanvasBtns';
-import StyledCommonCanvas from '../styles/StyledCommonCanvas';
-import StyledControl from '../styles/StyledControl';
+import CanvasWrapper from './styles/CanvasWrapper';
+import StyledCanvasBtns from './styles/StyledCanvasBtns';
+import StyledCommonCanvas from './styles/StyledCommonCanvas';
+import StyledControl from './styles/StyledControl';
 
 interface CanvasProps {
   tool: string;

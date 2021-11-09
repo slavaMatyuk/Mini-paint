@@ -9,21 +9,21 @@ import {
   getUserNameAction,
 } from '../../core/actions/imageContainerActions';
 import Spinner from '../../core/components/Spinner';
-import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
-import StyledAvatar from '../../core/components/styles/StyledAvatar';
-import StyledButton from '../../core/components/styles/StyledButton';
-import StyledContainer from '../../core/components/styles/StyledContainer';
-import StyledDeleteBtn from '../../core/components/styles/StyledDeleteBtn';
-import StyledFlexRow from '../../core/components/styles/StyledFlexRow';
-import StyledGallery from '../../core/components/styles/StyledGallery';
-import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
-import StyledModalBg from '../../core/components/styles/StyledModalBg';
-import StyledModalButton from '../../core/components/styles/StyledModalButton';
-import StyledModalWindow from '../../core/components/styles/StyledModalWindow';
-import StyledTitle from '../../core/components/styles/StyledTitle';
+import StyledDeleteBtn from '../../core/components/styles/buttons/StyledDeleteBtn';
+import StyledModalBg from '../../core/components/styles/modalWindow/StyledModalBg';
 import RoutesConst from '../../core/constants/routesConst';
 import getNameFromEmail from '../../core/helpers/getNameFromEmail';
 import { AppState } from '../../core/interfaces';
+import StyledModalWindow from '../../core/components/styles/modalWindow/StyledModalWindow';
+import StyledModalButton from '../../core/components/styles/modalWindow/StyledModalButton';
+import CanvasWrapper from '../../core/components/Canvas/styles/CanvasWrapper';
+import StyledGallery from '../../core/components/Canvas/styles/StyledGallery';
+import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
+import StyledButton from '../../core/components/styles/buttons/StyledButton';
+import StyledAvatar from '../../core/components/styles/common/StyledAvatar';
+import StyledContainer from '../../core/components/styles/common/StyledContainer';
+import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
+import StyledTitle from '../../core/components/styles/common/StyledTitle';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
