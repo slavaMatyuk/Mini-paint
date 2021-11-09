@@ -17,7 +17,7 @@ export function* createUserWithEmailFetchWorker(data: AnyAction) {
     const response: DBcreateUserResponse = yield call(getAuthDataFromEmailSignUp, payload);
     yield put(createUserSucceededAction(response));
   } catch (error) {
-    yield put(createUserFailedAction(error));
+    yield put(createUserFailedAction(error as { code: string, message: string }));
   }
 }
 
@@ -36,7 +36,7 @@ export function* signInWithEmailFetchWorker(data: AnyAction) {
     });
     yield put(logInSucceededAction(userData));
   } catch (error) {
-    yield put(logInFailedAction(error));
+    yield put(logInFailedAction(error as { code: string, message: string }));
   }
 }
 
@@ -45,7 +45,7 @@ export function* signOutFetchAsyncWorker() {
     yield call(signOut);
     yield put(logOutSucceededAction());
   } catch (error) {
-    yield put(logOutFailedAction(error));
+    yield put(logOutFailedAction(error as { code: string, message: string }));
   }
 }
 

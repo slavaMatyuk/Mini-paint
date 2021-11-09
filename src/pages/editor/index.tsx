@@ -23,8 +23,8 @@ const EditorPage: React.FC = () => {
   const handleDash = () => setDash(dash === false);
   const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
   const handleTool = (currentTool: string) => () => setTool(currentTool);
-  const handleColor = (event: React.ChangeEvent<{ value: unknown }>) => setColor(event.target?.value as string);
-  const handleWidth = (e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number);
+  const handleColor = (event: React.ChangeEvent<{ value: string }>) => setColor(event.target?.value);
+  const handleWidth = (event: React.ChangeEvent<HTMLSelectElement>) => setLineWidth(+event.target.value);
 
   return (
     <EditorWrapper>

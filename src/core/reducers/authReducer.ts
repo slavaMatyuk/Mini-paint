@@ -43,7 +43,7 @@ const initialState: AuthState = {
   userID: '',
 };
 
-export const authReducer = (state = initialState, action: Action): object => {
+export const authReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case SET_AUTH:
       return {

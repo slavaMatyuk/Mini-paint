@@ -1,4 +1,6 @@
-const sortImages = (imagesData: [], userName: string) => imagesData
-  .filter((userImages: {userName: string}) => userImages.userName.substr(0, userName.length) === userName);
+import { ImageType } from '../../reducers/imageReducer';
+
+const sortImages = (imagesData: ImageType[], userName: string) => imagesData
+  .filter((userImages: {userName: string}) => userImages.userName === userName);
 
 export default sortImages;
