@@ -1,21 +1,13 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { setAuthAction } from './core/actions/authActions';
+import Routes from './core/components/auth/Routes';
 import Header from './core/components/Header';
 import StyledApp from './core/components/styles/StyledApp';
 import StyledContainer from './core/components/styles/StyledContainer';
 import { auth } from './core/configs/firebase';
-import RoutesConst from './core/constants/routesConst';
-import { AppState } from './core/interfaces';
-import EditorPage from './pages/editor';
-import Homepage from './pages/home';
-import LoginPage from './pages/login';
-import ProfilePage from './pages/profile';
-import RegisterPage from './pages/register';
 
 const App: React.FC = () => {
-  const authenticated = useSelector((state: AppState) => state.auth.authenticated);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,36 +22,7 @@ const App: React.FC = () => {
     <StyledApp>
       <Header />
       <StyledContainer>
-        {authenticated ? (
-          <Switch>
-            <Route exact path={RoutesConst.HOME}>
-              <Homepage />
-            </Route>
-            <Route exact path={RoutesConst.EDITOR}>
-              <EditorPage />
-            </Route>
-            <Route exact path={RoutesConst.PROFILE}>
-              <ProfilePage />
-            </Route>
-          </Switch>
-        ) : (
-          <Redirect to={RoutesConst.LOGIN} />
-        )}
-        {(!authenticated) ? (
-          <Switch>
-            <Route exact path={RoutesConst.REGISTER}>
-              <RegisterPage />
-            </Route>
-            <Route exact path={RoutesConst.LOGIN}>
-              <LoginPage />
-            </Route>
-            <Route path={RoutesConst.ANY}>
-              <Redirect to={RoutesConst.LOGIN} />
-            </Route>
-          </Switch>
-        ) : (
-          <Redirect to={RoutesConst.HOME} />
-        )}
+        <Routes />
       </StyledContainer>
     </StyledApp>
   );
