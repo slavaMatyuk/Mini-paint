@@ -14,11 +14,11 @@ import iconsConst from '../../core/constants/iconsConst';
 import RoutesConst from '../../core/constants/routesConst';
 
 const EditorPage: React.FC = () => {
-  const [tool, setTool] = useState<string>('brush');
-  const [dash, setDash] = useState<boolean>(false);
+  const [tool, setTool] = useState('brush');
+  const [dash, setDash] = useState(false);
   const [blur, setBlur] = useState(0);
-  const [color, setColor] = useState<string>('#000000');
-  const [lineWidth, setLineWidth] = useState<number>(3);
+  const [color, setColor] = useState('#000000');
+  const [lineWidth, setLineWidth] = useState(3);
 
   const handleDash = () => setDash(dash === false);
   const handleBlur = () => setBlur(blur === 0 ? 10 : 0);

@@ -13,15 +13,10 @@ import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
 
-interface CredentialsProps {
-  email: string;
-  password: string;
-}
-
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const error = useSelector((state: AppState) => state.auth.errorMessage);
-  const [credentials, setCredentials] = useState<CredentialsProps>({
+  const [credentials, setCredentials] = useState({
     email: '',
     password: '',
   });

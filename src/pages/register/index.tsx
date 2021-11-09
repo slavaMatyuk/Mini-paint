@@ -13,15 +13,9 @@ import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
 
-interface CredentialsProps {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
 const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
-  const [credentials, setCredentials] = useState<CredentialsProps>({
+  const [credentials, setCredentials] = useState({
     email: '',
     password: '',
     confirmPassword: '',

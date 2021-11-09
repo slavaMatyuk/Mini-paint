@@ -26,8 +26,8 @@ const Canvas: React.FC<CanvasProps> = ({
 
   const [canvasWidth, setCanvasWidth] = useState(0);
   const [canvasHeight, setCanvasHeight] = useState(0);
-  const [mouseDownX, setMouseDownX] = useState<number | null>();
-  const [mouseDownY, setMouseDownY] = useState<number | null>();
+  const [mouseDownX, setMouseDownX] = useState(0);
+  const [mouseDownY, setMouseDownY] = useState(0);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [subContext, setSubContext] = useState<CanvasRenderingContext2D | null>(null);
   const dispatch = useDispatch();
@@ -142,8 +142,8 @@ const Canvas: React.FC<CanvasProps> = ({
     if (context && subContext) {
       subContext.drawImage(canvasRef.current!, 0, 0);
       context.beginPath();
-      setMouseDownX(null);
-      setMouseDownY(null);
+      setMouseDownX(0);
+      setMouseDownY(0);
     }
   };
 
