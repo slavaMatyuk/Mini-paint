@@ -79,7 +79,6 @@ const EditorPage: React.FC = () => {
           />
           <StyledSelect
             value={lineWidth}
-            style={{ width: '60px' }}
             onChange={handleWidth}
           >
             {AMOUNT_OF_WIDTH_POINTS.map((num) => (

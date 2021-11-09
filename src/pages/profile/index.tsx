@@ -15,15 +15,16 @@ import RoutesConst from '../../core/constants/routesConst';
 import getNameFromEmail from '../../core/helpers/getNameFromEmail';
 import { AppState } from '../../core/interfaces';
 import StyledModalWindow from '../../core/components/styles/modalWindow/StyledModalWindow';
-import StyledModalButton from '../../core/components/styles/modalWindow/StyledModalButton';
 import CanvasWrapper from '../../core/components/Canvas/styles/CanvasWrapper';
-import StyledGallery from '../../core/components/Canvas/styles/StyledGallery';
 import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import StyledAvatar from '../../core/components/styles/common/StyledAvatar';
-import StyledContainer from '../../core/components/styles/common/StyledContainer';
 import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
-import StyledTitle from '../../core/components/styles/common/StyledTitle';
+import StyledProfileWrapper from './styles/StyledProfileWrapper';
+import StyledGreetings from './styles/StyledGreetings';
+import StyledProfileGallery from './styles/StyledProfileGallery';
+import StyledProfileImages from './styles/StyledProfileImages';
+import { StyledModalBtnDanger, StyledModalButton } from '../../core/components/styles/modalWindow/StyledModalButton';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -48,31 +49,31 @@ const ProfilePage: React.FC = () => {
   }, [dispatch, userID, userName]);
 
   return (
-    <StyledContainer style={{ marginTop: 0 }}>
+    <StyledProfileWrapper>
       <NavLink to={RoutesConst.HOME}>
         <StyledButton type="submit">
           Home
         </StyledButton>
       </NavLink>
-      <StyledContainer style={{ marginTop: 0 }}>
+      <StyledProfileWrapper>
         <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
-        <StyledTitle style={{ fontSize: '28px', marginBottom: '10px' }}>
+        <StyledGreetings>
           {userName && `Hello, ${getNameFromEmail(userName)}!`}
-        </StyledTitle>
-      </StyledContainer>
+        </StyledGreetings>
+      </StyledProfileWrapper>
       <StyledGalleryWrapper>
         <CanvasWrapper>
           {isLoading && <Spinner />}
           {
         imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
-          <CanvasWrapper key={+key} style={{ marginBottom: '40px' }}>
-            <StyledGallery style={{ position: 'relative', marginBottom: '40px' }}>
+          <StyledProfileGallery key={+key}>
+            <StyledProfileImages>
               <img src={image.imgUrl} alt={image.imgUrl} />
-              <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)} style={{ position: 'absolute' }}>
+              <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)}>
                 x
               </StyledDeleteBtn>
-            </StyledGallery>
-          </CanvasWrapper>
+            </StyledProfileImages>
+          </StyledProfileGallery>
         ))
         }
         </CanvasWrapper>
@@ -81,19 +82,16 @@ const ProfilePage: React.FC = () => {
             <StyledModalWindow>
               <p>DELETE?</p>
               <StyledFlexRow>
-                <StyledModalButton
-                  onClick={onDelTrigger(null, null)}
-                  style={{ backgroundColor: '#cc0000' }}
-                >
+                <StyledModalBtnDanger onClick={onDelTrigger(null, null)}>
                   ☒
-                </StyledModalButton>
+                </StyledModalBtnDanger>
                 <StyledModalButton onClick={delUserImageFromDB}>☑</StyledModalButton>
               </StyledFlexRow>
             </StyledModalWindow>
           </StyledModalBg>
         )}
       </StyledGalleryWrapper>
-    </StyledContainer>
+    </StyledProfileWrapper>
   );
 };
 

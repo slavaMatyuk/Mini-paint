@@ -6,12 +6,12 @@ import { logInAction } from '../../core/actions/authActions';
 import Input from '../../core/components/Input';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import StyledContainer from '../../core/components/styles/common/StyledContainer';
-import StyledTitle from '../../core/components/styles/common/StyledTitle';
 import StyledForm from '../../core/components/styles/forms/StyledForm';
 import StyledLinkDiv from '../../core/components/styles/common/StyledLinkDiv';
 import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
+import StyledLoginTitle from './styles/StyledLoginTitle';
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <StyledContainer>
-      <StyledTitle style={{ fontSize: '24px' }}>Log in with email and password</StyledTitle>
+      <StyledLoginTitle>Log in with email and password</StyledLoginTitle>
       <StyledForm onSubmit={handleSubmit}>
         <Input
           value={credentials.email}
@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
         />
         <StyledButton>Log in</StyledButton>
       </StyledForm>
-      <StyledTitle style={{ fontSize: '24px' }}>I still have no account</StyledTitle>
+      <StyledLoginTitle>I still have no account</StyledLoginTitle>
       <StyledLinkDiv>
         <Link to={RoutesConst.REGISTER}>
           <StyledButton>Register me</StyledButton>

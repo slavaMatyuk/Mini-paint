@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledModalButton = styled.button`
+export const StyledModalButton = styled.button`
   border-radius: 50%;
   border: 3px solid #ffffff;
   cursor: pointer;
@@ -21,4 +21,6 @@ const StyledModalButton = styled.button`
   }
 `;
 
-export default StyledModalButton;
+export const StyledModalBtnDanger = styled(StyledModalButton)`
+  background-color: #cc0000;
+`;

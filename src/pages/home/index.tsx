@@ -5,19 +5,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   getAllImagesFromDbAction, sortImagesAction,
 } from '../../core/actions/imageContainerActions';
-import CanvasWrapper from '../../core/components/Canvas/styles/CanvasWrapper';
 import StyledGallery from '../../core/components/Canvas/styles/StyledGallery';
 import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
 import Input from '../../core/components/Input';
 import Spinner from '../../core/components/Spinner';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
-import StyledContainer from '../../core/components/styles/common/StyledContainer';
 import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
-import StyledTitle from '../../core/components/styles/common/StyledTitle';
 import StyledForm from '../../core/components/styles/forms/StyledForm';
 import RoutesConst from '../../core/constants/routesConst';
 import sortImages from '../../core/helpers/sortImages';
 import { AppState } from '../../core/interfaces';
+import StyledGalleryTitle from './styles/StyledGalleryTitle';
+import StyledHomeImagesWrap from './styles/StyledHomeImagesWrap';
+import StyledHomeWrapper from './styles/StyledHomeWrapper';
+import TransparentWrapper from './styles/TransparentWrapper';
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const HomePage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <StyledContainer style={{ marginTop: 0 }}>
+    <StyledHomeWrapper>
       <NavLink to={RoutesConst.PROFILE}>
         <StyledButton type="submit">
           Profile
@@ -48,7 +49,7 @@ const HomePage: React.FC = () => {
           Editor
         </StyledButton>
       </NavLink>
-      <StyledForm style={{ marginTop: 0 }}>
+      <StyledForm>
         <Input
           type="text"
           onChange={sortImagesData}
@@ -61,22 +62,22 @@ const HomePage: React.FC = () => {
       </StyledForm>
       <StyledGalleryWrapper>
         {isLoading && <Spinner />}
-        <CanvasWrapper style={{ background: 'transparent' }}>
+        <TransparentWrapper>
           {
           imagesData.map((elem: { userName: string, images: [] }, key) => {
             if (elem.images && elem.images.length) {
               return (
                 <div key={+key}>
                   <StyledFlexRow>
-                    <StyledTitle style={{ fontSize: '20px', margin: '10px 0' }}>{elem.userName}</StyledTitle>
+                    <StyledGalleryTitle>{elem.userName}</StyledGalleryTitle>
                   </StyledFlexRow>
                   {
                   elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
-                    <CanvasWrapper key={+key2} style={{ marginBottom: '40px' }}>
+                    <StyledHomeImagesWrap key={+key2}>
                       <StyledGallery>
                         <img src={image.imgUrl} alt={image.imgUrl} />
                       </StyledGallery>
-                    </CanvasWrapper>
+                    </StyledHomeImagesWrap>
                   ))
                 }
                 </div>
@@ -85,9 +86,9 @@ const HomePage: React.FC = () => {
             return null;
           })
         }
-        </CanvasWrapper>
+        </TransparentWrapper>
       </StyledGalleryWrapper>
-    </StyledContainer>
+    </StyledHomeWrapper>
   );
 };
 

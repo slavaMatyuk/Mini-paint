@@ -6,12 +6,12 @@ import { createUserAction } from '../../core/actions/authActions';
 import Input from '../../core/components/Input';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import StyledContainer from '../../core/components/styles/common/StyledContainer';
-import StyledTitle from '../../core/components/styles/common/StyledTitle';
 import StyledForm from '../../core/components/styles/forms/StyledForm';
 import StyledLinkDiv from '../../core/components/styles/common/StyledLinkDiv';
 import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
+import StyledRegTitle from './styles/StyledRegTitle';
 
 const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <StyledContainer>
-      <StyledTitle style={{ fontSize: '24px' }}>Register with e-mail and password</StyledTitle>
+      <StyledRegTitle>Register with e-mail and password</StyledRegTitle>
       <StyledForm onSubmit={handleSubmit}>
         <Input
           type="email"

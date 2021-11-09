@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledDeleteBtn = styled.button`
+position: absolute;
   border-radius: 50%;
   border: none;
   cursor: pointer;
