@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
@@ -8,7 +8,6 @@ import {
   getUserImagesFromDbAction,
   getUserNameAction,
 } from '../../core/actions/imageContainerActions';
-import Spinner from '../../core/components/Spinner';
 import StyledDeleteBtn from '../../core/components/styles/buttons/StyledDeleteBtn';
 import StyledModalBg from '../../core/components/styles/modalWindow/StyledModalBg';
 import RoutesConst from '../../core/constants/routesConst';
@@ -23,13 +22,13 @@ import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
 import StyledProfileWrapper from './styles/StyledProfileWrapper';
 import StyledGreetings from './styles/StyledGreetings';
 import StyledProfileGallery from './styles/StyledProfileGallery';
+import TransparentWrapper from '../home/styles/TransparentWrapper';
 import StyledProfileImages from './styles/StyledProfileImages';
 import { StyledModalBtnDanger, StyledModalButton } from '../../core/components/styles/modalWindow/StyledModalButton';
 import notify from '../../core/helpers/notify';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const userName = useSelector((state: AppState) => state.auth.userName);
   const userID = useSelector((state: AppState) => state.auth.userID);
   const imagesProfData = useSelector((state: AppState) => state.images.imagesProfData);
@@ -45,11 +44,9 @@ const ProfilePage: React.FC = () => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     dispatch(getUserNameAction());
     dispatch(getUserIDAction());
     dispatch(getUserImagesFromDbAction(userID, userName));
-    setIsLoading(false);
   }, [dispatch, userID, userName]);
 
   return (
@@ -66,21 +63,27 @@ const ProfilePage: React.FC = () => {
         </StyledGreetings>
       </StyledProfileWrapper>
       <StyledGalleryWrapper>
-        <CanvasWrapper>
-          {isLoading && <Spinner />}
+        <TransparentWrapper>
           {
-        imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
-          <StyledProfileGallery key={+key}>
-            <StyledProfileImages>
-              <img src={image.imgUrl} alt={image.imgUrl} />
-              <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)}>
-                x
-              </StyledDeleteBtn>
-            </StyledProfileImages>
-          </StyledProfileGallery>
-        ))
+            imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => {
+              if (image) {
+                return (
+                  <StyledProfileGallery key={+key}>
+                    <CanvasWrapper>
+                      <StyledProfileImages>
+                        <img src={image.imgUrl} alt={image.imgUrl} />
+                        <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)}>
+                          x
+                        </StyledDeleteBtn>
+                      </StyledProfileImages>
+                    </CanvasWrapper>
+                  </StyledProfileGallery>
+                );
+              }
+              return null;
+            })
         }
-        </CanvasWrapper>
+        </TransparentWrapper>
         {isTrigger && (
           <StyledModalBg>
             <StyledModalWindow>
