@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,14 +22,17 @@ const RegisterPage: React.FC = () => {
   });
   const error = useSelector((state: AppState) => state.auth.errorMessage);
 
+  if (error) {
+    notify(`${error}`);
+  }
+
   const createUser = (payload: {email: string, password: string}) => {
     dispatch(createUserAction(payload));
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    createUser(credentials);
-
+    await createUser(credentials);
     if (error) {
       notify(`${error}`);
     }
