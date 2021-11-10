@@ -25,6 +25,7 @@ import StyledGreetings from './styles/StyledGreetings';
 import StyledProfileGallery from './styles/StyledProfileGallery';
 import StyledProfileImages from './styles/StyledProfileImages';
 import { StyledModalBtnDanger, StyledModalButton } from '../../core/components/styles/modalWindow/StyledModalButton';
+import notify from '../../core/helpers/notify';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,10 @@ const ProfilePage: React.FC = () => {
   const delTrigger = (id2: string | null, imgUrl2: string | null) => dispatch(delTriggerAction(id2, imgUrl2));
   const onDelTrigger = (id2: string | null, imgUrl2: string | null) => () => delTrigger(id2, imgUrl2);
 
-  const delUserImageFromDB = () => dispatch(delUserImageFromDbAction(id, userID, imgUrl, userName));
+  const delUserImageFromDB = () => {
+    dispatch(delUserImageFromDbAction(id, userID, imgUrl, userName));
+    notify('The picture has deleted');
+  };
 
   useEffect(() => {
     setIsLoading(true);

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { setDataUrlAction } from '../../actions/imageContainerActions';
 import iconsConst from '../../constants/iconsConst';
+import notify from '../../helpers/notify';
 import { AppState } from '../../interfaces';
 import CanvasWrapper from './styles/CanvasWrapper';
 import StyledCanvasBtns from './styles/StyledCanvasBtns';
@@ -31,7 +32,6 @@ const Canvas: React.FC<CanvasProps> = ({
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [subContext, setSubContext] = useState<CanvasRenderingContext2D | null>(null);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const userName = useSelector((state: AppState) => state.auth.userName);
   const userID = useSelector((state: AppState) => state.auth.userID);
@@ -72,7 +72,8 @@ const Canvas: React.FC<CanvasProps> = ({
   const handleSaveImage = () => {
     if (subContext) {
       setDataUrl(subContext?.canvas.toDataURL());
-      history.push('/');
+      clearCanvas();
+      notify('Well done! The picture has saved');
     }
   };
 
