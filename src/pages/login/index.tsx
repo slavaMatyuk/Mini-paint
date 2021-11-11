@@ -31,8 +31,7 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signIn(credentials);
-
+    await signIn(credentials);
     if (error) {
       notify('Please, enter correct data or register!');
     }
