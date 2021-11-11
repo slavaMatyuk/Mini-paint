@@ -73,7 +73,7 @@ const ProfilePage: React.FC = () => {
                       <StyledProfileImages>
                         <img src={image.imgUrl} alt={image.imgUrl} />
                         <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)}>
-                          x
+                          ✖
                         </StyledDeleteBtn>
                       </StyledProfileImages>
                     </CanvasWrapper>
