@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import { setDataUrlAction } from '../../actions/imageContainerActions';
 import iconsConst from '../../constants/iconsConst';
 import notify from '../../helpers/notify';
