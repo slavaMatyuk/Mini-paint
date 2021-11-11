@@ -10,7 +10,7 @@ export const StyledModalButton = styled.button`
   width: 80px;
   height: 80px;
   text-align: center;
-  font-size: 28px;
+  font-size: 50px;
   padding: 0;
   margin: 10px;
   transition: background-color 0.2s linear;

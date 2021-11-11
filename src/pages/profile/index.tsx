@@ -90,9 +90,9 @@ const ProfilePage: React.FC = () => {
               <p>DELETE?</p>
               <StyledFlexRow>
                 <StyledModalBtnDanger onClick={onDelTrigger(null, null)}>
-                  ☒
+                  ✖
                 </StyledModalBtnDanger>
-                <StyledModalButton onClick={delUserImageFromDB}>☑</StyledModalButton>
+                <StyledModalButton onClick={delUserImageFromDB}>✓</StyledModalButton>
               </StyledFlexRow>
             </StyledModalWindow>
           </StyledModalBg>
