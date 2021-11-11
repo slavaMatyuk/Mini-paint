@@ -22,10 +22,10 @@ import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
 import StyledProfileWrapper from './styles/StyledProfileWrapper';
 import StyledGreetings from './styles/StyledGreetings';
 import StyledProfileGallery from './styles/StyledProfileGallery';
-import TransparentWrapper from '../home/styles/TransparentWrapper';
 import StyledProfileImages from './styles/StyledProfileImages';
 import { StyledModalBtnDanger, StyledModalButton } from '../../core/components/styles/modalWindow/StyledModalButton';
 import notify from '../../core/helpers/notify';
+import TransparentProfWrapper from './styles/TransparentProfWrapper';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ const ProfilePage: React.FC = () => {
         </StyledGreetings>
       </StyledProfileWrapper>
       <StyledGalleryWrapper>
-        <TransparentWrapper>
+        <TransparentProfWrapper>
           {
             imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => {
               if (image) {
@@ -83,7 +83,7 @@ const ProfilePage: React.FC = () => {
               return null;
             })
         }
-        </TransparentWrapper>
+        </TransparentProfWrapper>
         {isTrigger && (
           <StyledModalBg>
             <StyledModalWindow>

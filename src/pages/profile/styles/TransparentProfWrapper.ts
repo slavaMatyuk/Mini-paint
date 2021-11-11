@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const TransparentWrapper = styled.div`
-  width: 480px;
+const TransparentProfWrapper = styled.div`
+  width: 600px;
   height: 400px;
   background-color: transparent;
 
@@ -10,4 +10,4 @@ const TransparentWrapper = styled.div`
   }
 `;
 
-export default TransparentWrapper;
+export default TransparentProfWrapper;

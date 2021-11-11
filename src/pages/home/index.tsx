@@ -7,13 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   getAllImagesFromDbAction, sortImagesAction,
 } from '../../core/actions/imageContainerActions';
-import StyledGallery from '../../core/components/Canvas/styles/StyledGallery';
 import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
+import Carousel from '../../core/components/Carousel';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
 import RoutesConst from '../../core/constants/routesConst';
 import sortImages from '../../core/helpers/sortImages';
 import { AppState } from '../../core/interfaces';
+import StyledFlexRowWrap from './styles/StyledFlexRowWrap';
 import StyledGalleryTitle from './styles/StyledGalleryTitle';
 import StyledHomeImagesWrap from './styles/StyledHomeImagesWrap';
 import StyledHomeWrapper from './styles/StyledHomeWrapper';
@@ -48,16 +49,18 @@ const HomePage: React.FC = () => {
 
   return (
     <StyledHomeWrapper>
-      <NavLink to={RoutesConst.PROFILE}>
-        <StyledButton type="submit">
-          Profile
-        </StyledButton>
-      </NavLink>
-      <NavLink to={RoutesConst.EDITOR}>
-        <StyledButton type="submit">
-          Editor
-        </StyledButton>
-      </NavLink>
+      <StyledFlexRowWrap>
+        <NavLink to={RoutesConst.PROFILE}>
+          <StyledButton type="submit">
+            Profile
+          </StyledButton>
+        </NavLink>
+        <NavLink to={RoutesConst.EDITOR}>
+          <StyledButton type="submit">
+            Editor
+          </StyledButton>
+        </NavLink>
+      </StyledFlexRowWrap>
       <StyledInputWrapper>
         <label htmlFor="search">
           Enter user
@@ -83,15 +86,15 @@ const HomePage: React.FC = () => {
                     <StyledFlexRow>
                       <StyledGalleryTitle>{elem.userName}</StyledGalleryTitle>
                     </StyledFlexRow>
-                    {
+                    <Carousel>
+                      {
                       elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
                         <StyledHomeImagesWrap key={+key2}>
-                          <StyledGallery>
-                            <img src={image.imgUrl} alt={image.imgUrl} />
-                          </StyledGallery>
+                          <img src={image.imgUrl} alt={image.imgUrl} />
                         </StyledHomeImagesWrap>
                       ))
                     }
+                    </Carousel>
                   </div>
                 );
               }
