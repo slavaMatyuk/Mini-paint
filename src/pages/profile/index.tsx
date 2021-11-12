@@ -68,7 +68,7 @@ const ProfilePage: React.FC = () => {
             imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => {
               if (image) {
                 return (
-                  <StyledProfileGallery key={+key}>
+                  <StyledProfileGallery key={key.toString()}>
                     <CanvasWrapper>
                       <StyledProfileImages>
                         <img src={image.imgUrl} alt={image.imgUrl} />

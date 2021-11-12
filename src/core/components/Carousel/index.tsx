@@ -14,7 +14,7 @@ const Carousel = ({ children }: CarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const activeSlide = children.map((slide, index) => (
-    <StyledCarouselSlide active={currentSlide === index} key={+index}>
+    <StyledCarouselSlide active={currentSlide === index} key={slide.key}>
       {slide}
     </StyledCarouselSlide>
   ));

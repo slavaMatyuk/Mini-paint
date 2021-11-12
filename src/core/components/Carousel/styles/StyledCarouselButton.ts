@@ -33,7 +33,7 @@ const StyledCarouselButton = styled.button`
 
   &:hover {
     opacity: 0.4;
-    transition: 0.4s;
+    transition: 0.2s;
   }
 
   &:active {

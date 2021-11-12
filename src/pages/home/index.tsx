@@ -79,17 +79,17 @@ const HomePage: React.FC = () => {
       <StyledGalleryWrapper>
         <TransparentWrapper>
           {
-            imagesData.map((elem: { userName: string, images: [] }, key) => {
+            imagesData.map((elem: { userName: string, images: [] }) => {
               if (elem.images && elem.images.length) {
                 return (
-                  <div key={+key}>
+                  <div key={elem.userName}>
                     <StyledFlexRow>
                       <StyledGalleryTitle>{elem.userName}</StyledGalleryTitle>
                     </StyledFlexRow>
                     <Carousel>
                       {
-                      elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
-                        <StyledHomeImagesWrap key={+key2}>
+                      elem.images.map((image: { id: string, imgUrl: string, userName: string }) => (
+                        <StyledHomeImagesWrap key={image.id}>
                           <img src={image.imgUrl} alt={image.imgUrl} />
                         </StyledHomeImagesWrap>
                       ))
