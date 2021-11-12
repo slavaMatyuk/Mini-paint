@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { setDataUrlAction } from '../../core/actions/imageContainerActions';
 import Canvas from '../../core/components/Canvas';
 import ControlsWrapper from '../../core/components/Canvas/styles/ControlsWrapper';
 import StyledBtnsInEditor from '../../core/components/Canvas/styles/StyledBtnsInEditor';
 import StyledControl from '../../core/components/Canvas/styles/StyledControl';
 import Input from '../../core/components/Input';
-import EditorWrapper from '../../core/components/styles/common/EditorWrapper';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
+import EditorWrapper from '../../core/components/styles/common/EditorWrapper';
+import StyledOption from '../../core/components/styles/forms/StyledOption';
+import StyledSelect from '../../core/components/styles/forms/StyledSelect';
 import AMOUNT_OF_WIDTH_POINTS from '../../core/constants/amountOfWidthPoints';
 import iconsConst from '../../core/constants/iconsConst';
 import RoutesConst from '../../core/constants/routesConst';
-import StyledOption from '../../core/components/styles/forms/StyledOption';
-import StyledSelect from '../../core/components/styles/forms/StyledSelect';
+import { AppState } from '../../core/interfaces';
 
 const EditorPage: React.FC = () => {
   const [tool, setTool] = useState('brush');
@@ -19,12 +22,20 @@ const EditorPage: React.FC = () => {
   const [blur, setBlur] = useState(0);
   const [color, setColor] = useState('#000000');
   const [lineWidth, setLineWidth] = useState(3);
+  const dispatch = useDispatch();
+
+  const userName = useSelector((state: AppState) => state.auth.userName);
+  const userID = useSelector((state: AppState) => state.auth.userID);
 
   const handleDash = () => setDash(dash === false);
   const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
   const handleTool = (currentTool: string) => () => setTool(currentTool);
   const handleColor = (event: React.ChangeEvent<{ value: string }>) => setColor(event.target?.value);
   const handleWidth = (event: React.ChangeEvent<HTMLSelectElement>) => setLineWidth(+event.target.value);
+
+  const setDataUrl = (dataUrl: string) => {
+    dispatch(setDataUrlAction(dataUrl, userID, userName));
+  };
 
   return (
     <EditorWrapper>
@@ -88,7 +99,7 @@ const EditorPage: React.FC = () => {
             ))}
           </StyledSelect>
         </ControlsWrapper>
-        <Canvas tool={tool} color={color} dash={dash} blur={blur} lineWidth={lineWidth} />
+        <Canvas tool={tool} color={color} dash={dash} blur={blur} lineWidth={lineWidth} setDataUrl={setDataUrl} />
       </div>
     </EditorWrapper>
   );

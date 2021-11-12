@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setDataUrlAction } from '../../actions/imageContainerActions';
 import iconsConst from '../../constants/iconsConst';
 import notify from '../../helpers/notify';
-import { AppState } from '../../interfaces';
 import CanvasWrapper from './styles/CanvasWrapper';
 import StyledCanvasBtns from './styles/StyledCanvasBtns';
 import StyledCommonCanvas from './styles/StyledCommonCanvas';
@@ -15,10 +12,11 @@ interface CanvasProps {
   dash: boolean;
   blur: number;
   lineWidth: number;
+  setDataUrl: (arg0: string) => void;
 }
 
 const Canvas: React.FC<CanvasProps> = ({
-  tool, color, dash, blur, lineWidth,
+  tool, color, dash, blur, lineWidth, setDataUrl,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -30,10 +28,6 @@ const Canvas: React.FC<CanvasProps> = ({
   const [mouseDownY, setMouseDownY] = useState(0);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [subContext, setSubContext] = useState<CanvasRenderingContext2D | null>(null);
-  const dispatch = useDispatch();
-
-  const userName = useSelector((state: AppState) => state.auth.userName);
-  const userID = useSelector((state: AppState) => state.auth.userID);
 
   useEffect(() => {
     if (canvasRef.current && subCanvasRef.current && wrapperRef.current?.clientWidth) {
@@ -62,10 +56,6 @@ const Canvas: React.FC<CanvasProps> = ({
       clearContext(context, canvasRef as React.MutableRefObject<HTMLCanvasElement>);
       clearContext(subContext, subCanvasRef as React.MutableRefObject<HTMLCanvasElement>);
     }
-  };
-
-  const setDataUrl = (dataUrl: string) => {
-    dispatch(setDataUrlAction(dataUrl, userID, userName));
   };
 
   const handleSaveImage = () => {
