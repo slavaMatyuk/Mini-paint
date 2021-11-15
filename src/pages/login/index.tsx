@@ -2,12 +2,12 @@ import React, { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { logInAction } from '../../core/actions/authActions';
-import Input from '../../core/components/Input';
+import { logInAction, resetErrorAction } from '../../core/actions/authActions';
+import AuthInput from '../../core/components/AuthInput';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import StyledContainer from '../../core/components/styles/common/StyledContainer';
-import StyledForm from '../../core/components/styles/forms/StyledForm';
 import StyledLinkDiv from '../../core/components/styles/common/StyledLinkDiv';
+import StyledForm from '../../core/components/styles/forms/StyledForm';
 import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
@@ -29,34 +29,36 @@ const LoginPage: React.FC = () => {
     dispatch(logInAction(payload));
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await signIn(credentials);
+    signIn(credentials);
     if (error) {
       notify('Please, enter correct data or register!');
     }
+  };
+
+  const resetError = () => {
+    dispatch(resetErrorAction());
   };
 
   return (
     <StyledContainer>
       <StyledLoginTitle>Log in with email and password</StyledLoginTitle>
       <StyledForm onSubmit={handleSubmit}>
-        <Input
+        <AuthInput
           value={credentials.email}
           onChange={onInputChange}
+          onFocus={resetError}
           type="email"
           label="E-mail"
-          className=""
-          placeholder=""
           name="email"
         />
-        <Input
+        <AuthInput
           value={credentials.password}
           onChange={onInputChange}
+          onFocus={resetError}
           type="password"
           label="Password"
-          className=""
-          placeholder=""
           name="password"
         />
         <StyledButton>Log in</StyledButton>

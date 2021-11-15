@@ -2,16 +2,17 @@ import React, { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { createUserAction } from '../../core/actions/authActions';
-import Input from '../../core/components/Input';
+import { createUserAction, resetErrorAction } from '../../core/actions/authActions';
+import AuthInput from '../../core/components/AuthInput';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import StyledContainer from '../../core/components/styles/common/StyledContainer';
-import StyledForm from '../../core/components/styles/forms/StyledForm';
 import StyledLinkDiv from '../../core/components/styles/common/StyledLinkDiv';
+import StyledForm from '../../core/components/styles/forms/StyledForm';
 import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
 import StyledRegTitle from './styles/StyledRegTitle';
+import RENDER_REGISTER_INPUT from '../../core/constants/inputConst';
 
 const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,37 +43,27 @@ const RegisterPage: React.FC = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  const resetError = () => {
+    dispatch(resetErrorAction());
+  };
+
   return (
     <StyledContainer>
       <StyledRegTitle>Register with e-mail and password</StyledRegTitle>
       <StyledForm onSubmit={handleSubmit}>
-        <Input
-          type="email"
-          name="email"
-          value={credentials.email}
-          onChange={onInputChange}
-          label="E-mail"
-          className=""
-          placeholder=""
-        />
-        <Input
-          type="password"
-          name="password"
-          value={credentials.password}
-          onChange={onInputChange}
-          label="Password"
-          className=""
-          placeholder=""
-        />
-        <Input
-          type="password"
-          name="confirmPassword"
-          value={credentials.confirmPassword}
-          onChange={onInputChange}
-          label="Confirm"
-          className=""
-          placeholder=""
-        />
+        {
+        RENDER_REGISTER_INPUT(credentials, onInputChange, resetError).map((elem) => (
+          <AuthInput
+            key={elem.name}
+            type={elem.type}
+            value={elem.value}
+            name={elem.name}
+            onChange={elem.onChange}
+            onFocus={elem.onFocus}
+            label={elem.label}
+          />
+        ))
+        }
         <StyledLinkDiv>
           <Link to={RoutesConst.LOGIN}>
             <StyledButton type="button">Back</StyledButton>

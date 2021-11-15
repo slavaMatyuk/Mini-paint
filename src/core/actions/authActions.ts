@@ -10,6 +10,7 @@ export const LOG_OUT_FAILED = 'AUTH/LOG_OUT_FAILED';
 export const SET_AUTH = 'AUTH/SET_AUTH';
 export const VERIFY_AUTH = 'AUTH/VERIFY_AUTH';
 export const SET_ERROR_MESSAGE = 'AUTH/SET_ERROR_MESSAGE';
+export const RESET_ERROR_MESSAGE = 'AUTH/RESET_ERROR_MESSAGE';
 
 export const createUserAction = (payload: {email: string, password: string}) => (
   { type: CREATE_USER_WITH_REGISTER, payload }
@@ -21,6 +22,10 @@ export const logInAction = (payload: {email: string, password: string}) => (
 
 export const setErrorAction = (error: {code: string, message: string}) => (
   { type: SET_ERROR_MESSAGE, error }
+);
+
+export const resetErrorAction = () => (
+  { type: RESET_ERROR_MESSAGE }
 );
 
 export const setAuthAction = (userName: string, userID: string) => ({ type: SET_AUTH, userName, userID });

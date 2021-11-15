@@ -6,7 +6,6 @@ import Canvas from '../../core/components/Canvas';
 import ControlsWrapper from '../../core/components/Canvas/styles/ControlsWrapper';
 import StyledBtnsInEditor from '../../core/components/Canvas/styles/StyledBtnsInEditor';
 import StyledControl from '../../core/components/Canvas/styles/StyledControl';
-import Input from '../../core/components/Input';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import EditorWrapper from '../../core/components/styles/common/EditorWrapper';
 import StyledOption from '../../core/components/styles/forms/StyledOption';
@@ -79,15 +78,7 @@ const EditorPage: React.FC = () => {
           <StyledControl type="button" className={blur > 0 ? 'selected' : ''} onClick={handleBlur}>
             <img src={iconsConst.BLUR} alt="blur" title="Blur" />
           </StyledControl>
-          <Input
-            type="color"
-            value={color}
-            onChange={handleColor}
-            label=""
-            className=""
-            placeholder=""
-            name=""
-          />
+          <input type="color" value={color} onChange={handleColor} name={color} />
           <StyledSelect
             value={lineWidth}
             onChange={handleWidth}

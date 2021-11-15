@@ -9,6 +9,7 @@ import {
   LOG_IN_FAILED,
   CREATE_USER_WITH_REGISTER_SUCCEEDED,
   CREATE_USER_WITH_REGISTER_FAILED,
+  RESET_ERROR_MESSAGE,
 } from '../actions/authActions';
 
 interface Action {
@@ -80,6 +81,10 @@ export const authReducer = (state = initialState, action: Action) => {
       return { ...state, error: action.error };
     case SET_ERROR_MESSAGE:
       return { ...state, error: true, errorMessage: action.error };
+    case RESET_ERROR_MESSAGE:
+      if (state.error) {
+        return { ...state, error: false, errorMessage: null };
+      } return state;
     default:
       return state;
   }
