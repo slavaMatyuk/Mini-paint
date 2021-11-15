@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 import HeaderWrapper from './styles/HeaderWrapper';
 import { logOutAction } from '../../actions/authActions';
 import { AppState } from '../../interfaces';
@@ -23,8 +22,7 @@ const Header: React.FC = () => {
     <HeaderWrapper>
       <StyledFlexWrap>
         <StyledTitle>Mini Paint</StyledTitle>
-        <ToastContainer autoClose={3000} />
-        {authenticated ? (
+        {authenticated && (
           <StyledFlexRow>
             <StyledUserName>{userName}</StyledUserName>
             <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
@@ -32,8 +30,6 @@ const Header: React.FC = () => {
               Sign out
             </StyledButton>
           </StyledFlexRow>
-        ) : (
-          ''
         )}
       </StyledFlexWrap>
     </HeaderWrapper>

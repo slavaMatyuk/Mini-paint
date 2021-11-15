@@ -30,9 +30,9 @@ const RegisterPage: React.FC = () => {
     dispatch(createUserAction(payload));
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await createUser(credentials);
+    createUser(credentials);
     if (error) {
       notify(`${error}`);
     }

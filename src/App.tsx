@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import { setAuthAction } from './core/actions/authActions';
 import Routes from './core/components/auth/Routes';
 import Header from './core/components/Header';
@@ -21,6 +22,7 @@ const App: React.FC = () => {
   return (
     <StyledApp>
       <Header />
+      <ToastContainer autoClose={3000} />
       <StyledContainer>
         <Routes />
       </StyledContainer>
