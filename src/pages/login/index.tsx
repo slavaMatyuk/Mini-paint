@@ -2,26 +2,21 @@ import React, { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { logInAction } from '../../core/actions/authActions';
-import Input from '../../core/components/Input';
-import StyledButton from '../../core/components/styles/StyledButton';
-import StyledContainer from '../../core/components/styles/StyledContainer';
-import StyledForm from '../../core/components/styles/StyledForm';
-import StyledLinkDiv from '../../core/components/styles/StyledLinkDiv';
-import StyledTitle from '../../core/components/styles/StyledTitle';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import { logInAction, resetErrorAction } from '../../core/actions/authActions';
+import AuthInput from '../../core/components/AuthInput';
+import StyledButton from '../../core/components/styles/buttons/StyledButton';
+import StyledContainer from '../../core/components/styles/common/StyledContainer';
+import StyledLinkDiv from '../../core/components/styles/common/StyledLinkDiv';
+import StyledForm from '../../core/components/styles/forms/StyledForm';
+import RoutesConst from '../../core/constants/routesConst';
 import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
-
-interface CredentialsProps {
-  email: string;
-  password: string;
-}
+import StyledLoginTitle from './styles/StyledLoginTitle';
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const error = useSelector((state: AppState) => state.auth.errorMessage);
-  const [credentials, setCredentials] = useState<CredentialsProps>({
+  const [credentials, setCredentials] = useState({
     email: '',
     password: '',
   });
@@ -34,40 +29,41 @@ const LoginPage: React.FC = () => {
     dispatch(logInAction(payload));
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     signIn(credentials);
-
     if (error) {
       notify('Please, enter correct data or register!');
     }
   };
 
+  const resetError = () => {
+    dispatch(resetErrorAction());
+  };
+
   return (
     <StyledContainer>
-      <StyledTitle style={{ fontSize: '24px' }}>Log in with email and password</StyledTitle>
+      <StyledLoginTitle>Log in with email and password</StyledLoginTitle>
       <StyledForm onSubmit={handleSubmit}>
-        <Input
+        <AuthInput
           value={credentials.email}
           onChange={onInputChange}
+          onFocus={resetError}
           type="email"
           label="E-mail"
-          className=""
-          placeholder=""
           name="email"
         />
-        <Input
+        <AuthInput
           value={credentials.password}
           onChange={onInputChange}
+          onFocus={resetError}
           type="password"
           label="Password"
-          className=""
-          placeholder=""
           name="password"
         />
         <StyledButton>Log in</StyledButton>
       </StyledForm>
-      <StyledTitle style={{ fontSize: '24px' }}>I still have no account</StyledTitle>
+      <StyledLoginTitle>I still have no account</StyledLoginTitle>
       <StyledLinkDiv>
         <Link to={RoutesConst.REGISTER}>
           <StyledButton>Register me</StyledButton>

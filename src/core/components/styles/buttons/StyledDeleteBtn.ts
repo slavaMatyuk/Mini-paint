@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
 const StyledDeleteBtn = styled.button`
+position: absolute;
   border-radius: 50%;
   border: none;
   cursor: pointer;
   color: ${(props) => (props.color ? props.color : props.theme.text)};
   background-color: ${(props) => (props.color ? props.color : props.theme.primary)};
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   text-align: center;
-  font-size: 25px;
+  font-size: 18px;
   padding: 0 5px;
   opacity: 0.2;
   margin: 3px 3px;

@@ -18,26 +18,26 @@ export function* saveImageFetchWorker(payload: AnyAction): Generator {
     yield call(saveImage, dataUrl, userID, userName, id);
     yield put(saveImageSucceededAction());
   } catch (error) {
-    yield put(saveImageFailedAction(error));
+    yield put(saveImageFailedAction(error as { code: string, message: string }));
   }
 }
 
 export function* getAllImagesFetchWorker(): Generator {
   try {
-    const data: [object] | unknown = yield call(fetchAllImages);
-    yield put(getAllImagesFromDbSucceededAction(data));
+    const data = yield call(fetchAllImages);
+    yield put(getAllImagesFromDbSucceededAction(data as { id: string, imgUrl: string, userName: string }));
   } catch (error) {
-    yield put(getAllImagesFromDbFailedAction(error));
+    yield put(getAllImagesFromDbFailedAction(error as { code: string, message: string }));
   }
 }
 
 export function* getUserImageFetchWorker(payload: AnyAction): Generator {
   const { userID, userName } = payload;
   try {
-    const data: [object] | unknown = yield call(fetchUserImages, userID, userName);
-    yield put(getUserImagesFromDbSucceededAction(data));
+    const data = yield call(fetchUserImages, userID, userName);
+    yield put(getUserImagesFromDbSucceededAction(data as { id: string, imgUrl: string, userName: string }));
   } catch (error) {
-    yield put(getUserImagesFromDbFailedAction(error));
+    yield put(getUserImagesFromDbFailedAction(error as { code: string, message: string }));
   }
 }
 
@@ -49,23 +49,23 @@ export function* delImageFetchWorker(payload: AnyAction): Generator {
     yield call(deleteUserImage, id, userID, imgUrl, userName);
     yield put(delUserImageFromDbSucceededAction());
   } catch (error) {
-    yield put(delUserImageFromDbFailedAction(error));
+    yield put(delUserImageFromDbFailedAction(error as { code: string, message: string }));
   }
 }
 
-export function* delImageFetchAsyncWatcher() {
+export function* delImageFetchAsyncWatcher(): Generator {
   yield takeEvery(DEL_USER_IMAGE_FROM_DB, delImageFetchWorker);
 }
 
-export function* getUserImageFetchAsyncWatcher() {
+export function* getUserImageFetchAsyncWatcher(): Generator {
   yield takeEvery(GET_USER_IMAGES_FROM_DB, getUserImageFetchWorker);
 }
 
-export function* saveImageFetchAsyncWatcher() {
+export function* saveImageFetchAsyncWatcher(): Generator {
   yield takeEvery(SET_DATA_URL, saveImageFetchWorker);
 }
 
-export function* getAllImagesFetchAsyncWatcher() {
+export function* getAllImagesFetchAsyncWatcher(): Generator {
   yield takeEvery(GET_ALL_IMAGES_FROM_DB, getAllImagesFetchWorker);
 }
 

@@ -1,93 +1,109 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState, KeyboardEvent,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   getAllImagesFromDbAction, sortImagesAction,
 } from '../../core/actions/imageContainerActions';
-import Input from '../../core/components/Input';
-import Spinner from '../../core/components/Spinner';
-import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
-import StyledButton from '../../core/components/styles/StyledButton';
-import StyledContainer from '../../core/components/styles/StyledContainer';
-import StyledFlexRow from '../../core/components/styles/StyledFlexRow';
-import StyledForm from '../../core/components/styles/StyledForm';
-import StyledGallery from '../../core/components/styles/StyledGallery';
-import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
-import StyledTitle from '../../core/components/styles/StyledTitle';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
+import Carousel from '../../core/components/Carousel';
+import StyledButton from '../../core/components/styles/buttons/StyledButton';
+import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
+import RoutesConst from '../../core/constants/routesConst';
 import sortImages from '../../core/helpers/sortImages';
 import { AppState } from '../../core/interfaces';
+import StyledFlexRowWrap from './styles/StyledFlexRowWrap';
+import StyledGalleryTitle from './styles/StyledGalleryTitle';
+import StyledHomeImagesWrap from './styles/StyledHomeImagesWrap';
+import StyledHomeWrapper from './styles/StyledHomeWrapper';
+import StyledInputWrapper from './styles/StyledInputWrapper';
+import TransparentWrapper from './styles/TransparentWrapper';
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
   const imagesData = useSelector((state: AppState) => state.images.imagesProfData);
 
-  const sortImagesData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    return dispatch(sortImagesAction(sortImages(imagesData, e.target.value)));
-  };
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.currentTarget.value);
+  }, []);
+
+  const handleEnterClick = useCallback(async () => {
+    if (!inputValue) {
+      await dispatch(getAllImagesFromDbAction());
+    } else {
+      await dispatch(sortImagesAction(sortImages(imagesData, inputValue)));
+    }
+  }, [inputValue, imagesData, dispatch]);
+
+  const onKeyDownHandler = useCallback(async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') await handleEnterClick();
+  }, [handleEnterClick]);
 
   useEffect(() => {
-    setIsLoading(true);
     dispatch(getAllImagesFromDbAction());
-    setIsLoading(false);
   }, [dispatch]);
 
   return (
-    <StyledContainer style={{ marginTop: 0 }}>
-      <NavLink to={RoutesConst.PROFILE}>
-        <StyledButton type="submit">
-          Profile
-        </StyledButton>
-      </NavLink>
-      <NavLink to={RoutesConst.EDITOR}>
-        <StyledButton type="submit">
-          Editor
-        </StyledButton>
-      </NavLink>
-      <StyledForm style={{ marginTop: 0 }}>
-        <Input
-          type="text"
-          onChange={sortImagesData}
-          name="email"
-          placeholder=""
-          value={inputValue}
-          className=""
-          label="Enter user"
-        />
-      </StyledForm>
+    <StyledHomeWrapper>
+      <StyledFlexRowWrap>
+        <NavLink to={RoutesConst.PROFILE}>
+          <StyledButton type="submit">
+            Profile
+          </StyledButton>
+        </NavLink>
+        <NavLink to={RoutesConst.EDITOR}>
+          <StyledButton type="submit">
+            Editor
+          </StyledButton>
+        </NavLink>
+      </StyledFlexRowWrap>
+      <StyledInputWrapper>
+        <label htmlFor="search">
+          Enter user
+          <input
+            ref={inputRef}
+            type="text"
+            id="search"
+            name="search"
+            placeholder="and push Enter to sort"
+            onChange={handleInputChange}
+            onKeyDown={onKeyDownHandler}
+            value={inputValue}
+          />
+        </label>
+      </StyledInputWrapper>
       <StyledGalleryWrapper>
-        {isLoading && <Spinner />}
-        <CanvasWrapper style={{ background: 'transparent' }}>
+        <TransparentWrapper>
           {
-          imagesData.map((elem: { userName: string, images: [] }, key) => {
-            if (elem.images && elem.images.length) {
-              return (
-                <div key={+key}>
-                  <StyledFlexRow>
-                    <StyledTitle style={{ fontSize: '20px', margin: '10px 0' }}>{elem.userName}</StyledTitle>
-                  </StyledFlexRow>
-                  {
-                  elem.images.map((image: { id: string, imgUrl: string, userName: string }, key2: number) => (
-                    <CanvasWrapper key={+key2} style={{ marginBottom: '40px' }}>
-                      <StyledGallery>
-                        <img src={image.imgUrl} alt={image.imgUrl} />
-                      </StyledGallery>
-                    </CanvasWrapper>
-                  ))
-                }
-                </div>
-              );
-            }
-            return null;
-          })
-        }
-        </CanvasWrapper>
+            imagesData.map((elem: { userName: string, images: [] }) => {
+              if (elem.images && elem.images.length) {
+                return (
+                  <div key={elem.userName}>
+                    <StyledFlexRow>
+                      <StyledGalleryTitle>{elem.userName}</StyledGalleryTitle>
+                    </StyledFlexRow>
+                    <Carousel>
+                      {
+                      elem.images.map((image: { id: string, imgUrl: string, userName: string }) => (
+                        <StyledHomeImagesWrap key={image.id}>
+                          <img src={image.imgUrl} alt={image.imgUrl} />
+                        </StyledHomeImagesWrap>
+                      ))
+                    }
+                    </Carousel>
+                  </div>
+                );
+              }
+              return null;
+            })
+          }
+        </TransparentWrapper>
       </StyledGalleryWrapper>
-    </StyledContainer>
+    </StyledHomeWrapper>
   );
 };
 

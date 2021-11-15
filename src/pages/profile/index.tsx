@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
@@ -8,26 +8,27 @@ import {
   getUserImagesFromDbAction,
   getUserNameAction,
 } from '../../core/actions/imageContainerActions';
-import Spinner from '../../core/components/Spinner';
-import CanvasWrapper from '../../core/components/styles/CanvasWrapper';
-import StyledAvatar from '../../core/components/styles/StyledAvatar';
-import StyledButton from '../../core/components/styles/StyledButton';
-import StyledContainer from '../../core/components/styles/StyledContainer';
-import StyledDeleteBtn from '../../core/components/styles/StyledDeleteBtn';
-import StyledFlexRow from '../../core/components/styles/StyledFlexRow';
-import StyledGallery from '../../core/components/styles/StyledGallery';
-import StyledGalleryWrapper from '../../core/components/styles/StyledGalleryWrapper';
-import StyledModalBg from '../../core/components/styles/StyledModalBg';
-import StyledModalButton from '../../core/components/styles/StyledModalButton';
-import StyledModalWindow from '../../core/components/styles/StyledModalWindow';
-import StyledTitle from '../../core/components/styles/StyledTitle';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import StyledDeleteBtn from '../../core/components/styles/buttons/StyledDeleteBtn';
+import StyledModalBg from '../../core/components/styles/modalWindow/StyledModalBg';
+import RoutesConst from '../../core/constants/routesConst';
 import getNameFromEmail from '../../core/helpers/getNameFromEmail';
 import { AppState } from '../../core/interfaces';
+import StyledModalWindow from '../../core/components/styles/modalWindow/StyledModalWindow';
+import CanvasWrapper from '../../core/components/Canvas/styles/CanvasWrapper';
+import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
+import StyledButton from '../../core/components/styles/buttons/StyledButton';
+import StyledAvatar from '../../core/components/styles/common/StyledAvatar';
+import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
+import StyledProfileWrapper from './styles/StyledProfileWrapper';
+import StyledGreetings from './styles/StyledGreetings';
+import StyledProfileGallery from './styles/StyledProfileGallery';
+import StyledProfileImages from './styles/StyledProfileImages';
+import { StyledModalBtnDanger, StyledModalButton } from '../../core/components/styles/modalWindow/StyledModalButton';
+import notify from '../../core/helpers/notify';
+import TransparentProfWrapper from './styles/TransparentProfWrapper';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const userName = useSelector((state: AppState) => state.auth.userName);
   const userID = useSelector((state: AppState) => state.auth.userID);
   const imagesProfData = useSelector((state: AppState) => state.images.imagesProfData);
@@ -37,61 +38,67 @@ const ProfilePage: React.FC = () => {
   const delTrigger = (id2: string | null, imgUrl2: string | null) => dispatch(delTriggerAction(id2, imgUrl2));
   const onDelTrigger = (id2: string | null, imgUrl2: string | null) => () => delTrigger(id2, imgUrl2);
 
-  const delUserImageFromDB = () => dispatch(delUserImageFromDbAction(id, userID, imgUrl, userName));
+  const delUserImageFromDB = () => {
+    dispatch(delUserImageFromDbAction(id, userID, imgUrl, userName));
+    notify('The picture has deleted');
+  };
 
   useEffect(() => {
-    setIsLoading(true);
     dispatch(getUserNameAction());
     dispatch(getUserIDAction());
     dispatch(getUserImagesFromDbAction(userID, userName));
-    setIsLoading(false);
   }, [dispatch, userID, userName]);
 
   return (
-    <StyledContainer style={{ marginTop: 0 }}>
+    <StyledProfileWrapper>
       <NavLink to={RoutesConst.HOME}>
         <StyledButton type="submit">
           Home
         </StyledButton>
       </NavLink>
-      <StyledContainer style={{ marginTop: 0 }}>
+      <StyledProfileWrapper>
         <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
-        <StyledTitle style={{ fontSize: '28px', marginBottom: '10px' }}>
-          {userName && getNameFromEmail(userName)}
-        </StyledTitle>
-      </StyledContainer>
+        <StyledGreetings>
+          {userName && `Hello, ${getNameFromEmail(userName)}!`}
+        </StyledGreetings>
+      </StyledProfileWrapper>
       <StyledGalleryWrapper>
-        {isLoading && <Spinner />}
-        {
-        imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
-          <CanvasWrapper key={+key}>
-            <StyledGallery style={{ position: 'relative', marginBottom: '40px' }}>
-              <img src={image.imgUrl} alt={image.imgUrl} />
-              <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)} style={{ position: 'absolute' }}>
-                x
-              </StyledDeleteBtn>
-            </StyledGallery>
-          </CanvasWrapper>
-        ))
+        <TransparentProfWrapper>
+          {
+            imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => {
+              if (image) {
+                return (
+                  <StyledProfileGallery key={key.toString()}>
+                    <CanvasWrapper>
+                      <StyledProfileImages>
+                        <img src={image.imgUrl} alt={image.imgUrl} />
+                        <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)}>
+                          ✖
+                        </StyledDeleteBtn>
+                      </StyledProfileImages>
+                    </CanvasWrapper>
+                  </StyledProfileGallery>
+                );
+              }
+              return null;
+            })
         }
+        </TransparentProfWrapper>
         {isTrigger && (
           <StyledModalBg>
             <StyledModalWindow>
               <p>DELETE?</p>
               <StyledFlexRow>
-                <StyledModalButton
-                  onClick={onDelTrigger(null, null)}
-                  style={{ backgroundColor: '#cc0000' }}
-                >
-                  ☒
-                </StyledModalButton>
-                <StyledModalButton onClick={delUserImageFromDB}>☑</StyledModalButton>
+                <StyledModalBtnDanger onClick={onDelTrigger(null, null)}>
+                  ✖
+                </StyledModalBtnDanger>
+                <StyledModalButton onClick={delUserImageFromDB}>✓</StyledModalButton>
               </StyledFlexRow>
             </StyledModalWindow>
           </StyledModalBg>
         )}
       </StyledGalleryWrapper>
-    </StyledContainer>
+    </StyledProfileWrapper>
   );
 };
 

@@ -1,30 +1,40 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { setDataUrlAction } from '../../core/actions/imageContainerActions';
 import Canvas from '../../core/components/Canvas';
-import Input from '../../core/components/Input';
-import ControlsWrapper from '../../core/components/styles/ControlsWrapper';
-import EditorWrapper from '../../core/components/styles/EditorWrapper';
-import StyledBtnsInEditor from '../../core/components/styles/StyledBtnsInEditor';
-import StyledButton from '../../core/components/styles/StyledButton';
-import StyledControl from '../../core/components/styles/StyledControl';
-import StyledOption from '../../core/components/styles/StyledOption';
-import StyledSelect from '../../core/components/styles/StyledSelect';
-import AMOUNT_OF_WIDTH_POINTS from '../../core/helpers/constants/amountOfWidthPoints';
-import iconsConst from '../../core/helpers/constants/iconsConst';
-import RoutesConst from '../../core/helpers/constants/routesConst';
+import ControlsWrapper from '../../core/components/Canvas/styles/ControlsWrapper';
+import StyledBtnsInEditor from '../../core/components/Canvas/styles/StyledBtnsInEditor';
+import StyledControl from '../../core/components/Canvas/styles/StyledControl';
+import StyledButton from '../../core/components/styles/buttons/StyledButton';
+import EditorWrapper from '../../core/components/styles/common/EditorWrapper';
+import StyledOption from '../../core/components/styles/forms/StyledOption';
+import StyledSelect from '../../core/components/styles/forms/StyledSelect';
+import AMOUNT_OF_WIDTH_POINTS from '../../core/constants/amountOfWidthPoints';
+import iconsConst from '../../core/constants/iconsConst';
+import RoutesConst from '../../core/constants/routesConst';
+import { AppState } from '../../core/interfaces';
 
 const EditorPage: React.FC = () => {
-  const [tool, setTool] = useState<string>('brush');
-  const [dash, setDash] = useState<boolean>(false);
+  const [tool, setTool] = useState('brush');
+  const [dash, setDash] = useState(false);
   const [blur, setBlur] = useState(0);
-  const [color, setColor] = useState<string>('#000000');
-  const [lineWidth, setLineWidth] = useState<number>(3);
+  const [color, setColor] = useState('#000000');
+  const [lineWidth, setLineWidth] = useState(3);
+  const dispatch = useDispatch();
+
+  const userName = useSelector((state: AppState) => state.auth.userName);
+  const userID = useSelector((state: AppState) => state.auth.userID);
 
   const handleDash = () => setDash(dash === false);
   const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
   const handleTool = (currentTool: string) => () => setTool(currentTool);
-  const handleColor = (event: React.ChangeEvent<{ value: unknown }>) => setColor(event.target?.value as string);
-  const handleWidth = (e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number);
+  const handleColor = (event: React.ChangeEvent<{ value: string }>) => setColor(event.target?.value);
+  const handleWidth = (event: React.ChangeEvent<HTMLSelectElement>) => setLineWidth(+event.target.value);
+
+  const setDataUrl = (dataUrl: string) => {
+    dispatch(setDataUrlAction(dataUrl, userID, userName));
+  };
 
   return (
     <EditorWrapper>
@@ -68,18 +78,9 @@ const EditorPage: React.FC = () => {
           <StyledControl type="button" className={blur > 0 ? 'selected' : ''} onClick={handleBlur}>
             <img src={iconsConst.BLUR} alt="blur" title="Blur" />
           </StyledControl>
-          <Input
-            type="color"
-            value={color}
-            onChange={handleColor}
-            label=""
-            className=""
-            placeholder=""
-            name=""
-          />
+          <input type="color" value={color} onChange={handleColor} name={color} />
           <StyledSelect
             value={lineWidth}
-            style={{ width: '60px' }}
             onChange={handleWidth}
           >
             {AMOUNT_OF_WIDTH_POINTS.map((num) => (
@@ -89,7 +90,7 @@ const EditorPage: React.FC = () => {
             ))}
           </StyledSelect>
         </ControlsWrapper>
-        <Canvas tool={tool} color={color} dash={dash} blur={blur} lineWidth={lineWidth} />
+        <Canvas tool={tool} color={color} dash={dash} blur={blur} lineWidth={lineWidth} setDataUrl={setDataUrl} />
       </div>
     </EditorWrapper>
   );

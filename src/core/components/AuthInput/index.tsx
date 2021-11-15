@@ -1,33 +1,31 @@
-import React, { ChangeEventHandler } from 'react';
-import StyledFlexRow from '../styles/StyledFlexRow';
+import React, { ChangeEventHandler, FocusEventHandler } from 'react';
+import StyledFlexRow from '../styles/common/StyledFlexRow';
 
-interface InputProps {
+export interface InputProps {
   type: string;
-  className: string;
-  placeholder: string;
   value: string;
   name: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  onFocus: FocusEventHandler<HTMLInputElement>;
   label: string;
 }
 
-const Input: React.FC<InputProps> = ({
-  type = 'text', className, placeholder, value, name, onChange, label,
+const AuthInput: React.FC<InputProps> = ({
+  type = 'text', value, name, onChange, onFocus, label,
 }) => (
   <StyledFlexRow>
     <label htmlFor={name}>{label}</label>
     <input
       type={type}
-      className={className}
-      placeholder={placeholder}
       value={value}
       name={name}
       id={name}
       onChange={onChange}
+      onFocus={onFocus}
       required
       autoComplete="on"
     />
   </StyledFlexRow>
 );
 
-export default Input;
+export default AuthInput;

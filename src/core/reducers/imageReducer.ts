@@ -37,6 +37,12 @@ export interface ImageState {
   imagesProfData: [],
 }
 
+export type ImageType = {
+  id: number,
+  imgUrl: string,
+  userName: string,
+}
+
 const initialState: ImageState = {
   loading: false,
   error: false,
@@ -48,7 +54,7 @@ const initialState: ImageState = {
   imagesProfData: [],
 };
 
-export const imageReducer = (state = initialState, action: ImageAction): object => {
+export const imageReducer = (state = initialState, action: ImageAction) => {
   switch (action.type) {
     case SET_DATA_URL:
       return {

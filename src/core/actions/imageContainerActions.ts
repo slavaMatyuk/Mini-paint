@@ -1,3 +1,5 @@
+import { ImageType } from '../reducers/imageReducer';
+
 export const GET_USER_NAME = 'IMAGE/GET_USER_NAME';
 export const GET_USER_ID = 'IMAGE/GET_USER_ID';
 export const GET_USER_IMAGES_FROM_DB = 'IMAGE/GET_USER_IMAGES_FROM_DB';
@@ -33,7 +35,7 @@ export const delTriggerAction = (id: string | null, imgUrl: string | null) => ({
 
 export const getAllImagesFromDbAction = () => ({ type: GET_ALL_IMAGES_FROM_DB });
 
-export const sortImagesAction = (data: object) => ({ type: SORT_IMAGES, data });
+export const sortImagesAction = (data: ImageType[]) => ({ type: SORT_IMAGES, data });
 
 export const setDataUrlAction = (dataUrl: string, userID: string, userName: string) => ({
   type: SET_DATA_URL, dataUrl, userID, userName,
@@ -41,28 +43,28 @@ export const setDataUrlAction = (dataUrl: string, userID: string, userName: stri
 
 export const saveImageSucceededAction = () => ({ type: SAVE_IMAGE_SUCCEEDED });
 
-export const saveImageFailedAction = (payload: {code: string, message: string} | unknown) => (
+export const saveImageFailedAction = (payload: {code: string, message: string}) => (
   { type: SAVE_IMAGE_FAILED, payload }
 );
 
 export const delUserImageFromDbSucceededAction = () => ({ type: DEL_USER_IMAGE_FROM_DB_SUCCEEDED });
 
-export const delUserImageFromDbFailedAction = (payload: {code: string, message: string} | unknown) => (
+export const delUserImageFromDbFailedAction = (payload: {code: string, message: string}) => (
   { type: DEL_USER_IMAGE_FROM_DB_FAILED, payload }
 );
 
-export const getUserImagesFromDbSucceededAction = (payload: [object] | unknown) => (
+export const getUserImagesFromDbSucceededAction = (payload: { id: string, imgUrl: string, userName: string }) => (
   { type: GET_USER_IMAGES_FROM_DB_SUCCEEDED, payload }
 );
 
-export const getUserImagesFromDbFailedAction = (payload: {code: string, message: string} | unknown) => (
+export const getUserImagesFromDbFailedAction = (payload: {code: string, message: string}) => (
   { type: GET_USER_IMAGES_FROM_DB_FAILED, payload }
 );
 
-export const getAllImagesFromDbSucceededAction = (payload: [object] | unknown) => (
+export const getAllImagesFromDbSucceededAction = (payload: { id: string, imgUrl: string, userName: string }) => (
   { type: GET_ALL_IMAGES_FROM_DB_SUCCEEDED, payload }
 );
 
-export const getAllImagesFromDbFailedAction = (payload: {code: string, message: string} | unknown) => (
+export const getAllImagesFromDbFailedAction = (payload: {code: string, message: string}) => (
   { type: GET_ALL_IMAGES_FROM_DB_FAILED, payload }
 );
