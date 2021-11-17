@@ -11,6 +11,8 @@ ___
 ___
 ![App example](src/assets/images/example2.png)
 ___
+
+## Deployment on [Netlify](https://minipaint-slavislavi.netlify.app)
 ## How to run the app
 
 Clone this [repository](https://github.com/slavaMatyuk/Mini-paint) and run:
