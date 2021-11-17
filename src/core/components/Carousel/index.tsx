@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
+import soundsConst from '../../constants/soundConst';
+import playSound from '../../helpers/playSound';
 import StyledCarouselButton from './styles/StyledCarouselButton';
 import StyledCarouselSlide from './styles/StyledCarouselSlide';
 import StyledCarouselWrap from './styles/StyledCarouselWrap';
@@ -19,8 +21,15 @@ const Carousel = ({ children }: CarouselProps) => {
     </StyledCarouselSlide>
   ));
 
-  const handleLeft = () => setCurrentSlide((currentSlide - 1 + activeSlide.length) % activeSlide.length);
-  const handleRight = () => setCurrentSlide((currentSlide + 1) % activeSlide.length);
+  const handleLeft = () => {
+    setCurrentSlide((currentSlide - 1 + activeSlide.length) % activeSlide.length);
+    playSound(soundsConst.SLIDER);
+  };
+
+  const handleRight = () => {
+    setCurrentSlide((currentSlide + 1) % activeSlide.length);
+    playSound(soundsConst.SLIDER);
+  };
 
   return (
     <StyledRelativeWrap>

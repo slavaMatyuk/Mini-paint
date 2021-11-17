@@ -5,7 +5,7 @@ const StyledCarouselButton = styled.button`
   cursor: pointer;
   color: ${(props) => (props.color ? props.color : props.theme.text)};
   background-color: ${(props) => (props.color ? props.color : props.theme.primary)};
-  width: 24px;
+  width: 36px;
   height: 320px;
   text-align: center;
   font-size: 20px;
@@ -33,7 +33,7 @@ const StyledCarouselButton = styled.button`
 
   &:hover {
     opacity: 0.4;
-    transition: 0.2s;
+    transition: 0.4s;
   }
 
   &:active {

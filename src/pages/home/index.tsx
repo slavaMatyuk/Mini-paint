@@ -12,6 +12,8 @@ import Carousel from '../../core/components/Carousel';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
 import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
 import RoutesConst from '../../core/constants/routesConst';
+import soundsConst from '../../core/constants/soundConst';
+import playSound, { playDefaultButton } from '../../core/helpers/playSound';
 import sortImages from '../../core/helpers/sortImages';
 import { AppState } from '../../core/interfaces';
 import StyledFlexRowWrap from './styles/StyledFlexRowWrap';
@@ -29,6 +31,7 @@ const HomePage: React.FC = () => {
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
+    playSound(soundsConst.KEY);
   }, []);
 
   const handleEnterClick = useCallback(async () => {
@@ -51,12 +54,12 @@ const HomePage: React.FC = () => {
     <StyledHomeWrapper>
       <StyledFlexRowWrap>
         <NavLink to={RoutesConst.PROFILE}>
-          <StyledButton type="submit">
+          <StyledButton type="submit" onClick={playDefaultButton}>
             Profile
           </StyledButton>
         </NavLink>
         <NavLink to={RoutesConst.EDITOR}>
-          <StyledButton type="submit">
+          <StyledButton type="submit" onClick={playDefaultButton}>
             Editor
           </StyledButton>
         </NavLink>

@@ -13,6 +13,8 @@ import notify from '../../core/helpers/notify';
 import { AppState } from '../../core/interfaces';
 import StyledRegTitle from './styles/StyledRegTitle';
 import RENDER_REGISTER_INPUT from '../../core/constants/inputConst';
+import playSound, { playDefaultButton } from '../../core/helpers/playSound';
+import soundsConst from '../../core/constants/soundConst';
 
 const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,11 +38,14 @@ const RegisterPage: React.FC = () => {
     createUser(credentials);
     if (error) {
       notify(`${error}`);
+    } else {
+      playSound(soundsConst.LOGIN);
     }
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    playSound(soundsConst.KEY);
   };
 
   const resetError = () => {
@@ -66,7 +71,7 @@ const RegisterPage: React.FC = () => {
         }
         <StyledLinkDiv>
           <Link to={RoutesConst.LOGIN}>
-            <StyledButton type="button">Back</StyledButton>
+            <StyledButton type="button" onClick={playDefaultButton}>Back</StyledButton>
           </Link>
           <StyledButton type="submit">Register</StyledButton>
         </StyledLinkDiv>

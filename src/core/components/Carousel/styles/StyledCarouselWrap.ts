@@ -6,6 +6,7 @@ interface ICarouselProps {
 
 const StyledCarouselWrap = styled.div<ICarouselProps>`
   display: flex;
+  cursor: grab;
   ${(props) => props.currentSlide
     && css`
       transform: translateX(-${props.currentSlide * 100}%);

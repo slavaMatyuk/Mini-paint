@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import iconsConst from '../../constants/iconsConst';
+import soundsConst from '../../constants/soundConst';
 import notify from '../../helpers/notify';
+import playSound from '../../helpers/playSound';
 import CanvasWrapper from './styles/CanvasWrapper';
 import StyledCanvasBtns from './styles/StyledCanvasBtns';
 import StyledCommonCanvas from './styles/StyledCommonCanvas';
@@ -56,13 +58,15 @@ const Canvas: React.FC<CanvasProps> = ({
       clearContext(context, canvasRef as React.MutableRefObject<HTMLCanvasElement>);
       clearContext(subContext, subCanvasRef as React.MutableRefObject<HTMLCanvasElement>);
     }
+    playSound(soundsConst.CLEAR);
   };
 
   const handleSaveImage = () => {
     if (subContext) {
       setDataUrl(subContext?.canvas.toDataURL());
+      playSound(soundsConst.SAVE);
       clearCanvas();
-      notify('Well done! The picture has saved');
+      notify('Well done! The picture is saved');
     }
   };
 

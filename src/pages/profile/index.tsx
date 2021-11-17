@@ -26,6 +26,8 @@ import StyledProfileImages from './styles/StyledProfileImages';
 import { StyledModalBtnDanger, StyledModalButton } from '../../core/components/styles/modalWindow/StyledModalButton';
 import notify from '../../core/helpers/notify';
 import TransparentProfWrapper from './styles/TransparentProfWrapper';
+import playSound, { playDefaultButton } from '../../core/helpers/playSound';
+import soundsConst from '../../core/constants/soundConst';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,11 +38,14 @@ const ProfilePage: React.FC = () => {
   const id = useSelector((state: AppState) => state.images.deleteWithID);
   const imgUrl = useSelector((state: AppState) => state.images.deleteWithURL);
   const delTrigger = (id2: string | null, imgUrl2: string | null) => dispatch(delTriggerAction(id2, imgUrl2));
-  const onDelTrigger = (id2: string | null, imgUrl2: string | null) => () => delTrigger(id2, imgUrl2);
+  const onDelTrigger = (id2: string | null, imgUrl2: string | null) => () => {
+    delTrigger(id2, imgUrl2);
+    playSound(soundsConst.TOOL);
+  };
 
   const delUserImageFromDB = () => {
     dispatch(delUserImageFromDbAction(id, userID, imgUrl, userName));
-    notify('The picture has deleted');
+    notify('The picture is deleted');
   };
 
   useEffect(() => {
@@ -52,7 +57,7 @@ const ProfilePage: React.FC = () => {
   return (
     <StyledProfileWrapper>
       <NavLink to={RoutesConst.HOME}>
-        <StyledButton type="submit">
+        <StyledButton type="submit" onClick={playDefaultButton}>
           Home
         </StyledButton>
       </NavLink>

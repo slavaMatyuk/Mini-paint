@@ -9,6 +9,8 @@ import StyledFlexRow from '../styles/common/StyledFlexRow';
 import StyledTitle from '../styles/common/StyledTitle';
 import StyledFlexWrap from './styles/StyledFlexWrap';
 import StyledUserName from './styles/StyledUserName';
+import playSound from '../../helpers/playSound';
+import soundsConst from '../../constants/soundConst';
 
 const Header: React.FC = () => {
   const authenticated = useSelector((state: AppState) => state.auth.authenticated);
@@ -16,6 +18,7 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const signOut = () => {
     dispatch(logOutAction());
+    playSound(soundsConst.LOGOUT);
   };
 
   return (

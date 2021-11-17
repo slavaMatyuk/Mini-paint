@@ -13,6 +13,8 @@ import StyledSelect from '../../core/components/styles/forms/StyledSelect';
 import AMOUNT_OF_WIDTH_POINTS from '../../core/constants/amountOfWidthPoints';
 import iconsConst from '../../core/constants/iconsConst';
 import RoutesConst from '../../core/constants/routesConst';
+import soundsConst from '../../core/constants/soundConst';
+import playSound, { playDefaultButton } from '../../core/helpers/playSound';
 import { AppState } from '../../core/interfaces';
 
 const EditorPage: React.FC = () => {
@@ -26,9 +28,31 @@ const EditorPage: React.FC = () => {
   const userName = useSelector((state: AppState) => state.auth.userName);
   const userID = useSelector((state: AppState) => state.auth.userID);
 
-  const handleDash = () => setDash(dash === false);
-  const handleBlur = () => setBlur(blur === 0 ? 10 : 0);
-  const handleTool = (currentTool: string) => () => setTool(currentTool);
+  const handleDash = () => {
+    if (dash) {
+      setDash(false);
+      playSound(soundsConst.OFF);
+    } else {
+      setDash(true);
+      playSound(soundsConst.ON);
+    }
+  };
+
+  const handleBlur = () => {
+    if (blur) {
+      setBlur(0);
+      playSound(soundsConst.OFF);
+    } else {
+      setBlur(10);
+      playSound(soundsConst.ON);
+    }
+  };
+
+  const handleTool = (currentTool: string) => () => {
+    setTool(currentTool);
+    playSound(soundsConst.TOOL);
+  };
+
   const handleColor = (event: React.ChangeEvent<{ value: string }>) => setColor(event.target?.value);
   const handleWidth = (event: React.ChangeEvent<HTMLSelectElement>) => setLineWidth(+event.target.value);
 
@@ -40,12 +64,12 @@ const EditorPage: React.FC = () => {
     <EditorWrapper>
       <StyledBtnsInEditor>
         <NavLink to={RoutesConst.HOME}>
-          <StyledButton type="submit">
+          <StyledButton type="submit" onClick={playDefaultButton}>
             Home
           </StyledButton>
         </NavLink>
         <NavLink to={RoutesConst.PROFILE}>
-          <StyledButton type="submit">
+          <StyledButton type="submit" onClick={playDefaultButton}>
             Profile
           </StyledButton>
         </NavLink>

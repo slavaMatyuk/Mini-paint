@@ -9,7 +9,9 @@ import StyledContainer from '../../core/components/styles/common/StyledContainer
 import StyledLinkDiv from '../../core/components/styles/common/StyledLinkDiv';
 import StyledForm from '../../core/components/styles/forms/StyledForm';
 import RoutesConst from '../../core/constants/routesConst';
+import soundsConst from '../../core/constants/soundConst';
 import notify from '../../core/helpers/notify';
+import playSound, { playDefaultButton } from '../../core/helpers/playSound';
 import { AppState } from '../../core/interfaces';
 import StyledLoginTitle from './styles/StyledLoginTitle';
 
@@ -23,6 +25,7 @@ const LoginPage: React.FC = () => {
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    playSound(soundsConst.KEY);
   };
 
   const signIn = (payload: {email: string, password: string}) => {
@@ -34,6 +37,8 @@ const LoginPage: React.FC = () => {
     signIn(credentials);
     if (error) {
       notify('Please, enter correct data or register!');
+    } else {
+      playSound(soundsConst.LOGIN);
     }
   };
 
@@ -66,7 +71,7 @@ const LoginPage: React.FC = () => {
       <StyledLoginTitle>I still have no account</StyledLoginTitle>
       <StyledLinkDiv>
         <Link to={RoutesConst.REGISTER}>
-          <StyledButton>Register me</StyledButton>
+          <StyledButton onClick={playDefaultButton}>Register me</StyledButton>
         </Link>
       </StyledLinkDiv>
     </StyledContainer>
