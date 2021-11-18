@@ -6,7 +6,7 @@ const StyledRegTitle = styled.h1`
   color: ${(props) => props.color || props.theme.text};
   user-select: auto;
   cursor: default;
-  text-shadow: 0 2px 2px black;
+  text-shadow: 0 2px 2px ${(props) => props.color || props.theme.spinner};
 `;
 
 export default StyledRegTitle;

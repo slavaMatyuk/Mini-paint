@@ -4,7 +4,7 @@ const StyledFlexWrap = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: baseline;
   align-self: normal;
   & label {

@@ -1,18 +1,23 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import HeaderWrapper from './styles/HeaderWrapper';
 import { logOutAction } from '../../actions/authActions';
+import soundsConst from '../../constants/soundConst';
+import playSound from '../../helpers/playSound';
 import { AppState } from '../../interfaces';
 import StyledButton from '../styles/buttons/StyledButton';
 import StyledAvatar from '../styles/common/StyledAvatar';
 import StyledFlexRow from '../styles/common/StyledFlexRow';
 import StyledTitle from '../styles/common/StyledTitle';
+import ToggleTheme from '../ToggleTheme';
+import HeaderWrapper from './styles/HeaderWrapper';
 import StyledFlexWrap from './styles/StyledFlexWrap';
 import StyledUserName from './styles/StyledUserName';
-import playSound from '../../helpers/playSound';
-import soundsConst from '../../constants/soundConst';
 
-const Header: React.FC = () => {
+interface Props {
+  toggleTheme(): void;
+}
+
+const Header: React.FC<Props> = ({ toggleTheme }) => {
   const authenticated = useSelector((state: AppState) => state.auth.authenticated);
   const userName = useSelector((state: AppState) => state.auth.userName);
   const dispatch = useDispatch();
@@ -25,6 +30,7 @@ const Header: React.FC = () => {
     <HeaderWrapper>
       <StyledFlexWrap>
         <StyledTitle>Mini Paint</StyledTitle>
+        <ToggleTheme toggleTheme={toggleTheme} />
         {authenticated && (
           <StyledFlexRow>
             <StyledUserName>{userName}</StyledUserName>
