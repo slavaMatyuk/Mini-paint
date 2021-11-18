@@ -14,7 +14,7 @@ const ToggleTheme: React.FC<Props> = ({ toggleTheme }) => {
   const icon = theme === light ? <HiMoon size={20} /> : <CgSun size={20} />;
 
   return (
-    <StyledToggle onClick={toggleTheme} title={light ? 'Dark' : 'Light'}>
+    <StyledToggle onClick={toggleTheme} title={theme === light ? 'Night' : 'Day'}>
       {icon}
     </StyledToggle>
   );

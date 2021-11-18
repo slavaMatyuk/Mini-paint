@@ -17,7 +17,6 @@ import StyledModalWindow from '../../core/components/styles/modalWindow/StyledMo
 import CanvasWrapper from '../../core/components/Canvas/styles/CanvasWrapper';
 import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
-import StyledAvatar from '../../core/components/styles/common/StyledAvatar';
 import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
 import StyledProfileWrapper from './styles/StyledProfileWrapper';
 import StyledGreetings from './styles/StyledGreetings';
@@ -62,7 +61,6 @@ const ProfilePage: React.FC = () => {
         </StyledButton>
       </NavLink>
       <StyledProfileWrapper>
-        <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
         <StyledGreetings>
           {userName && `Hello, ${getNameFromEmail(userName)}!`}
         </StyledGreetings>

@@ -5,12 +5,12 @@ import soundsConst from '../../constants/soundConst';
 import playSound from '../../helpers/playSound';
 import { AppState } from '../../interfaces';
 import StyledButton from '../styles/buttons/StyledButton';
-import StyledAvatar from '../styles/common/StyledAvatar';
-import StyledFlexRow from '../styles/common/StyledFlexRow';
+import FlexRowContainer from '../styles/common/FlexRowContrainer';
 import StyledTitle from '../styles/common/StyledTitle';
 import ToggleTheme from '../ToggleTheme';
 import HeaderWrapper from './styles/HeaderWrapper';
 import StyledFlexWrap from './styles/StyledFlexWrap';
+import StyledHeaderFlexRow from './styles/StyledHeaderFlexRow';
 import StyledUserName from './styles/StyledUserName';
 
 interface Props {
@@ -29,16 +29,17 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
   return (
     <HeaderWrapper>
       <StyledFlexWrap>
-        <StyledTitle>Mini Paint</StyledTitle>
-        <ToggleTheme toggleTheme={toggleTheme} />
+        <FlexRowContainer>
+          <StyledTitle>Mini Paint</StyledTitle>
+          <ToggleTheme toggleTheme={toggleTheme} />
+        </FlexRowContainer>
         {authenticated && (
-          <StyledFlexRow>
+          <StyledHeaderFlexRow>
             <StyledUserName>{userName}</StyledUserName>
-            <StyledAvatar>{userName && userName.substring(0, 1).toUpperCase()}</StyledAvatar>
             <StyledButton type="button" onClick={signOut}>
               Sign out
             </StyledButton>
-          </StyledFlexRow>
+          </StyledHeaderFlexRow>
         )}
       </StyledFlexWrap>
     </HeaderWrapper>

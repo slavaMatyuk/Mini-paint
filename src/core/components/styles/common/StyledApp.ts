@@ -9,6 +9,7 @@ const StyledApp = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  transition: .7s ease;
   body {
     background-color: ${(props) => props.color || props.theme.bg};
   }

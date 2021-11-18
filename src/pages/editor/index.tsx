@@ -7,7 +7,7 @@ import ControlsWrapper from '../../core/components/Canvas/styles/ControlsWrapper
 import StyledBtnsInEditor from '../../core/components/Canvas/styles/StyledBtnsInEditor';
 import StyledControl from '../../core/components/Canvas/styles/StyledControl';
 import StyledButton from '../../core/components/styles/buttons/StyledButton';
-import EditorWrapper from '../../core/components/styles/common/EditorWrapper';
+import EditorWrapper from './styles/EditorWrapper';
 import StyledOption from '../../core/components/styles/forms/StyledOption';
 import StyledSelect from '../../core/components/styles/forms/StyledSelect';
 import AMOUNT_OF_WIDTH_POINTS from '../../core/constants/amountOfWidthPoints';
