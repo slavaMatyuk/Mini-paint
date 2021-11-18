@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { ThemeProvider } from 'styled-components';
+import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { setAuthAction } from './core/actions/authActions';
 import Routes from './core/components/auth/Routes';
 import Header from './core/components/Header';
@@ -9,11 +9,12 @@ import StyledApp from './core/components/styles/common/StyledApp';
 import StyledContainer from './core/components/styles/common/StyledContainer';
 import themes from './core/components/styles/themes';
 import { auth } from './core/configs/firebase';
+import useLocalStorageState from './core/services/utils/useLocalStorageState';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { light, dark } = themes;
-  const [theme, setTheme] = useState(light);
+  const [theme, setTheme] = useLocalStorageState<DefaultTheme>('theme', light);
 
   const toggleTheme = () => {
     setTheme(theme === light ? dark : light);
