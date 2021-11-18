@@ -9,6 +9,8 @@ import StyledApp from './core/components/styles/common/StyledApp';
 import StyledContainer from './core/components/styles/common/StyledContainer';
 import themes from './core/components/styles/themes';
 import { auth } from './core/configs/firebase';
+import soundsConst from './core/constants/soundConst';
+import playSound from './core/helpers/playSound';
 import useLocalStorageState from './core/services/utils/useLocalStorageState';
 
 const App: React.FC = () => {
@@ -18,6 +20,7 @@ const App: React.FC = () => {
 
   const toggleTheme = () => {
     setTheme(theme === light ? dark : light);
+    playSound(theme === light ? soundsConst.NIGHT : soundsConst.DAY);
   };
 
   useEffect(() => {

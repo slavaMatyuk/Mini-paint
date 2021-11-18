@@ -19,6 +19,7 @@ function useLocalStorageState<T>(key: string, initialState: T): Response<T> {
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
+    console.log('сохранение темы в локал сторидж');
   }, [key, state]);
 
   return [state, setState];

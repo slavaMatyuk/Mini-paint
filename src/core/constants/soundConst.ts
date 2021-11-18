@@ -9,6 +9,8 @@ import LikeSoundURL from '../../assets/sounds/like-click.mp3';
 import KeySoundURL from '../../assets/sounds/key-click.mp3';
 import LogInSoundURL from '../../assets/sounds/login-click.mp3';
 import LogOutSoundURL from '../../assets/sounds/logout-click.mp3';
+import DaySoundURL from '../../assets/sounds/day-click.mp3';
+import NightSoundURL from '../../assets/sounds/night-click.mp3';
 
 interface SoundConst {
   [key: string]: string
@@ -26,6 +28,8 @@ const soundsConst = <SoundConst>{
   KEY: KeySoundURL,
   LOGIN: LogInSoundURL,
   LOGOUT: LogOutSoundURL,
+  DAY: DaySoundURL,
+  NIGHT: NightSoundURL,
 };
 
 export default soundsConst;
