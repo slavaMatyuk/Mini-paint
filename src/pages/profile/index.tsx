@@ -8,21 +8,21 @@ import {
   getUserImagesFromDbAction,
   getUserNameAction,
 } from '../../core/actions/imageContainerActions';
-import StyledDeleteBtn from '../../core/components/styles/buttons/StyledDeleteBtn';
-import StyledModalBg from '../../core/components/styles/modalWindow/StyledModalBg';
+import StyledDeleteBtn from '../../core/styles/buttons/StyledDeleteBtn';
+import StyledModalBg from '../../core/styles/modalWindow/StyledModalBg';
 import RoutesConst from '../../core/constants/routesConst';
 import getNameFromEmail from '../../core/helpers/getNameFromEmail';
 import { AppState } from '../../core/interfaces';
-import StyledModalWindow from '../../core/components/styles/modalWindow/StyledModalWindow';
+import StyledModalWindow from '../../core/styles/modalWindow/StyledModalWindow';
 import CanvasWrapper from '../../core/components/Canvas/styles/CanvasWrapper';
 import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
-import StyledButton from '../../core/components/styles/buttons/StyledButton';
-import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
+import StyledButton from '../../core/styles/buttons/StyledButton';
+import StyledFlexRow from '../../core/styles/common/StyledFlexRow';
 import StyledProfileWrapper from './styles/StyledProfileWrapper';
 import StyledGreetings from './styles/StyledGreetings';
 import StyledProfileGallery from './styles/StyledProfileGallery';
 import StyledProfileImages from './styles/StyledProfileImages';
-import { StyledModalBtnDanger, StyledModalButton } from '../../core/components/styles/modalWindow/StyledModalButton';
+import { StyledModalBtnDanger, StyledModalButton } from '../../core/styles/modalWindow/StyledModalButton';
 import notify from '../../core/helpers/notify';
 import TransparentProfWrapper from './styles/TransparentProfWrapper';
 import playSound, { playDefaultButton } from '../../core/helpers/playSound';

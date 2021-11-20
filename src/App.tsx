@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { setAuthAction } from './core/actions/authActions';
-import Routes from './core/components/auth/Routes';
+import Routes from './navigation/Routes';
 import Header from './core/components/Header';
-import StyledApp from './core/components/styles/common/StyledApp';
-import StyledContainer from './core/components/styles/common/StyledContainer';
-import themes from './core/components/styles/themes';
+import StyledApp from './core/styles/common/StyledApp';
+import StyledContainer from './core/styles/common/StyledContainer';
+import themes from './core/styles/themes';
 import { auth } from './core/configs/firebase';
 import soundsConst from './core/constants/soundConst';
 import playSound from './core/helpers/playSound';
@@ -19,8 +19,8 @@ const App: React.FC = () => {
   const [theme, setTheme] = useLocalStorageState<DefaultTheme>('theme', light);
 
   const toggleTheme = () => {
-    setTheme(theme === light ? dark : light);
-    playSound(theme === light ? soundsConst.NIGHT : soundsConst.DAY);
+    setTheme(theme === dark ? light : dark);
+    playSound(theme === dark ? soundsConst.DAY : soundsConst.NIGHT);
   };
 
   useEffect(() => {

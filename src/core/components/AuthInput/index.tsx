@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, FocusEventHandler } from 'react';
-import StyledFlexRow from '../styles/common/StyledFlexRow';
+import StyledFlexRow from '../../styles/common/StyledFlexRow';
 
 export interface InputProps {
   type: string;

@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import EditorPage from '../../../pages/editor';
-import HomePage from '../../../pages/home';
-import LoginPage from '../../../pages/login';
-import ProfilePage from '../../../pages/profile';
-import RegisterPage from '../../../pages/register';
-import RoutesConst from '../../constants/routesConst';
-import { AppState } from '../../interfaces';
+import EditorPage from '../pages/editor';
+import HomePage from '../pages/home';
+import LoginPage from '../pages/login';
+import ProfilePage from '../pages/profile';
+import RegisterPage from '../pages/register';
+import RoutesConst from '../core/constants/routesConst';
+import { AppState } from '../core/interfaces';
 
 type RouteType = {
   path: string;

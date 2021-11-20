@@ -1,5 +1,5 @@
 import {
-  useState, useEffect, SetStateAction, Dispatch,
+  Dispatch, SetStateAction, useLayoutEffect, useState,
 } from 'react';
 
 type Response<T> = [
@@ -17,9 +17,8 @@ function useLocalStorageState<T>(key: string, initialState: T): Response<T> {
     return initialState;
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
-    console.log('сохранение темы в локал сторидж');
   }, [key, state]);
 
   return [state, setState];

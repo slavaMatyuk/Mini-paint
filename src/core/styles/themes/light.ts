@@ -1,5 +1,5 @@
 import { DefaultTheme } from 'styled-components';
-import lightImage from '../../../../assets/images/light.jpg';
+import lightImage from '../../../assets/images/light.jpg';
 
 const light: DefaultTheme = {
   title: 'light',

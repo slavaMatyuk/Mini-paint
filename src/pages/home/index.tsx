@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useRef, useState, KeyboardEvent,
+  KeyboardEvent, useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -9,8 +9,8 @@ import {
 } from '../../core/actions/imageContainerActions';
 import StyledGalleryWrapper from '../../core/components/Canvas/styles/StyledGalleryWrapper';
 import Carousel from '../../core/components/Carousel';
-import StyledButton from '../../core/components/styles/buttons/StyledButton';
-import StyledFlexRow from '../../core/components/styles/common/StyledFlexRow';
+import StyledButton from '../../core/styles/buttons/StyledButton';
+import StyledFlexRow from '../../core/styles/common/StyledFlexRow';
 import RoutesConst from '../../core/constants/routesConst';
 import soundsConst from '../../core/constants/soundConst';
 import playSound, { playDefaultButton } from '../../core/helpers/playSound';
@@ -29,22 +29,22 @@ const HomePage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const imagesData = useSelector((state: AppState) => state.images.imagesProfData);
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
     playSound(soundsConst.KEY);
-  }, []);
+  };
 
-  const handleEnterClick = useCallback(async () => {
+  const handleEnterClick = () => {
     if (!inputValue) {
-      await dispatch(getAllImagesFromDbAction());
+      dispatch(getAllImagesFromDbAction());
     } else {
-      await dispatch(sortImagesAction(sortImages(imagesData, inputValue)));
+      dispatch(sortImagesAction(sortImages(imagesData, inputValue)));
     }
-  }, [inputValue, imagesData, dispatch]);
+  };
 
-  const onKeyDownHandler = useCallback(async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') await handleEnterClick();
-  }, [handleEnterClick]);
+  const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') handleEnterClick();
+  };
 
   useEffect(() => {
     dispatch(getAllImagesFromDbAction());

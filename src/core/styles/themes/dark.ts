@@ -1,5 +1,5 @@
 import { DefaultTheme } from 'styled-components';
-import darkImage from '../../../../assets/images/dark.jpg';
+import darkImage from '../../../assets/images/dark.jpg';
 
 const dark: DefaultTheme = {
   title: 'dark',
