@@ -11,6 +11,7 @@ import LogInSoundURL from '../../assets/sounds/login-click.mp3';
 import LogOutSoundURL from '../../assets/sounds/logout-click.mp3';
 import DaySoundURL from '../../assets/sounds/day-click.mp3';
 import NightSoundURL from '../../assets/sounds/night-click.mp3';
+import SearchSoundURL from '../../assets/sounds/search-click.mp3';
 
 interface SoundConst {
   [key: string]: string
@@ -30,6 +31,7 @@ const soundsConst = <SoundConst>{
   LOGOUT: LogOutSoundURL,
   DAY: DaySoundURL,
   NIGHT: NightSoundURL,
+  SEARCH: SearchSoundURL,
 };
 
 export default soundsConst;

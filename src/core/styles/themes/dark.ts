@@ -12,6 +12,7 @@ const dark: DefaultTheme = {
   controls: '#696969',
   bgImage: darkImage,
   spinner: '#000000',
+  scrollCover: '#21212140',
 };
 
 export default dark;

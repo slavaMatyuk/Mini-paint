@@ -12,7 +12,7 @@ interface CarouselProps {
   children: JSX.Element[];
 }
 
-const Carousel = ({ children }: CarouselProps) => {
+const Carousel: React.FC<CarouselProps> = ({ children }: CarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const activeSlide = children.map((slide, index) => (
@@ -48,4 +48,4 @@ const Carousel = ({ children }: CarouselProps) => {
   );
 };
 
-export default Carousel;
+export default React.memo(Carousel);

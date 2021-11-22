@@ -11,6 +11,7 @@ declare module 'styled-components' {
     controls?: string;
     bgImage?: string;
     spinner?: string;
+    scrollCover?: string,
   }
 }
 

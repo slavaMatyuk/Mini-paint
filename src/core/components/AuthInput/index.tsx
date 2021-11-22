@@ -28,4 +28,4 @@ const AuthInput: React.FC<InputProps> = ({
   </StyledFlexRow>
 );
 
-export default AuthInput;
+export default React.memo(AuthInput);

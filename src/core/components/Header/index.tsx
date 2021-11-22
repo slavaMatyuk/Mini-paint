@@ -46,4 +46,4 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

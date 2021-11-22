@@ -1,27 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { setAuthAction } from './core/actions/authActions';
-import Routes from './navigation/Routes';
 import Header from './core/components/Header';
-import StyledApp from './core/styles/common/StyledApp';
-import StyledContainer from './core/styles/common/StyledContainer';
-import themes from './core/styles/themes';
 import { auth } from './core/configs/firebase';
 import soundsConst from './core/constants/soundConst';
 import playSound from './core/helpers/playSound';
 import useLocalStorageState from './core/services/utils/useLocalStorageState';
+import StyledApp from './core/styles/common/StyledApp';
+import StyledContainer from './core/styles/common/StyledContainer';
+import themes from './core/styles/themes';
+import Routes from './navigation/Routes';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { light, dark } = themes;
   const [theme, setTheme] = useLocalStorageState<DefaultTheme>('theme', light);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme(theme === dark ? light : dark);
     playSound(theme === dark ? soundsConst.DAY : soundsConst.NIGHT);
-  };
+  }, [theme]);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {

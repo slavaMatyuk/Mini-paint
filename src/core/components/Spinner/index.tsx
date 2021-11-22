@@ -7,4 +7,4 @@ const Spinner: React.FC = () => (
   </StyledSpinner>
 );
 
-export default Spinner;
+export default React.memo(Spinner);

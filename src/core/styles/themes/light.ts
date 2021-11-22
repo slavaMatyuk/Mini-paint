@@ -12,6 +12,7 @@ const light: DefaultTheme = {
   controls: '#87ceeb',
   bgImage: lightImage,
   spinner: '#ffffff',
+  scrollCover: '#00d5e540',
 };
 
 export default light;

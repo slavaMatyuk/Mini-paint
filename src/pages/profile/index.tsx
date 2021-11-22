@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
@@ -50,6 +50,9 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     dispatch(getUserNameAction());
     dispatch(getUserIDAction());
+  }, [dispatch]);
+
+  useLayoutEffect(() => {
     dispatch(getUserImagesFromDbAction(userID, userName));
   }, [dispatch, userID, userName]);
 
@@ -68,24 +71,21 @@ const ProfilePage: React.FC = () => {
       <StyledGalleryWrapper>
         <TransparentProfWrapper>
           {
-            imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => {
-              if (image) {
-                return (
-                  <StyledProfileGallery key={key.toString()}>
-                    <CanvasWrapper>
-                      <StyledProfileImages>
-                        <img src={image.imgUrl} alt={image.imgUrl} />
-                        <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)}>
-                          ✖
-                        </StyledDeleteBtn>
-                      </StyledProfileImages>
-                    </CanvasWrapper>
-                  </StyledProfileGallery>
-                );
-              }
-              return null;
-            })
-        }
+            imagesProfData.map((image: { id: string, imgUrl: string }, key: number) => (
+              image ? (
+                <StyledProfileGallery key={key.toString()}>
+                  <CanvasWrapper>
+                    <StyledProfileImages>
+                      <img src={image.imgUrl} alt={image.imgUrl} />
+                      <StyledDeleteBtn onClick={onDelTrigger(image.id, image.imgUrl)}>
+                        ✖
+                      </StyledDeleteBtn>
+                    </StyledProfileImages>
+                  </CanvasWrapper>
+                </StyledProfileGallery>
+              ) : null
+            ))
+          }
         </TransparentProfWrapper>
         {isTrigger && (
           <StyledModalBg>

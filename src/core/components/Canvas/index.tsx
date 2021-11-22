@@ -166,4 +166,4 @@ const Canvas: React.FC<CanvasProps> = ({
   );
 };
 
-export default Canvas;
+export default React.memo(Canvas);
