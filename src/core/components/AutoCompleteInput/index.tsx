@@ -5,12 +5,12 @@ import StyledAltText from './styles/StyledAltText';
 import StyledLiElement from './styles/StyledLiElement';
 import StyledUlElement from './styles/StyledUlElement';
 
-interface Props {
-  suggestions: string[];
-}
+type Props = {
+  suggestions: string[]
+};
 
-const AutoCompleteInput = React.forwardRef<HTMLInputElement, React.PropsWithChildren<Props>>(
-  ({ suggestions = [] as string[] }, ref) => {
+const AutoCompleteInput = React.forwardRef(
+  ({ suggestions }: Props, ref: React.Ref<HTMLInputElement>) => {
     const [activeSuggestion, setActiveSuggestion] = useState(0);
     const [filteredSuggestions, setFilteredSuggestions] = useState(suggestions || []);
     const [showSuggestions, setShowSuggestions] = useState(false);
