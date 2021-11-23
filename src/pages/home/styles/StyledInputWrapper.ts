@@ -4,8 +4,6 @@ const StyledInputWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: baseline;
-  align-self: normal;
   & label {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;

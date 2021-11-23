@@ -22,13 +22,13 @@ const Carousel: React.FC<CarouselProps> = ({ children }: CarouselProps) => {
   ));
 
   const handleLeft = () => {
-    setCurrentSlide((currentSlide - 1 + activeSlide.length) % activeSlide.length);
     playSound(soundsConst.SLIDER);
+    setCurrentSlide((currentSlide - 1 + activeSlide.length) % activeSlide.length);
   };
 
   const handleRight = () => {
-    setCurrentSlide((currentSlide + 1) % activeSlide.length);
     playSound(soundsConst.SLIDER);
+    setCurrentSlide((currentSlide + 1) % activeSlide.length);
   };
 
   return (

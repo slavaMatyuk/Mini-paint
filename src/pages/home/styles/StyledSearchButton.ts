@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 const StyledSearchButton = styled.button`
   border-radius: 0 5px 5px 0;
-  border: none;
+  border-left: none;
   cursor: pointer;
-  align-self: flex-end;
   color: ${(props) => (props.color ? props.color : props.theme.text)};
   background-color: ${(props) => (props.color ? props.color : props.theme.primary)};
   display: block;
@@ -12,6 +11,7 @@ const StyledSearchButton = styled.button`
   height: 35px;
   padding: 5px 10px;
   margin: 0;
+  margin-top: 15px;
   -webkit-transition: background-color 0.1s linear;
   -moz-transition: background-color 0.1s linear;
   -o-transition: background-color 0.1s linear;
