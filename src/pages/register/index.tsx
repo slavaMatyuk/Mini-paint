@@ -15,6 +15,7 @@ import StyledRegTitle from './styles/StyledRegTitle';
 import RENDER_REGISTER_INPUT from '../../core/constants/inputConst';
 import playSound, { playDefaultButton } from '../../core/helpers/playSound';
 import soundsConst from '../../core/constants/soundConst';
+import isValidEmail from '../../core/helpers/isValidEmail';
 
 const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,12 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    createUser(credentials);
+    if (isValidEmail(credentials.email)) {
+      createUser(credentials);
+    } else {
+      notify('Max length of email shall be not more than 50');
+      return;
+    }
     if (error) {
       notify(`${error}`);
     } else {
